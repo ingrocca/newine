@@ -1,5 +1,5 @@
 require "sinatra"
 require "sinatra/activerecord"
  
-set :database, "sqlite3:///newine.db"
+set :database, "sqlite3:///db/newine.sqlite3"
 
