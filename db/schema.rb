@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106152141) do
+ActiveRecord::Schema.define(version: 20131108215720) do
 
   create_table "users", force: true do |t|
-    t.string "uid"
-    t.float  "credit"
-    t.string "name"
+    t.string  "uid"
+    t.float   "credit"
+    t.string  "name"
+    t.boolean "can_clean"
+    t.boolean "can_detach"
+    t.boolean "can_set_temp"
   end
 
 end
