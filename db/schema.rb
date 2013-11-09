@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108215720) do
+ActiveRecord::Schema.define(version: 20131109041013) do
+
+  create_table "bottle_holders", force: true do |t|
+    t.integer  "dispenser_id"
+    t.integer  "wine_id"
+    t.integer  "serving_volume_low"
+    t.integer  "serving_volume_med"
+    t.integer  "serving_volume_high"
+    t.float    "serving_price_low"
+    t.float    "serving_price_med"
+    t.float    "serving_price_high"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "dispenser_index"
+  end
+
+  create_table "dispensers", force: true do |t|
+    t.string   "uid"
+    t.string   "name"
+    t.datetime "last_registration"
+    t.datetime "last_activity"
+    t.boolean  "online"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "n_bottles"
+  end
 
   create_table "users", force: true do |t|
     t.string  "uid"
@@ -19,6 +44,18 @@ ActiveRecord::Schema.define(version: 20131108215720) do
     t.boolean "can_clean"
     t.boolean "can_detach"
     t.boolean "can_set_temp"
+  end
+
+  create_table "wines", force: true do |t|
+    t.string   "name"
+    t.string   "brand"
+    t.text     "tasting_notes"
+    t.text     "description"
+    t.string   "brief"
+    t.float    "bottle_cost"
+    t.integer  "vintage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
