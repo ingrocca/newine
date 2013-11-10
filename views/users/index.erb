@@ -1,14 +1,9 @@
-<!-- <!DOCTYPE html> -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html5/strict.dtd">
+<% p "Uinderb" %>
+<div class='container'>
+	<h2>Usuarios</h2>
 
+	<% @users.each do |user| %>
+		<div><%= user.name %></div>
+	<% end %>
 
-<html>
-	<head>
-		<title>Newine</title>
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="shortcut icon" href="/favicon.ico" />
-	</head>
-	<body>
-		<div>Users index</div>
-	</body>
-</html>
+</div>

@@ -13,18 +13,22 @@ class NewineServer < Sinatra::Application
 	helpers do
 		def format_render fmt, view
 			case fmt
-				when 'hmtl', ''
+				when 'html', '', nil
 					erb view
 				when 'json'
 					jbuilder view
+				else
+					p 'Unrecognized format'
 			end
 		end
 		def show_errors fmt, html_route, json_route
 			case fmt
-				when 'hmtl', ''
+				when 'html', '', nil
 					erb html_route
 				when 'json'
 					jbuilder json_route
+				else
+					p 'Unrecognized format'
 			end
 		end
 	end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109041013) do
+ActiveRecord::Schema.define(version: 20131109224444) do
 
   create_table "bottle_holders", force: true do |t|
     t.integer  "dispenser_id"
@@ -37,13 +37,18 @@ ActiveRecord::Schema.define(version: 20131109041013) do
     t.integer  "n_bottles"
   end
 
-  create_table "users", force: true do |t|
+  create_table "tags", force: true do |t|
     t.string  "uid"
     t.float   "credit"
+    t.integer "user_id"
+  end
+
+  create_table "users", force: true do |t|
     t.string  "name"
     t.boolean "can_clean"
     t.boolean "can_detach"
     t.boolean "can_set_temp"
+    t.boolean "valid_user"
   end
 
   create_table "wines", force: true do |t|
