@@ -1,9 +1,29 @@
-<% p "Uinderb" %>
+<script type="text/template" id='users-template'>
+	<div class='row'>
+		<div class='col-lg-10 col-offset-2'>
+			<a href="/users/id/{{id}}" class=''>
+				<div class='panel panel-default panel-link'>
+					<div class='panel-body'>
+						
+							<img src='/assets/img/user-icon.png' width=50 height=50 />
+						
+							<span style="padding-left:10px;">									
+								<strong>{{id}}:</strong> {{name}}										
+							</span>						
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</script>
+<script src='/assets/js/newine.js'></script>
+<script src='/assets/js/users_index.js'></script>
 <div class='container'>
-	<h2>Usuarios</h2>
-
-	<% @users.each do |user| %>
-		<div><%= user.name %></div>
-	<% end %>
-
+	<div class='row'>
+		<div class='col-lg-8'>
+			<h2>Clientes</h2>
+			<div id='users-container'>
+			</div>
+		</div>
+	</div>
 </div>
