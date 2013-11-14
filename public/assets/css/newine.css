@@ -1,0 +1,61 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+	overflow-y: scroll;
+}
+#wrap {
+	min-height: 100%;
+	padding-bottom: 20px;
+}
+#main {
+	overflow:auto;
+	padding-bottom: 100px; /* this needs to be bigger than footer height*/
+}
+
+#logo {
+	float: left;
+	width: 168px;
+	height: 30px;
+	text-indent: -100%;
+	background: url('logo.png');
+	margin-top: 10px;
+	margin-bottom: 0px;
+	margin-right: 20px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+ 
+  background: #414138;
+
+  position: relative;
+  margin-top: -100px; /* negative value of footer height */
+  height: 100px;
+  clear:both;
+}
+.footer a {
+  color: #FFF;
+}
+
+.panel-link {
+  -webkit-transition: -webkit-transform 0.1s;
+}
+
+.panel-link:hover {
+  box-shadow: 1px 1px 4px 1px #666;
+  cursor: pointer;
+  -webkit-transform: scale(1.02);
+}
+
+.panel-link:active {
+  box-shadow: none;
+}
+
+.panel-link {
+	color: #000;
+}
