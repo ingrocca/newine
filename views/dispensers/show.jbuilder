@@ -1,16 +1,15 @@
-json.(@user, :id, :name)
-json.uid @tag.uid
-json.credit @tag.credit
+json.(@dispenser, :id, :uid)
 
-json.valid_user @user.valid_user === true
-json.can_clean @user.can_clean === true
-json.can_detach @user.can_detach === true
-json.can_set_temp @user.can_set_temp === true
-
-
-
-if !@user.valid?
-	json.errors @user.errors.full_messages
-else
-	json.errors []
+json.bottle_holders do
+	json.array!(@dispenser.bottle_holders) do |bh|
+		json.(bh,:id)
+		json.dispenser_index bh.dispenser_index + 1
+		if bh.wine
+			json.wine do
+				json.(bh.wine,:name)
+			end
+		else
+			json.wine nil
+		end
+	end
 end

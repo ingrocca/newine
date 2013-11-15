@@ -56,6 +56,19 @@ body {
   box-shadow: none;
 }
 
+.panel-link a {
+	color: #000;
+}
 .panel-link {
 	color: #000;
 }
+
+#events-container {
+	border: 1px #777 solid;
+	border-radius: 4px;
+	overflow-y: scroll;
+	height: 400px;
+	overflow-x: hidden;
+}
+a:hover {text-decoration:none;}
+a:active {text-decoration:none;}

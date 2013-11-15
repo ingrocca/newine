@@ -23,11 +23,26 @@ class NewineServer < Sinatra::Application
 
 	post '/dispensers.?:format?' do
 		@dispenser = Dispenser.create(params[:dispenser])
+		p 'created dispenser'
 		if @dispenser.valid?
-			format_render params[:format], :"dispensers/show"
+			Event.log(
+				"Nuevo Dispenser",
+				"ID: " + @dispenser.id.to_s + ", Nro. de Serie: " + @dispenser.uid.to_s + ".",
+				"/dispensers/id/" + @dispenser.id.to_s,
+				0x111111,
+				"new_dispenser")
+
+			p 'dispenser ' + @dispenser.id.to_s
+			redirect to('/dispensers/id/' + @dispenser.id.to_s)
 		else
 			show_errors params[:format], :"dispensers/new", :"dispensers/show" 
 		end
+	end
+
+	delete '/dispensers/:id' do
+		@dispenser = Dispenser.find(params[:id])
+		@dispenser.destroy
+		halt 204
 	end
 
 end
