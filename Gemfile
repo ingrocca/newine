@@ -15,6 +15,8 @@ gem 'nfc'
 
 gem 'dalli'
 
+gem 'em-websocket'
+
 group :development do
   gem "tux"
 end

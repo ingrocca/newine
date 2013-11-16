@@ -28,10 +28,22 @@ $(function(){
 			   		}
  
 			   };
-			   add_elem();
+			   if (data.length>0)
+					add_elem();
 		});	
 	$('#toggle-dispenser-modal').click(function(){
 		$('#new-dispenser-modal').modal('show');
 	});
+
+	var host = window.location.hostname;
+	
+
+	var sock = new WebSocket( "ws://" + host + ":8080");
+   
+   	sock.onopen = function(){
+	   sock.onmessage = function(evt){
+	     $('#nfc-tag-modal').modal('show');
+	    }
+	}
 
 });

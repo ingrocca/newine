@@ -1,2 +1,2 @@
 require "./app"
-run NewineServer
+run_newine

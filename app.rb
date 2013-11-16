@@ -41,15 +41,15 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
-	get '/nfc' do
-		uid =  @@cache.get('nfc_uid')
-		if uid
-			@@cache.set('nfc_uid',nil)
-			return uid.to_s
-		else
-			return "Nothing"
-		end
-	end
+	#get '/nfc' do
+	#	uid =  @@cache.get('nfc_uid')
+	#	if uid
+	#		@@cache.set('nfc_uid',nil)
+	#		return uid.to_s
+	#	else
+	#		return "Nothing"
+	#	end
+	#end
 
 	get '/' do
 		erb :index
@@ -57,3 +57,38 @@ class NewineServer < Sinatra::Application
 end
 
 require_all 'controllers'
+
+def run_newine
+	EM.run do
+			$channel = EM::Channel.new
+	 
+		EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 8080) do |ws|
+			ws.onopen {
+				sid = $channel.subscribe { |msg| ws.send msg }
+
+				ws.onmessage { |msg|
+					#@channel.push "<#{sid}>: #{msg}"
+				}
+
+				ws.onclose {
+					$channel.unsubscribe(sid)
+				}
+			}
+
+		end
+
+		nfc_notifier = Thread.new do
+			loop do
+				uid =  NewineServer.cache.get('nfc_uid')
+				if(uid)
+					$channel.push uid
+					NewineServer.cache.set('nfc_uid',nil)
+				else
+					sleep(0.02)
+				end
+			end
+		end
+
+		NewineServer.run!(:bind=>'0.0.0.0',:port =>3000)
+	end
+end
