@@ -13,10 +13,12 @@ namespace :nfc do
 
 		
 		loop do
-			while(cache.get('nfc_uid')){}
+			while(cache.get('nfc_uid'))
+				sleep(0.020)
+			end
 			d = dev.select
 
-			cache.set('nfc_uid',d.uid)
+			cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
 
 			dev.deselect
 		end

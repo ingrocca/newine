@@ -41,6 +41,16 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
+	get '/nfc' do
+		uid =  @@cache.get('nfc_uid')
+		if uid
+			@@cache.set('nfc_uid',nil)
+			return uid.to_s
+		else
+			return "Nothing"
+		end
+	end
+
 	get '/' do
 		erb :index
 	end
