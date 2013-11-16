@@ -21,7 +21,7 @@ class NewineServer < Sinatra::Application
 		format_render params[:format], :"dispensers/show"
 	end
 
-	post '/dispensers.?:format?' do
+	post '/dispensers' do
 		@dispenser = Dispenser.create(params[:dispenser])
 		p 'created dispenser'
 		if @dispenser.valid?
@@ -31,11 +31,9 @@ class NewineServer < Sinatra::Application
 				"/dispensers/id/" + @dispenser.id.to_s,
 				0x111111,
 				"new_dispenser")
-
-			p 'dispenser ' + @dispenser.id.to_s
 			redirect to('/dispensers/id/' + @dispenser.id.to_s)
 		else
-			show_errors params[:format], :"dispensers/new", :"dispensers/show" 
+			erb :index
 		end
 	end
 

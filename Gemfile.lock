@@ -21,6 +21,7 @@ GEM
     bond (0.4.3)
     builder (3.1.4)
     daemons (1.1.9)
+    dalli (2.6.4)
     eventmachine (1.0.3)
     i18n (0.6.5)
     jbuilder (1.5.2)
@@ -28,6 +29,7 @@ GEM
       multi_json (>= 1.2.0)
     minitest (4.7.5)
     multi_json (1.8.2)
+    nfc (3.0.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -72,6 +74,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  dalli
+  nfc
   require_all
   sinatra
   sinatra-activerecord

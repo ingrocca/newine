@@ -11,6 +11,10 @@ gem "tilt-jbuilder", ">= 0.4.0", :require => "sinatra/jbuilder"
 
 gem "thin"
 
+gem 'nfc'
+
+gem 'dalli'
+
 group :development do
   gem "tux"
 end
