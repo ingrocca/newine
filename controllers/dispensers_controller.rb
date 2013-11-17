@@ -29,7 +29,7 @@ class NewineServer < Sinatra::Application
 				"Nuevo Dispenser",
 				"ID: " + @dispenser.id.to_s + ", Nro. de Serie: " + @dispenser.uid.to_s + ".",
 				"/dispensers/id/" + @dispenser.id.to_s,
-				0x111111,
+				0x009933,
 				"new_dispenser")
 			redirect to('/dispensers/id/' + @dispenser.id.to_s)
 		else

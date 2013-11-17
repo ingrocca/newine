@@ -81,7 +81,7 @@ def run_newine
 			loop do
 				uid =  NewineServer.cache.get('nfc_uid')
 				if(uid)
-					$channel.push uid
+					$channel.push({:tag=>{:uid=> uid}}.to_json)
 					NewineServer.cache.set('nfc_uid',nil)
 				else
 					sleep(0.1)

@@ -22,6 +22,7 @@ namespace :nfc do
 			if d.respond_to? :uid
 				cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
 			end
+			sleep 0.05
 			#dev.deselect
 		end
 	end
