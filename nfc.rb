@@ -16,11 +16,13 @@ namespace :nfc do
 			while(cache.get('nfc_uid'))
 				sleep(0.020)
 			end
-			d = dev.select
 
-			cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
+			d = dev.poll 1, 1
 
-			dev.deselect
+			if d.respond_to? :uid
+				cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
+			end
+			#dev.deselect
 		end
 	end
 end

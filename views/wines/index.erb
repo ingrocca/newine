@@ -1,0 +1,39 @@
+<script type="text/template" id='wines-template'>
+	<div class='row'>
+		<div class='col-lg-10 col-offset-2'>
+			<a href="/wines/{{id}}" class=''>
+				<div class='panel panel-default panel-link'>
+					<div class='panel-body'>
+						
+							<img src='/assets/img/bottle-icon.png' width=50 height=50 />
+						
+							<span style="padding-left:10px;">									
+								<strong>{{id}}:</strong> {{name}} - {{variety}} - {{vintage}}										
+							</span>						
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</script>
+<script src='/assets/js/newine.js'></script>
+<script src='/assets/js/wines_index.js'></script>
+<div class='container'>
+	<div class='row'>
+		<div class='col-lg-2'>
+
+		</div>
+		<div class='col-lg-8'>
+			<h2>Vinos</h2>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-2'>
+			<a id='toggle-wine-modal' class='btn btn-success'>Nuevo Vino</a>
+		</div>
+		<div class='col-lg-6'>
+			<div id='wines-container'>
+			</div>
+		</div>
+	</div>
+</div>

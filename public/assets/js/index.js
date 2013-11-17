@@ -40,9 +40,25 @@ $(function(){
 
 	var sock = new WebSocket( "ws://" + host + ":8080");
    
+   	var current_uid = null;
    	sock.onopen = function(){
 	   sock.onmessage = function(evt){
-	     $('#nfc-tag-modal').modal('show');
+	     	$('#nfc-tag-modal').modal('show');
+	     	console.log(evt.data);
+	     	if(evt.data != current_uid){
+	     		current_uid = evt.data;
+	 			$('#tags-container').html('');
+	     		Newine.get_instance('tags','/uid/' + evt.data, function(ins){
+	     			if(!(ins.uid === undefined)){
+	     				Newine.render_instance('tags',ins);
+	     			}
+
+		     	}, function(xhr,opts,errorThrown){
+		     		$('#tags-container').html('<div class="alert error">Tag nuevo</div>');
+		     		return true;
+		     	});
+	     	}
+	     
 	    }
 	}
 

@@ -1,3 +1,3 @@
 $(function(){
-	Newine.get_collection('users');
+	Newine.get_and_render_collection('users');
 });

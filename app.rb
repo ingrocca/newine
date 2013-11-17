@@ -60,7 +60,7 @@ require_all 'controllers'
 
 def run_newine
 	EM.run do
-			$channel = EM::Channel.new
+		$channel = EM::Channel.new
 	 
 		EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 8080) do |ws|
 			ws.onopen {
@@ -84,7 +84,7 @@ def run_newine
 					$channel.push uid
 					NewineServer.cache.set('nfc_uid',nil)
 				else
-					sleep(0.02)
+					sleep(0.1)
 				end
 			end
 		end

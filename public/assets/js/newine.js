@@ -12,14 +12,15 @@ var Newine = {
 		Newine.get_instance(col,'',callback);	
 	},
 
-	get_instance: function(col,sub_url, callback){
+	get_instance: function(col,sub_url, callback, err_callback){
 		console.log('Getting ' + col + sub_url);
 		$.ajax({
 			type: "GET",
 			url: '/' + col + sub_url + '.json',
 			accept: 'json',
 			dataType: 'json',
-			success: callback
+			success: callback,
+			error: err_callback
 		});
 	},
 
