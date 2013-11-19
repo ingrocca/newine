@@ -13,23 +13,83 @@ class NewineServer < Sinatra::Application
 		format_render params[:format], :"servings/show"
 	end
 
-	post '/servings' do
-		@serving = Serving.create(params[:serving])
+	post '/servings.json' do
+		data = JSON.parse(request.body.read)
+		@serving = Serving.new(data["serving"])
 		p 'created serving'
+		p @serving
 		if @serving.valid?
 
-			@serving.bottle_holder = 
-			@serving.wine_id = @serving.bottle_holder
+			@serving.dispenser.last_activity = Time.now
+			@serving.dispenser.save
 
-			Event.log(
-				"Nuevo Serving",
-				"ID: " + @serving.id.to_s + ", Nro. de Serie: " + @serving.uid.to_s + ".",
-				"/servings/id/" + @serving.id.to_s,
-				0x119933,
-				"new_serving")
+			@serving.bottle_holder = @serving.dispenser.bottle_holders.where(:dispenser_index => @serving.bottle_index).first
+
+			case @serving.volume
+				when @serving.bottle_holder.serving_volume_low
+					p "low"
+					comp = (@serving.price - @serving.bottle_holder.serving_price_low).abs < 0.001
+				when @serving.bottle_holder.serving_volume_med
+					p 'med'
+					comp = (@serving.price - @serving.bottle_holder.serving_price_med).abs < 0.001
+				when @serving.bottle_holder.serving_volume_high
+					p 'high'
+					comp = (@serving.price - @serving.bottle_holder.serving_price_high).abs < 0.001
+				else
+					p "No valid volume"
+					comp = false
+			end
+			p "Price error" if !comp
+
+
+			@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
+
+			@serving.tag = Tag.where(:uid => @serving.uid).first
+			if comp && @serving.tag && @serving.tag.user && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001
+
+				@serving.tag.credit -= @serving.price rescue 0
+				if @serving.tag.nil? || @serving.tag.credit <= 0  || !@serving.wine
+					p "Invalid serving data: " +
+						(@serving.tag.nil? ? "Tag inexistente " : ( (@serving.tag.credit <= 0) ? "Credito insuficiente " : "")) +
+						(@serving.wine.nil? ? "Vino inexistente " : "")
+					@serving.valid_serving = false
+				else
+					Serving.transaction do
+						@serving.tag.save
+						@serving.remaining_credit = @serving.tag.credit
+						@serving.bottle_holder.remaining_volume -= @serving.volume
+						@serving.bottle_holder.save
+						@serving.save
+									
+					end
+					Event.log(
+							"Compra",
+							"Cliente: " + @serving.tag.user.name + ", Vino: " + @serving.wine.name + ", Precio: " + @serving.price.to_s,
+							"/servings/" + @serving.id.to_s,
+							0x119933,
+							"new_serving")
+
+					if @serving.bottle_holder.remaining_volume < @serving.bottle_holder.serving_volume_high
+						Event.log(
+							"Queda poco vino",
+							"Dispenser: " + @serving.dispenser.uid + ", Botella: " + @serving.bottle_index.to_s,
+							"/dispensers/id/" + @serving.dispenser_id.to_s,
+							0xAA1111,
+							"empty_bottle")
+					end		
+					$channel.push({:serving => { :bottle_holder_id => @serving.bottle_holder_id, :volume_percent => (@serving.bottle_holder.remaining_volume.to_f * 100 / @serving.bottle_holder.wine.volume)}}.to_json);
+				end
+			else
+				p "Tarjeta sin usuario o error en los datos de medidas"
+				@serving.valid_serving = false
+			end
+				
+			return jbuilder :"servings/show"
+
 			
 		else
-			erb :index
+			@serving.valid_serving = false
+			return @serving.to_json
 		end
 	end
 

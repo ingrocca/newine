@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131115162343) do
+ActiveRecord::Schema.define(version: 20131118200537) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20131115162343) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "dispenser_index"
+    t.integer  "remaining_volume"
   end
 
   create_table "dispensers", force: true do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20131115162343) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "n_bottles"
+    t.string   "ip"
   end
 
   create_table "events", force: true do |t|
@@ -53,6 +55,22 @@ ActiveRecord::Schema.define(version: 20131115162343) do
     t.string   "link_url"
     t.integer  "color"
     t.string   "event_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "servings", force: true do |t|
+    t.string   "uid"
+    t.integer  "bottle_index"
+    t.integer  "serving_index"
+    t.float    "price"
+    t.integer  "volume"
+    t.float    "remaining_credit"
+    t.integer  "tag_id"
+    t.integer  "bottle_holder_id"
+    t.integer  "dispenser_id"
+    t.integer  "wine_id"
+    t.boolean  "valid_serving"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,6 +100,7 @@ ActiveRecord::Schema.define(version: 20131115162343) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "variety"
+    t.integer  "volume"
   end
 
 end

@@ -21,14 +21,15 @@ $(function(){
 			   			cs = '0' + cs;
 			   		ins.style = "'background-color: #" + cs + ";'";
 			   		var el = $(Mustache.render($("#events-template").html(),ins));
-			   		el.hide();
-			   		$("#events-container").prepend(el);
+			   		//el.hide();
+			   		$("#events-container").append(el);
 			   		if(i < data.length){
-			   			console.log('again');
-			   			el.show(add_elem);//"drop",{direction: "down"},1000,add_elem);
+			   		//	console.log('again');
+			   			//el.show(add_elem);//"drop",{direction: "down"},1000,add_elem);
+						add_elem();
 			   		}
 			   		else {
-			   			el.show();
+			   			//el.show();
 			   		}
  
 			   };
@@ -51,20 +52,38 @@ $(function(){
 	     	console.log(evt.data);
 	     	data = JSON.parse(evt.data)
 	     	if(!(data.tag === undefined)){
+	     		$('#existing-card-group').hide();
+	     		$('#new-card-group').hide();
+	     		$('#tag_form_buttons').hide();
 	     		$('#nfc-tag-modal').modal('show');
 	     		if(data.tag.uid != current_uid){
+	     			
 		     		current_uid = data.tag.uid;
 		 			$('#tags-container').html('');
 		     		Newine.get_instance('tags','/uid/' + data.tag.uid, function(ins){
 		     			if(!(ins.uid === undefined)){
 		     				Newine.render_instance('tags',ins);
+		     				$('#existing-card-group').show();
 		     			}
+
 
 			     	}, function(xhr,opts,errorThrown){
 			     		$('#tags-container').html('<div class="alert error">Tag nuevo</div>');
+			     		$('#new-card-group').show();
+			     		$('#tag_form_buttons').show();
 			     		return true;
 			     	});
+		     	}else{
+		     		if(current_uid===null)
+		     		{
+		     			$('#new-card-group').show();
+		     			$('#tag_form_buttons').show();
+		     		}else{
+		     			$('#existing-card-group').show();
+		     		}
 		     	}
+
+
 	     	}
 	     	if(!(data.evnt === undefined)){
 	     		var ins = data.evnt
@@ -79,5 +98,24 @@ $(function(){
 	     
 	    }
 	}
+
+	$("#add_credit").click(function(){
+		var credit = $('#credit_to_add').val();
+		$.ajax({
+			type: "POST",
+			url: '/tags/add_credit/'  + current_uid + '.json',
+			accept: 'json',
+			dataType: 'json',
+			data: JSON.stringify({add_credit: credit}),
+			success: function(ins){
+				if(!(ins.uid === undefined)){
+					$("#tag-alerts-container").html($("#add-credit-success-template").html());
+					$('#tags-container').html('');
+     				Newine.render_instance('tags',ins);
+     				$('#existing-card-group').show();
+     			}
+			}
+		});
+	});
 
 });

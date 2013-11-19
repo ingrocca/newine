@@ -25,6 +25,7 @@ class NewineServer < Sinatra::Application
 		@dispenser = Dispenser.create(params[:dispenser])
 		p 'created dispenser'
 		if @dispenser.valid?
+			@dispenser.create_bottle_holders
 			Event.log(
 				"Nuevo Dispenser",
 				"ID: " + @dispenser.id.to_s + ", Nro. de Serie: " + @dispenser.uid.to_s + ".",
@@ -34,6 +35,23 @@ class NewineServer < Sinatra::Application
 			redirect to('/dispensers/id/' + @dispenser.id.to_s)
 		else
 			erb :index
+		end
+	end
+
+	post '/dispensers/register.json' do
+		data = JSON.parse(request.body.read)
+		@dispenser = Dispenser.where(:uid => data["uid"]).first
+		if @dispenser
+			the_time = Time.now
+			@dispenser.ip = request.ip
+			@dispenser.last_registration = the_time
+			@dispenser.last_activity = the_time
+			@dispenser.online = true
+			@dispenser.save
+
+			return {:id => @dispenser.id}.to_json
+		else
+			return {:id => 0}.to_json
 		end
 	end
 

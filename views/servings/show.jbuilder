@@ -1,0 +1,1 @@
+json.(@serving, :id, :uid, :bottle_index, :serving_index, :volume, :price, :valid_serving, :remaining_credit, :dispenser_id)

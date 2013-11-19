@@ -1,6 +1,6 @@
 <script type="text/template" id='dispensers-template'>
 	<div class='row'>
-		<div class='col-lg-10 col-offset-2'>
+		<div class='col-lg-10'>
 			<a href="/dispensers/id/{{id}}" class=''>
 				<div class='panel panel-default panel-link'>
 					<div class='panel-body'>
@@ -30,14 +30,26 @@
 </script>
 <script type="text/template" id='tags-template'>
 	<div class='row' style={{&style}}>
-		<div class='col-lg-11 panel-link'>
-			<a href='/tags/id/{{id}}' class=''>
+		<div class='col-lg-8  col-lg-offset-2 panel panel-default panel-link'>
+			<a href='/tags/id/{{id}}' class='panel-body'>
 				<div>								
-					<p>{{uid}}: <strong>Crédito:</strong> - {{credit}}</p>														
+					<p><strong>ID:</strong> {{uid}}</p>														
+				</div>
+				<div>								
+					<p><strong>Crédito:</strong> ${{credit}}</p>														
+				</div>
+				<div>								
+					<p><strong>Cliente:</strong> {{user.name}}</p>														
 				</div>
 			</a>
 			
 		</div>
+	</div>
+</script>
+<script type="text/template" id="add-credit-success-template">
+	<div class="alert alert-success alert-dismissable">
+	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	  Crédito actualizado
 	</div>
 </script>
 
@@ -48,7 +60,7 @@
 		<div class='col-lg-2'>
 
 		</div>
-		<div class='col-lg-4 col-offset-2'>
+		<div class='col-lg-4'>
 			<h2>Dispensers</h2>
 		</div>
 		<div class='col-lg-6'>
@@ -59,7 +71,7 @@
 		<div class='col-lg-2'>
 			<a id='toggle-dispenser-modal' class='btn btn-success'>Nuevo Dispenser</a>
 		</div>
-		<div class='col-lg-4 col-offset-2'>
+		<div class='col-lg-4'>
 			<div id='dispensers-container'>
 
 			</div>
@@ -119,16 +131,38 @@
 				<div class="modal-body">
 					<div class='row'>
 						<div class='col-lg-12'>
+							<div id="tag-alerts-container">
+							</div>
 							<div id='tags-container'>
 							</div>
 
-							<div class="form-group">
-				            	<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
-				            	<div class='col-lg-4'>
-				            		<input type='number' name='credit' class='form-control'>
-				            	</div>
-				            	<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
-				            </div>
+							<div id='existing-card-group'>
+								<div class="form-group">
+					            	<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
+					            	<div class='col-lg-4'>
+					            		<input type='number' name='credit' class='form-control' id="credit_to_add">
+					            	</div>
+					            	<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+					            </div>
+					            <div class="form-group">
+					            	<a id='format_tag' class='btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
+					            </div>
+					        </div>
+				        	<div id='new-card-group'>
+				        		<div class="form-group">
+					            	<label for='tag[credit]' class='col-lg-3 control-label'>Carga inicial:</label>
+					            	<div class='col-lg-4'>
+					            		<input type='number' name='tag[credit]' class='form-control'>
+					            	</div>
+					            	<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+					            </div>
+					            <div id='users-for-tag' class='form-group'>
+					        		<select name='tag[user_id]' id='tag_user_id' style='hidden'>
+
+					        		</select>
+					        	</div>
+				        	</div>
+				        	
 						<!--	<div class="form-group">
 				            	<label for='dispenser[n_bottles]' class='col-lg-3 control-label'>Botellas</label>
 				            	<div class='col-lg-2'>
@@ -141,7 +175,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='modal-footer'>
+				<div class='modal-footer' id='tag_form_buttons'>
 					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
           			<button class='btn btn-primary'>Guardar</button>
 				</div>

@@ -8,7 +8,7 @@
 					
 						<span style="padding-left:10px;">									
 							<strong>{{id}}:</strong> {{uid}}										
-						</span>						
+						</span>				
 				</div>
 			</div>
 		</div>
@@ -19,15 +19,28 @@
 		<div class='col-lg-3'>
 			<div class='panel panel-default' style='height: 400px;'>
 				<div class='panel-body'>
-					
-						<img src='/assets/img/bottle-icon.png' width=50 height=50 />
-					
-						<span style="padding-left:10px;">									
-							<strong>{{dispenser_index}}:</strong> {{wine_name}}									
-						</span>
-						<button type="button" class="btn btn-default btn-sm">
-						  <span class="glyphicon glyphicon-transfer"></span>
-						</button>						
+						<div class='row'>
+							<img src='/assets/img/bottle-icon.png' width=50 height=50 />
+						
+							<span style="padding-left:10px;">									
+								<strong>{{dispenser_index}}:</strong> {{wine_name}}									
+							</span>
+							<button type="button" class="btn btn-default btn-sm">
+							  <span class="glyphicon glyphicon-transfer"></span>
+							</button>
+						</div>
+						<div class='row'>
+							<div class='col-lg-6'>
+								<div class="volume-outer">
+							        <div class="volume-inner" data-progress="{{volume_percent}}%" data-id={{id}}>
+							            <div></div>
+							        </div>        
+							    </div>
+							</div>
+							<div class='col-lg-4 col-lg-offset-1'>
+								
+							</div>
+						</div>						
 				</div>
 			</div>
 		</div>

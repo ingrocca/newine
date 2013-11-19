@@ -8,6 +8,7 @@ json.bottle_holders do
 			json.wine do
 				json.(bh.wine,:name)
 			end
+			json.volume_percent (bh.remaining_volume.to_f / bh.wine.volume) * 100
 		else
 			json.wine nil
 		end

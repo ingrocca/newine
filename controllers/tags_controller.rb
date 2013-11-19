@@ -1,3 +1,4 @@
+#coding: utf-8
 class NewineServer < Sinatra::Application
 
 	get  '/tags.json' do
@@ -59,7 +60,7 @@ class NewineServer < Sinatra::Application
 				"Nuevo Tag",
 				"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
 				"/tags/id/" + @tag.id.to_s,
-				0xEEE,
+				0xEEEEEE,
 				"new_tag")
 			redirect to('/tags/id/' + @tag.id.to_s)
 		else
@@ -67,10 +68,30 @@ class NewineServer < Sinatra::Application
 				"Tag no se pudo guardar",
 				@tag.errors.full_messages.join(', '),
 				"/",
-				0xE33,
+				0xEEAAAA,
 				"errors")
 			redirect to('/')
 		end
+	end
+
+	post '/tags/add_credit/:uid.json' do
+		data = JSON.parse(request.body.read)
+		@tag = Tag.where(:uid => params[:uid]).first
+		if @tag && @tag.user
+			@tag.credit += data["add_credit"].to_f
+			@tag.save
+
+			Event.log(
+				"Tag recargado",
+				"ID: " + @tag.uid + ", Crédito: " + @tag.credit.to_s + ".",
+				"/tags/id/" + @tag.id.to_s,
+				0xEEEEEE,
+				"updated_tag")
+			return jbuilder :"tags/show"
+		else
+			halt 404
+		end
+
 	end
 
 	delete '/tags/:id' do
