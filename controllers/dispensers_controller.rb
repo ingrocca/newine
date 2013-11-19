@@ -61,4 +61,33 @@ class NewineServer < Sinatra::Application
 		halt 204
 	end
 
+	post '/dispensers/bottle_holders/wine/:id.json' do
+		data = JSON.parse(request.body.read)
+		@bottle_holder = BottleHolder.find(params[:id])
+
+		if data['wine_id']
+			@wine = Wine.find(data['wine_id'])
+
+			@bottle_holder.wine_id = @wine.id
+
+			@bottle_holder.remaining_volume = @wine.volume
+
+			@bottle_holder.serving_volume_low = @wine.serving_volume_low
+			@bottle_holder.serving_price_low = @wine.serving_price_low
+
+			@bottle_holder.serving_volume_med = @wine.serving_volume_med
+			@bottle_holder.serving_price_med = @wine.serving_price_med
+
+			@bottle_holder.serving_volume_high = @wine.serving_volume_high
+			@bottle_holder.serving_price_high = @wine.serving_price_high
+
+			@bottle_holder.save
+		else
+			@bottle_holder.wine_id = nil
+			@bottle_holder.remaining_volume = 0
+			@bottle_holder.save
+		end
+		@dispenser = @bottle_holder.dispenser
+		jbuilder :'dispensers/show'
+	end
 end

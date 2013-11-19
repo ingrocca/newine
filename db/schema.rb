@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118200537) do
+ActiveRecord::Schema.define(version: 20131119210350) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -101,6 +101,12 @@ ActiveRecord::Schema.define(version: 20131118200537) do
     t.datetime "updated_at"
     t.string   "variety"
     t.integer  "volume"
+    t.integer  "serving_volume_low"
+    t.integer  "serving_volume_med"
+    t.integer  "serving_volume_high"
+    t.float    "serving_price_low"
+    t.float    "serving_price_med"
+    t.float    "serving_price_high"
   end
 
 end

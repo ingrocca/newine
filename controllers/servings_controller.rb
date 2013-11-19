@@ -66,7 +66,7 @@ class NewineServer < Sinatra::Application
 							"Compra",
 							"Cliente: " + @serving.tag.user.name + ", Vino: " + @serving.wine.name + ", Precio: " + @serving.price.to_s,
 							"/servings/" + @serving.id.to_s,
-							0x119933,
+							0x55EE88,
 							"new_serving")
 
 					if @serving.bottle_holder.remaining_volume < @serving.bottle_holder.serving_volume_high
