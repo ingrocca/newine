@@ -8,10 +8,19 @@ json.bottle_holders do
 		if bh.wine
 			json.wine do
 				json.(bh.wine,:name, :id, :variety, :vintage)
+				
 			end
 			json.volume_percent (bh.remaining_volume.to_f / bh.wine.volume) * 100
 		else
 			json.wine nil
+			json.volume_percent 0
 		end
+	end
+	
+end
+json.temperature_controls do
+	json.array!(@dispenser.temperature_controls) do |tc|
+		json.(tc, :id, :temperature)
+		json.dispenser_index tc.dispenser_index+1
 	end
 end

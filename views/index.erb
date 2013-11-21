@@ -4,12 +4,11 @@
 			<a href="/dispensers/id/{{id}}" class=''>
 				<div class='panel panel-default panel-link'>
 					<div class='panel-body'>
-						
-							<img src='/assets/img/dispenser-icon.png' width=50 height=50 />
-						
-							<span style="padding-left:10px;">									
-								<strong>{{id}}:</strong> {{uid}}										
-							</span>						
+						<img src='/assets/img/dispenser-icon.png' width=50 height=50 />
+					
+						<span style="padding-left:10px;">									
+							<strong>{{id}}:</strong> {{uid}}										
+						</span>						
 					</div>
 				</div>
 			</a>
@@ -31,7 +30,7 @@
 <script type="text/template" id='tags-template'>
 	<div class='row' style={{&style}}>
 		<div class='col-lg-8  col-lg-offset-2 panel panel-default panel-link'>
-			<a href='/tags/id/{{id}}' class='panel-body'>
+			<a href='/users/tags/{{uid}}' class='panel-body'>
 				<div>								
 					<p><strong>ID:</strong> {{uid}}</p>														
 				</div>
@@ -106,6 +105,15 @@
 				            		<select name='dispenser[n_bottles]' class='form-control'>
 				            			<option value=4>4</option>
 				            			<option value=8>8</option>
+				            		</select>
+				            	</div>
+							</div>
+							<div class="form-group">
+				            	<label for='dispenser[n_temperature_controls]' class='col-lg-3 control-label'>Controles de temperatura</label>
+				            	<div class='col-lg-2'>
+				            		<select name='dispenser[n_temperature_controls]' class='form-control'>
+				            			<option value=1>1</option>
+				            			<option value=2>2</option>
 				            		</select>
 				            	</div>
 							</div>

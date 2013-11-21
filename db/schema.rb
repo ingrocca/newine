@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119210350) do
+ActiveRecord::Schema.define(version: 20131120183705) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20131119210350) do
     t.datetime "updated_at"
     t.integer  "n_bottles"
     t.string   "ip"
+    t.integer  "n_temperature_controls"
   end
 
   create_table "events", force: true do |t|
@@ -79,6 +80,14 @@ ActiveRecord::Schema.define(version: 20131119210350) do
     t.string  "uid"
     t.float   "credit"
     t.integer "user_id"
+  end
+
+  create_table "temperature_controls", force: true do |t|
+    t.integer  "dispenser_index"
+    t.integer  "temperature"
+    t.integer  "dispenser_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

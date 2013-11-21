@@ -1,3 +1,4 @@
+#coding: utf-8
 class NewineServer < Sinatra::Application
 
 	get  '/dispensers.json' do
@@ -26,6 +27,7 @@ class NewineServer < Sinatra::Application
 		p 'created dispenser'
 		if @dispenser.valid?
 			@dispenser.create_bottle_holders
+			@dispenser.create_temperature_controls
 			Event.log(
 				"Nuevo Dispenser",
 				"ID: " + @dispenser.id.to_s + ", Nro. de Serie: " + @dispenser.uid.to_s + ".",
@@ -63,6 +65,7 @@ class NewineServer < Sinatra::Application
 
 	post '/dispensers/bottle_holders/wine/:id.json' do
 		data = JSON.parse(request.body.read)
+		p data
 		@bottle_holder = BottleHolder.find(params[:id])
 
 		if data['wine_id']
@@ -88,6 +91,59 @@ class NewineServer < Sinatra::Application
 			@bottle_holder.save
 		end
 		@dispenser = @bottle_holder.dispenser
+		@dispenser.configure
 		jbuilder :'dispensers/show'
+	end
+	post '/dispensers/bottle_holders/servings/:id.json' do
+		
+		@bottle_holder = BottleHolder.find(params[:id])
+
+		@bottle_holder.serving_volume_low = params['serving_volume_low']
+		@bottle_holder.serving_price_low = params['serving_price_low']
+
+		@bottle_holder.serving_volume_med = params['serving_volume_med']
+		@bottle_holder.serving_price_med = params['serving_price_med']
+
+		@bottle_holder.serving_volume_high = params['serving_volume_high']
+		@bottle_holder.serving_price_high = params['serving_price_high']
+
+		@bottle_holder.save
+		
+		@dispenser = @bottle_holder.dispenser
+		@dispenser.configure
+		jbuilder :'dispensers/show'
+	end
+
+	post '/dispensers/temperature/:id.json' do
+		@temperature_control = TemperatureControl.find(params[:id])
+		@temperature_control.temperature = params[:temperature]
+
+		@temperature_control.save
+
+		@dispenser = @temperature_control.dispenser
+		
+		@dispenser.configure
+
+		jbuilder :'dispensers/show'
+	end
+
+	post '/dispensers/temperature.json' do
+		data = JSON.parse(request.body.read)
+		@temperature_control = Dispenser.find(data['dispenser_id']).temperature_controls
+			.where(:dispenser_index => data['dispenser_index']).first
+
+		@temperature_control.temperature = data['temperature']
+		@temperature_control.save
+
+		Event.log(
+			"Temperatura Actualizada",
+			"Dispenser: " + @temperature_control.dispenser.uid + ", Botella: " + (@temperature_control.dispenser_index+1).to_s +
+				", T=" + @temperature_control.temperature.to_s + "ºC",
+			"/dispensers/id/" + @temperature_control.dispenser_id.to_s,
+			0xEEEEEE,
+			"temperature_change")
+		$channel.push({:temperature_control => @temperature_control}.to_json)
+
+		"TEMP OK"
 	end
 end

@@ -75,12 +75,12 @@ a:hover {text-decoration:none;}
 a:active {text-decoration:none;}
 
 .volume-outer {
-    width: 60px;
+    width: 80%;
     height: 240px;
     border: 2px solid #ccc;
     overflow: hidden;
     margin-left: 10px;
-    margin-top: 40px;	
+    margin-top: 20px;	
     position: relative;
     
     -moz-border-radius: 4px;
@@ -105,17 +105,32 @@ a:active {text-decoration:none;}
 }
 
 .volume-inner div {
-    border: 2px solid orange;
+    border: 2px solid #390000;
     border-bottom-width: 0;
-    background-color: orange;
+    background-color: #390000;
     
     top: 0;
     width: 100%;
     height: 5px;
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#bottle-holders-container input::-webkit-outer-spin-button,
+#bottle-holders-container input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+.loading-header {
+  width: 100%;
+  background-color: #EEE;
+  height: 40px;
+  text-align: center;
+  padding-top: 10px;
+  vertical-align: middle;
+}
+
+.ajax-loader-1 {
+  background-image:url('/assets/img/ajax-loader.gif');
+  background-repeat:no-repeat;
 }

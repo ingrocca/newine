@@ -17,6 +17,8 @@ gem 'dalli'
 
 gem 'em-websocket'
 
+gem 'rest-client'
+
 group :development do
   gem "tux"
 end
