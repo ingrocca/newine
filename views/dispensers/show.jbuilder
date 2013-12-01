@@ -11,9 +11,11 @@ json.bottle_holders do
 				
 			end
 			json.volume_percent (bh.remaining_volume.to_f / bh.wine.volume) * 100
+			json.remaining_volume bh.remaining_volume
 		else
 			json.wine nil
 			json.volume_percent 0
+			json.remaining_volume 0
 		end
 	end
 	

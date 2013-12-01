@@ -20,14 +20,19 @@ class Dispenser < ActiveRecord::Base
 		data = {}
 		data['serving_options'] = []
 		data['wine_names'] = []
+		data['wine_details'] = []
+		data['remaining_volumes'] = []
 		self.bottle_holders.each do |bh|
 			data['serving_options'][bh.dispenser_index] = {}
 
 			data['serving_options'][bh.dispenser_index]['low'] = {:price=>bh.serving_price_low,:volume=>bh.serving_volume_low}
 			data['serving_options'][bh.dispenser_index]['med'] = {:price=>bh.serving_price_med,:volume=>bh.serving_volume_med}
 			data['serving_options'][bh.dispenser_index]['high'] = {:price=>bh.serving_price_high,:volume=>bh.serving_volume_high}
-			data['wine_names'][bh.dispenser_index] = (bh.wine ? bh.wine.name + ' ' + bh.wine.variety + ' ' + bh.wine.vintage.to_s : 'Vacio')
+			data['wine_names'][bh.dispenser_index] = (bh.wine ? bh.wine.name : 'Vacio')
+			data['wine_details'][bh.dispenser_index] = (bh.wine ? bh.wine.variety + ' ' + bh.wine.vintage.to_s : '')
+			data['remaining_volumes'][bh.dispenser_index] = bh.remaining_volume
 		end
+
 
 		data['temperatures'] = []
 

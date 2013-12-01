@@ -16,35 +16,49 @@
 </script>
 <script type="text/template" id='bottle-holders-template'>
 	
-		<div class='col-md-3'>
+		<div style='width:{{span}}%' class='col-xs-1'>	
+			<div class='row'>
+				<div class='col-xs-12 bottle' data-id={{id}}>
+					<div class="volume-outer hover-grow">
+						<img class='bottle-cover' src='/assets/img/bottle_cover.png' />
+				        <div class="volume-inner" data-progress="{{volume_percent}}%" data-id={{id}}>
+				            <div></div>
+				        </div>        
+				    </div>
+				</div>
+			</div>						
+		</div>
+	
+</script>
+<script type="text/template" id='bottle-holder-controls-template'>
+	
+		<div class='col-md-8 col-md-offset-2 hidden bh-control' data-bottle-holder-id={{id}}>
 			<div class='panel panel-default'>
 				<div class='panel-body'>
 						<div class='row'>
-							<div class='col-xs-3' style='margin:0px;padding:0px;'>
+							<div class='col-xs-2' style='margin:0px;padding:0px;'>
+								<br />
 								<img src='/assets/img/bottle-icon.png' width='100%' />
 							</div>
-							<div class='col-xs-7' style='vertical-align:middle;'>
-								<span style='vertical-align:middle;'>									
-									<strong>{{dispenser_index}}:</strong> {{wine_name}} <br />
-									{{wine.variety}} {{wine.vintage}}									
-								</span>
+							<div class='col-xs-4 col-xs-offset-1' style='vertical-align:middle;'>
+								<div class='row'>
+									<span style='vertical-align:middle;'>									
+										<strong>{{dispenser_index}}:</strong> {{wine_name}} <br /><br />
+										{{wine.variety}} {{wine.vintage}}									
+									</span>
+								</div>
+								<div class='row'>
+								<br />
+									<button type="button" class="btn btn-default btn-sm change-wine" data-bottle-holder-id={{id}} data-wine-id={{wine.id}}>
+									  <span class="glyphicon glyphicon-transfer"></span> Cambiar vino
+									</button>
+								</div>
+								<div class='row' style='margin-top: 40px;'>
+									<strong>Quedan:</strong> <span class='rem-volume' data-bottle-holder-id={{id}}>{{remaining_volume}}</span> ml.
+								</div>
 							</div>
-							<div class='col-xs-1' style='margin-left:-5px;'>
-								<button type="button" class="btn btn-default btn-sm change-wine" data-bottle-holder-id={{id}} data-wine-id={{wine.id}}>
-								  <span class="glyphicon glyphicon-transfer"></span>
-								</button>
-							</div>
-						</div>
 						
-						<div class='row'>
-							<div class='col-md-4 col-xs-4'>
-								<div class="volume-outer">
-							        <div class="volume-inner" data-progress="{{volume_percent}}%" data-id={{id}}>
-							            <div></div>
-							        </div>        
-							    </div>
-							</div>
-							<div class='col-md-8 col-xs-8' style='padding-left: 5px; padding-right: 5px;'>
+							<div class='col-md-4 col-xs-8' style='padding-left: 5px; padding-right: 5px;'>
 								<form class='form-inline servings-form' data-bottle-holder-id={{id}}>
 									<div class='row' style='margin-top:20px;'>
 										<div class='col-md-6 col-xs-6'>
@@ -72,7 +86,7 @@
 									</div>
 									<div class='row' style='margin-top:5px;'>
 										<div class='col-md-12 col-xs-12'>
-											<a class='btn btn-success btn-sm pull-right apply-servings' data-bottle-holder-id={{id}}><span class='glyphicon glyphicon-ok'></span></a>
+											<a class='btn btn-success btn-sm pull-right apply-servings' data-bottle-holder-id={{id}}><span class='glyphicon glyphicon-ok'></span> Aplicar</a>
 										</div>
 									</div>
 								</form>
@@ -131,8 +145,20 @@
 		</div>
 	</div>
 	<div class='row'>
+		<div class='<%= @dispenser.n_bottles == 4 ? 'col-md-4 col-md-offset-4 col-xs-12' : 'col-md-6 col-md-offset-3 col-xs-12' %>'>
+			<div class='panel panel-default col-xs-12'>
+				<div class='panel-body'>
+					<div id='bottle-holders-container'>
+					
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
 		<div class='col-md-12'>
-			<div id='bottle-holders-container'>
+			<div id='bottle-holder-controls-container'>
 
 			</div>
 		</div>

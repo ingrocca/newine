@@ -45,7 +45,7 @@ class NewineServer < Sinatra::Application
 			@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
 
 			@serving.tag = Tag.where(:uid => @serving.uid).first
-			if comp && @serving.tag && @serving.tag.user && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001
+			if comp && @serving.tag && @serving.tag.user && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
 
 				@serving.tag.credit -= @serving.price rescue 0
 				if @serving.tag.nil? || @serving.tag.credit <= 0  || !@serving.wine
@@ -77,7 +77,8 @@ class NewineServer < Sinatra::Application
 							0xAA1111,
 							"empty_bottle")
 					end		
-					$channel.push({:serving => { :bottle_holder_id => @serving.bottle_holder_id, :volume_percent => (@serving.bottle_holder.remaining_volume.to_f * 100 / @serving.bottle_holder.wine.volume)}}.to_json);
+					$channel.push({:serving => { :bottle_holder_id => @serving.bottle_holder_id, :volume_percent => (@serving.bottle_holder.remaining_volume.to_f * 100 / @serving.bottle_holder.wine.volume),
+													:remaining_volume => @serving.bottle_holder.remaining_volume }}.to_json);
 				end
 			else
 				p "Tarjeta sin usuario o error en los datos de medidas"

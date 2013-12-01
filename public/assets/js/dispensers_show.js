@@ -9,7 +9,9 @@ $(function(){
 			Newine.render_instance("dispensers",ins);
 			$.each(ins.bottle_holders, function(i,bh){
 				bh.wine_name = function(){ if(!(bh.wine === null || bh.wine === undefined)) return bh.wine.name; else return "Ninguno"; };
+				bh.span = 100/ins.bottle_holders.length;
 				Newine.render_instance('bottle-holders',bh);
+				Newine.render_instance('bottle-holder-controls',bh);
 			});
 
 			$.each(ins.temperature_controls, function(i,tc){
@@ -20,7 +22,7 @@ $(function(){
 			    var skillVal = skillBar.attr("data-progress");
 			    $(skillBar).animate({
 			        height: skillVal
-			    }, 1500);
+			    }, 500);
 			});
 			
 		});
@@ -45,7 +47,9 @@ $(function(){
 			    var skillVal = skillBar.attr("data-progress");
 			    $(skillBar).animate({
 			        height: skillVal
-			    }, 1500);
+			    }, 500);
+
+			    $('.rem-volume[data-bottle-holder-id=' + bh_id + ']').html(data.serving.remaining_volume);
 
 
 	     	}
@@ -74,14 +78,24 @@ $(function(){
 		current_wine_id = wine_id;
 	});
 
-	$('#bottle-holders-container').on("click",".change-wine",function(){
+	$('#bottle-holder-controls-container').on("click",".change-wine",function(){
 		current_wine_id = $(this).data('wine-id');
 		current_bh_id = $(this).data('bottle-holder-id');
 		$('.select-wine[data-wine-id=' + current_wine_id + ']').css('background', '#EEAAAA');
 		$("#change-wine-modal").modal('show');
 	});
+	var current_bh_shown = null;
+	$('#bottle-holders-container').on("click",".bottle",function(){
+		var bh_id = $(this).data('id');
+		if(current_bh_shown != bh_id){
+			current_bh_shown = bh_id;
+			$('.bh-control').hide('fade');
+			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').removeClass('hidden');
+			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').show('fade');
+		}
+	});
 
-	$('#bottle-holders-container').on("click",".apply-servings",function(){
+	$('#bottle-holder-controls-container').on("click",".apply-servings",function(){
 		var bh_id = $(this).data('bottle-holder-id');
 		$.ajax({
 				type: "POST",
