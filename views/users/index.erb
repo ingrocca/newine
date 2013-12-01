@@ -1,29 +1,82 @@
-<script type="text/template" id='users-template'>
-	<div class='row'>
-		<div class='col-lg-10 col-offset-2'>
-			<a href="/users/id/{{id}}" class=''>
-				<div class='panel panel-default panel-link'>
-					<div class='panel-body'>
-						
-							<img src='/assets/img/user-icon.png' width=50 height=50 />
-						
-							<span style="padding-left:10px;">									
-								<strong>{{id}}:</strong> {{name}}										
-							</span>						
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-</script>
+
 <script src='/assets/js/newine.js'></script>
 <script src='/assets/js/users_index.js'></script>
 <div class='container'>
 	<div class='row'>
-		<div class='col-lg-8'>
+		<div class='col-lg-4'>
 			<h2>Clientes</h2>
-			<div id='users-container'>
+			<div class='row' style='padding-bottom:10px;'>
+				<div class='col-lg-10 col-offset-2'>
+					<form class='form-search form-inline' action='/users' method='get'>
+						<div class='col-lg-8'>
+							<input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
+						</div>
+						<div class='col-lg-3'>
+							<button class='btn btn-search'>Buscar</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-4'>
+			<div class='row'>
+				<div class='col-lg-10 col-offset-2 apple_pagination'>
+					<%= will_paginate @users %>
+				</div>
+			</div>
+			<div class='row'>
+
+				<div id='users-container'>
+					<% @users.each do |user| %>
+						<div class='row'>
+							<div class='col-lg-10 col-offset-2'>
+								
+								<div class='panel panel-default panel-link user-link' data-id=<%= user.id.to_s %>>
+									<div class='panel-body'>
+										
+											<img src='/assets/img/user-icon.png' width=40 height=40 />
+										
+											<span style="padding-left:10px;">									
+												<strong><%= user.id %>:</strong> <%= user.name %>										
+											</span>						
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					<% end %>
+
+				</div>
+			</div>
+		</div>
+		<div class='col-lg-8'>
+			
+			<div id='user-details-container'>
+					<% @users.each do |user| %>
+						<div class='row user-data hidden' data-user-id=<%= user.id.to_s %>>
+							<div class='col-lg-10 col-offset-2'>
+								
+								<div class='panel panel-default' style='height: 500px;'>
+									<div class='panel-body'>
+										
+										
+											<span style="padding-left:10px;">									
+												<strong><%= user.id %>:</strong> <%= user.name %>										
+											</span>
+											<hr />
+											<span>sarasasas</span>
+
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					<% end %>
+
+				</div>
 		</div>
 	</div>
 </div>

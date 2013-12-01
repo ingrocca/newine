@@ -4,6 +4,9 @@ require 'sinatra/activerecord/rake'
 require 'bundler/setup'
 
 Bundler.require(:default)
+require 'will_paginate'
+require 'will_paginate/active_record'
+
 require_all 'models'
 
 

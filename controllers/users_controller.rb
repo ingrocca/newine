@@ -1,7 +1,11 @@
 class NewineServer < Sinatra::Application
 
 	get  '/users.?:format?' do
-		@users = User.all
+		if params[:q]
+			@users = User.where('name like ?','%' + params[:q] + '%').paginate(:page=>params[:page], :per_page=>5).all
+		else
+			@users = User.paginate(:page=>params[:page], :per_page=>5).all
+		end
 		p 'Users index'
 		p params[:format]
 		format_render params[:format], :"users/index"
