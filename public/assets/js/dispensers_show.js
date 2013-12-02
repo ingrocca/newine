@@ -89,9 +89,11 @@ $(function(){
 		var bh_id = $(this).data('id');
 		if(current_bh_shown != bh_id){
 			current_bh_shown = bh_id;
+			$('.bottle').removeClass('active');
 			$('.bh-control').hide('fade');
 			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').removeClass('hidden');
 			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').show('fade');
+			$('.bottle[data-id=' + bh_id+ ']').addClass('active');
 		}
 	});
 

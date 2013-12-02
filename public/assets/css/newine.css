@@ -85,7 +85,8 @@ a:hover {text-decoration:none;}
 a:active {text-decoration:none;}
 
 .volume-outer {
-    width: 100%;
+    /*width: 100%;*/
+    width: 45px;
     height: 120px;
     border: 2px solid #ccc;
     overflow: hidden;
@@ -97,6 +98,13 @@ a:active {text-decoration:none;}
     -webkit-border-radius: 4px;
     border-radius: 4px;
     background-color: #EEE;
+}
+
+.bottle.active > .volume-outer {
+   background-color: #999;
+}
+.bottle.active .volume-inner {
+   background-color: #770000;
 }
 
 .bottle-cover {
