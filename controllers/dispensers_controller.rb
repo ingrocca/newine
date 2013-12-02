@@ -40,6 +40,18 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
+	post '/dispensers/shutdown.?:format?' do
+		data = JSON.parse(request.body.read)
+		@dispenser = Dispenser.find(data['id']) rescue nil
+		if @dispenser && @dispenser.ip
+			@dispenser.shutdown
+			halt 200
+		else
+			halt 404
+		end
+
+	end
+
 	post '/dispensers/register.json' do
 		data = JSON.parse(request.body.read)
 		@dispenser = Dispenser.where(:uid => data["uid"]).first
@@ -54,6 +66,23 @@ class NewineServer < Sinatra::Application
 			return {:id => @dispenser.id}.to_json
 		else
 			return {:id => 0}.to_json
+		end
+	end
+
+	post '/dispensers/ping.json' do
+		data = JSON.parse(request.body.read)
+		@dispenser = Dispenser.find(data["id"]) rescue nil
+		if @dispenser
+			the_time = Time.now
+			@dispenser.ip = request.ip
+			@dispenser.last_registration = the_time
+			@dispenser.last_activity = the_time
+			@dispenser.online = true
+			@dispenser.save
+
+			return ""
+		else
+			halt 404
 		end
 	end
 

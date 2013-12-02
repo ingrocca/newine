@@ -40,6 +40,10 @@ class Dispenser < ActiveRecord::Base
 			data['temperatures'][tc.dispenser_index] = tc.temperature
 		end
 
+		p data.to_json
 		RestClient.post(self.ip + ':3001',data.to_json + "\n",:content_type => :json, :accept => :json)
+	end
+	def shutdown
+		RestClient.post(self.ip + ':3001',"SHUTDOWN" + "\n",:content_type => :json, :accept => :json)
 	end
 end
