@@ -45,5 +45,8 @@ class Dispenser < ActiveRecord::Base
 	end
 	def shutdown
 		RestClient.post(self.ip + ':3001',"SHUTDOWN" + "\n",:content_type => :json, :accept => :json)
+		self.online = false
+		self.save
+		$channel.push({:dispenser=>{:id=> self.id,:online=>false}}.to_json)
 	end
 end

@@ -46,6 +46,8 @@ $(function(){
 	var sock = new WebSocket( "ws://" + host + ":8080");
    
    	var current_uid = null;
+   	var current_tag = null;
+   	var tag_is_known = false;
    	sock.onopen = function(){
 	   sock.onmessage = function(evt){
 	     	
@@ -53,31 +55,39 @@ $(function(){
 	     	data = JSON.parse(evt.data)
 	     	if(!(data.tag === undefined)){
 	     		$('#existing-card-group').hide();
-	     		$('#new-card-group').hide();
+	     		$('.new-card-group').hide();
 	     		$('#tag_form_buttons').hide();
 	     		$('#nfc-tag-modal').modal('show');
 	     		if(data.tag.uid != current_uid){
 	     			
 		     		current_uid = data.tag.uid;
+		     		$('#tag_uid_hidden').val(current_uid);
 		 			$('#tags-container').html('');
 		     		Newine.get_instance('tags','/uid/' + data.tag.uid, function(ins){
 		     			if(!(ins.uid === undefined)){
+		     				tag_is_known = true;
+		     				current_tag = ins;
 		     				Newine.render_instance('tags',ins);
 		     				$('#existing-card-group').show();
 		     			}
 
 
 			     	}, function(xhr,opts,errorThrown){
-			     		$('#tags-container').html('<div class="alert error">Tag nuevo</div>');
-			     		$('#new-card-group').show();
+			     		tag_is_known = false;
+			     		$('#tags-container').html('<div class="alert alert-warning">Tag nuevo</div>');
+			     		$('.new-card-group').show();
+			     		$('#existing_user_fields').show();
+			     		$('#new_user_fields').hide();
 			     		$('#tag_form_buttons').show();
 			     		return true;
 			     	});
 		     	}else{
-		     		if(current_uid===null)
+		     		if(!tag_is_known)
 		     		{
-		     			$('#new-card-group').show();
+		     			$('.new-card-group').show();
 		     			$('#tag_form_buttons').show();
+		     			$('#existing_user_fields').show();
+			     		$('#new_user_fields').hide();
 		     		}else{
 		     			$('#existing-card-group').show();
 		     		}
@@ -118,4 +128,61 @@ $(function(){
 		});
 	});
 
+	$("#format_tag").click(function(){
+		var r = confirm('Eliminar la información de la tarjeta?');
+		if(r){
+			$.ajax({
+				type: "DELETE",
+				url: '/tags/'  + current_tag.id + '.json',
+				accept: 'json',
+				dataType: 'json',
+				success: function(ins){
+					tag_is_known = false;
+					$('#existing-card-group').hide();
+		     		$('.new-card-group').hide();
+		     		$('#tag_form_buttons').hide();
+		     		$('#nfc-tag-modal').modal('show');
+	  
+	  				$('#tags-container').html('<div class="alert error">Tag nuevo</div>');
+		     		$('.new-card-group').show();
+		     		$('#tag_form_buttons').show();
+
+				}
+			});
+		}
+	});
+
+	$("#search_users").click(function(){
+		var q = $('#user_search').val();
+		$.ajax({
+			type: "GET",
+			url: '/users.json?q='  + q,
+			accept: 'json',
+			dataType: 'json',
+			success: function(data){
+				console.log('got users');
+				console.log(data);
+				$('#tag_user_id').html('');
+				$.each(data,function(i,usr){
+
+					$('#tag_user_id').append('<option value=' + usr.id + '>' + usr.name + '</option>')
+				});
+			}
+		});
+	});
+
+	$('#existing_user').click(function(){
+		$('#new_user_hidden').val(false);
+		$('#new_user_fields').hide();
+		$('#existing_user_fields').show();
+		$(this).addClass('active');
+		$('#create_new_user').removeClass('active');
+	});
+	$('#create_new_user').click(function(){
+		$('#new_user_hidden').val(true);
+		$('#new_user_fields').show();
+		$('#existing_user_fields').hide();
+		$(this).addClass('active');
+		$('#existing_user').removeClass('active');
+	});
 });

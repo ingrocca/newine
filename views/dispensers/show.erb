@@ -140,11 +140,14 @@
 	<div class='row'>
 		<div class='col-md-3' style='padding-left: 40px;'>
 			<h2> Dispenser <%= @dispenser.id %></h2>
+			<span id='online_label' class='label <%= @dispenser.online ? 'label-success' : 'label-danger' %>'> <%= @dispenser.online ? 'online' : 'offline' %></span>
 		</div>
 		<div id='temperature-controls-container'>
 		</div>
-		<div class='col-md-3'>
-			<a class='btn btn-danger' id='shutdown-dispenser'>Apagar</a>
+		<div class='col-md-3' style='vertical-align:middle; margin-top:20px;'>
+			<p>
+				<a class='btn btn-danger' id='shutdown-dispenser'>Apagar</a>
+			</p>
 		</div>
 	</div>
 	<div class='row'>

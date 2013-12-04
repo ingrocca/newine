@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120183705) do
+ActiveRecord::Schema.define(version: 20131204093505) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20131120183705) do
     t.boolean  "valid_serving"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "tags", force: true do |t|
@@ -96,6 +97,10 @@ ActiveRecord::Schema.define(version: 20131120183705) do
     t.boolean "can_detach"
     t.boolean "can_set_temp"
     t.boolean "valid_user"
+    t.string  "surname"
+    t.string  "dni"
+    t.string  "phone"
+    t.string  "email"
   end
 
   create_table "wines", force: true do |t|

@@ -62,7 +62,7 @@ class NewineServer < Sinatra::Application
 			@dispenser.last_activity = the_time
 			@dispenser.online = true
 			@dispenser.save
-
+			$channel.push({:dispenser=>{:id=> @dispenser.id,:online=>true}}.to_json)
 			return {:id => @dispenser.id}.to_json
 		else
 			return {:id => 0}.to_json
@@ -75,7 +75,6 @@ class NewineServer < Sinatra::Application
 		if @dispenser
 			the_time = Time.now
 			@dispenser.ip = request.ip
-			@dispenser.last_registration = the_time
 			@dispenser.last_activity = the_time
 			@dispenser.online = true
 			@dispenser.save

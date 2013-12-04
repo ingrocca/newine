@@ -59,6 +59,7 @@ class NewineServer < Sinatra::Application
 						@serving.remaining_credit = @serving.tag.credit
 						@serving.bottle_holder.remaining_volume -= @serving.volume
 						@serving.bottle_holder.save
+						@serving.user_id = @serving.tag.user.id
 						@serving.save
 									
 					end

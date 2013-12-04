@@ -92,6 +92,21 @@ def run_newine
 			end
 		end
 
+		online_notifier = Thread.new do
+			loop do
+				Dispenser.where(:online=>true).each do |d|
+					p d.id.to_s + ': ' + d.last_activity.to_s
+					if d.last_activity < 2.minutes.ago
+						p 'Setting offline'
+						d.online = false
+						d.save
+						$channel.push({:dispenser=>{:id=> d.id,:online=>false}}.to_json)
+					end
+				end
+				sleep 30
+			end
+		end
+
 		NewineServer.run!(:bind=>'0.0.0.0',:port =>3000)
 	end
 end

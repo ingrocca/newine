@@ -61,8 +61,21 @@ $(function(){
 	     		}
 	     		
 	     	}
-	     	
-	     
+	     	if(!(data.dispenser === undefined)){
+	     		if (data.dispenser.id == id) {
+	     			if(data.dispenser.online){
+		     			$('#online_label').removeClass('label-danger');
+			     		$('#online_label').addClass('label-success');
+			     		$('#online_label').html('online');
+		     		}else{
+		     			$('#online_label').removeClass('label-success');
+			     		$('#online_label').addClass('label-danger');
+			     		$('#online_label').html('offline');
+		     		}
+	     		}
+	     		
+	     		
+	     	}	     
 	    }
 	}
 

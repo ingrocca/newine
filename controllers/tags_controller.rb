@@ -53,25 +53,61 @@ class NewineServer < Sinatra::Application
 	end
 
 	post '/tags' do
-		@tag = Tag.create(params[:tag])
-		p 'created tag'
-		if @tag.valid?
-			Event.log(
-				"Nuevo Tag",
-				"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
-				"/tags/id/" + @tag.id.to_s,
-				0xEEEEEE,
-				"new_tag")
-			redirect to('/tags/id/' + @tag.id.to_s)
+		p params.to_json
+		if params[:new_user] == 'true' || params[:new_user] === true
+			@user = User.create(params[:user])
+			if @user.valid?
+				params[:tag][:user_id] = @user.id
+				@tag = Tag.create(params[:tag])
+				p 'created tag'
+				if @tag.valid?
+					Event.log(
+						"Nuevo Tag",
+						"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
+						"/users/tags/" + @tag.uid.to_s,
+						0x009933,
+						"new_tag")
+					redirect to("/users/tags/" + @tag.uid.to_s)
+				else
+					Event.log(
+						"Tag no se pudo guardar",
+						@tag.errors.full_messages.join(', '),
+						"/",
+						0xEEAAAA,
+						"errors")
+					redirect to('/')
+				end
+			else
+				Event.log(
+					"Tag no se pudo guardar",
+					@user.errors.full_messages.join(', '),
+					"/",
+					0xEEAAAA,
+					"errors")
+				redirect to('/')
+			end
 		else
-			Event.log(
-				"Tag no se pudo guardar",
-				@tag.errors.full_messages.join(', '),
-				"/",
-				0xEEAAAA,
-				"errors")
-			redirect to('/')
+			@tag = Tag.create(params[:tag])
+			p 'created tag'
+			if @tag.valid?
+				Event.log(
+					"Nuevo Tag",
+					"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
+					"/users/tags/" + @tag.uid.to_s,
+					0x009933,
+					"new_tag")
+				redirect to("/users/tags/" + @tag.uid.to_s)
+			else
+				Event.log(
+					"Tag no se pudo guardar",
+					@tag.errors.full_messages.join(', '),
+					"/",
+					0xEEAAAA,
+					"errors")
+				redirect to('/')
+			end
 		end
+		
 	end
 
 	post '/tags/add_credit/:uid.json' do
