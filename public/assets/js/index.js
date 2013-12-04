@@ -146,6 +146,7 @@ $(function(){
 	  				$('#tags-container').html('<div class="alert error">Tag nuevo</div>');
 		     		$('.new-card-group').show();
 		     		$('#tag_form_buttons').show();
+		     		$('#existing_user').trigger('click');
 
 				}
 			});

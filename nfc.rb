@@ -19,6 +19,11 @@ namespace :nfc do
 
 			d = dev.poll 1, 1
 
+			if d.respond_to?(:<) && d<0 && d!=-90
+				p d
+				raise "NFC Error!"
+			end
+
 			if d.respond_to? :uid
 				cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
 			end
