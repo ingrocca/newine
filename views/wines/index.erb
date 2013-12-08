@@ -20,20 +20,320 @@
 <script src='/assets/js/wines_index.js'></script>
 <div class='container'>
 	<div class='row'>
-		<div class='col-lg-2'>
-
-		</div>
-		<div class='col-lg-8'>
-			<h2>Vinos</h2>
+		<div class='col-lg-4'>
+			<div class='row'>
+				<div class='col-md-3'>
+					<h2>Vinos</h2>
+				</div>
+				<div class='col-md-6' style='vertical-align:middle;margin-top:20px;'>
+					<a class='btn btn-success' id='new_wine_btn'>Nuevo Vino</a>
+				</div>
+			</div>
+			<div class='row' style='padding-bottom:10px;'>
+				<div class='col-lg-10 col-offset-2'>
+					<form class='form-search form-inline' action='/wines' method='get'>
+						<div class='col-lg-8'>
+							<input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
+						</div>
+						<div class='col-lg-3'>
+							<button class='btn btn-search'>Buscar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<div class='row'>
-		<div class='col-lg-2'>
-			<a id='toggle-wine-modal' class='btn btn-success'>Nuevo Vino</a>
-		</div>
-		<div class='col-lg-6'>
-			<div id='wines-container'>
+		<div class='col-lg-4'>
+			<div class='row'>
+				<div class='col-lg-10 col-offset-2 apple_pagination'>
+					<%= will_paginate @wines %>
+				</div>
 			</div>
+			<div class='row'>
+
+				<div id='wines-container'>
+					<% @wines.each do |wine| %>
+						<div class='row'>
+							<div class='col-lg-10 col-offset-2'>
+								
+								<div class='panel panel-default panel-link wine-link' data-id=<%= wine.id.to_s %>>
+									<div class='panel-body'>
+										
+										<img src='/assets/img/bottle-icon.png' width=40 height=40 />
+									
+										<span style="padding-left:10px;">									
+											<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>									
+										</span>						
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					<% end %>
+
+				</div>
+			</div>
+		</div>
+		<div class='col-lg-8'>
+			
+			<div id='wine-details-container'>
+					<% @wines.each do |wine| %>
+						<div class='row wine-data hidden' data-wine-id=<%= wine.id.to_s %>>
+							<div class='col-lg-10 col-offset-2'>
+								
+								<div class='panel panel-default' style='min-height: 300px;'>
+									<div class='panel-body' style='margin:10px;'>
+											
+											<div class='row'>
+										
+												<span style="padding-left:10px;">									
+													<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>
+													<a class='edit_wine btn btn-warning pull-right' data-wine-id=<%= wine.id.to_s %>>Editar</a>
+												</span>
+												<hr />
+												<div class='wine_info' data-wine-id=<%= wine.id.to_s %>>
+													<p style="padding-left:10px;">									
+														<strong>Bodega/Marca:</strong> <%= wine.brand %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Volumen:</strong> <%= wine.volume.to_s %> ml
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Costo botella:</strong> $<%= wine.bottle_cost.to_s %>
+													</p>
+													<br />
+									
+													<p style="padding-left:10px;">									
+													 <%= wine.tasting_notes %>
+													</p>
+													<br />				
+
+
+												</div>
+											</div>
+											<div class='row'>
+												<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+													<table class='table table-striped wine_info' data-wine-id=<%= wine.id.to_s %>>
+														<thead>
+															<tr>
+																<th>Medida (ml)</th>
+																<th>Precio ($)</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td><%= wine.serving_volume_low %></td>
+																<td><%= wine.serving_price_low %></td>
+															</tr>
+															<tr>
+																<td><%= wine.serving_volume_med %></td>
+																<td><%= wine.serving_price_med %></td>
+															</tr>
+															<tr>
+																<td><%= wine.serving_volume_high %></td>
+																<td><%= wine.serving_price_high %></td>
+															</tr>
+
+														</tbody>
+													</table>
+													
+												</div>
+											</div>
+											
+											<form style='padding-bottom:20px;' class='form-horizontal wine_edit_form hidden' data-wine-id=<%= wine.id.to_s %> action='/wines/edit/<%= wine.id.to_s %>' method='post'>
+											<div class='row'>
+													<div class="form-group">
+										            	<label for='wine[name]' class='col-lg-3 control-label'>Nombre</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[name]' class='form-control' value='<%= wine.name %>'>
+										            	</div>
+										            </div>
+													<div class="form-group">
+										            	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[variety]' class='form-control' value='<%= wine.variety %>'>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[brand]' class='form-control' value=<%= wine.brand %>>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[vintage]' class='form-control' step=1 value=<%= wine.vintage %>>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[volume]' class='col-lg-3 control-label'>Volumen</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[volume]' class='form-control' step=1 value=<%= wine.volume %>>
+										            	</div>
+										            	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
+										            </div>
+										             <div class="form-group">
+										            	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Costo botella $</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[bottle_cost]' class='form-control' step=any value=<%= wine.bottle_cost %>>
+										            	</div>
+										            
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[tasting_notes]' class='col-lg-3 control-label'>Notas</label>
+										            	<div class='col-lg-6'>
+										            		<textarea name='wine[tasting_notes]' class='form-control'><%= wine.tasting_notes %></textarea>
+										            	</div>
+										            </div>
+									          </div>
+									          
+									          <div class='row'>
+													<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_low]' class='form-control' value=<%= wine.serving_price_low %>>
+															</div>
+														</div>
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_med]" class='form-control' value=<%= wine.serving_volume_med %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_med]' class='form-control' value=<%= wine.serving_price_med %>>
+															</div>
+														</div>
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_high]" class='form-control' value=<%= wine.serving_volume_high %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_high]' class='form-control' value=<%= wine.serving_price_high %>>
+															</div>
+														</div>
+													</div>
+												</div>
+									           	<div class='col-lg-offset-3' style='padding-top:20px;'>
+													<button class='btn btn-primary'>Guardar</button>
+													<a class='btn btn-default cancel_edit'>Cancelar</a>
+												</div>
+											</form>
+											
+
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					<% end %>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="new-wine-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action='/wines' method='post' class='form-horizontal'>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Nuevo Vino</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class="form-group">
+				            	<label for='wine[name]' class='col-lg-3 control-label'>Nombre</label>
+				            	<div class='col-lg-6'>
+				            		<input type='text' name='wine[name]' class='form-control'>
+				            	</div>
+				            </div>
+							<div class="form-group">
+				            	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
+				            	<div class='col-lg-6'>
+				            		<input type='text' name='wine[variety]' class='form-control'>
+				            	</div>
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
+				            	<div class='col-lg-6'>
+				            		<input type='text' name='wine[brand]' class='form-control'>
+				            	</div>
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
+				            	<div class='col-lg-3'>
+				            		<input type='number' name='wine[vintage]' class='form-control' step=1>
+				            	</div>
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[volume]' class='col-lg-3 control-label'>Volumen</label>
+				            	<div class='col-lg-3'>
+				            		<input type='number' name='wine[volume]' class='form-control' step=1>
+				            	</div>
+				            	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Costo botella $</label>
+				            	<div class='col-lg-3'>
+				            		<input type='number' name='wine[bottle_cost]' class='form-control' step=any>
+				            	</div>
+				            
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[tasting_notes]' class='col-lg-3 control-label'>Notas</label>
+				            	<div class='col-lg-6'>
+				            		<textarea name='wine[tasting_notes]' class='form-control'></textarea>
+				            	</div>
+				            </div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_low" class='form-control' >
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_low' class='form-control' >
+								</div>
+							</div>
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_med" class='form-control' >
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_med' class='form-control' >
+								</div>
+							</div>
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_high" class='form-control'>
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_high' class='form-control'>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class='modal-footer'>
+					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+          			<button class='btn btn-primary'>Crear</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

@@ -30,5 +30,7 @@ namespace :nfc do
 			sleep 0.05
 			#dev.deselect
 		end
+	rescue
+		retry
 	end
 end
