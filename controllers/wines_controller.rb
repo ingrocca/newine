@@ -42,7 +42,7 @@ class NewineServer < Sinatra::Application
 		@wines = Wine.where(:id => params[:id]).paginate(:page=>params[:page], :per_page=>5)
 		@wine = @wines.first
 		if(@wine)
-			@wine.update_attributes(params[:user])
+			@wine.update_attributes(params[:wine])
 		end
 		format_render 'html', :"wines/index"
 	end

@@ -5,6 +5,11 @@ class NewineServer < Sinatra::Application
 		jbuilder :"servings/index"
 	end
 
+	get  '/servings' do
+		@servings = Serving.all
+		erb :"servings/index"
+	end
+
 	get '/servings/:id.?:format?' do
 		@serving = Serving.where(:id => params[:id]).first
 		if @serving.nil?

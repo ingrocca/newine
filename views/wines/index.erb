@@ -84,50 +84,144 @@
 							<div class='col-lg-10 col-offset-2'>
 								
 								<div class='panel panel-default' style='min-height: 300px;'>
-									<div class='panel-body'>
+									<div class='panel-body' style='margin:10px;'>
+											
+											<div class='row'>
 										
-										
-											<span style="padding-left:10px;">									
-												<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>
-												<a class='edit_wine btn btn-warning pull-right' data-wine-id=<%= wine.id.to_s %>>Editar</a>
-											</span>
-											<hr />
-											<div class='wine_info' data-wine-id=<%= wine.id.to_s %>>
-												<p style="padding-left:10px;">									
-													<strong>Volumen:</strong> <%= wine.volume.to_s %> ml
-												</p>
-												<br />
-												
-											</div>
-											<form style='padding-bottom:20px;' class='form-horizontal wine_edit_form hidden' data-wine-id=<%= wine.id.to_s %> action='/wines/edit/<%= wine.id.to_s %>' method='post'>
-												<div class="form-group">
-									            	<label for='wine[name]' class='col-lg-3 control-label'>Nombre</label>
-									            	<div class='col-lg-6'>
-									            		<input type='text' name='wine[name]' class='form-control' value='<%= wine.name %>'>
-									            	</div>
-									            </div>
-												<div class="form-group">
-									            	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
-									            	<div class='col-lg-6'>
-									            		<input type='text' name='wine[variety]' class='form-control' value='<%= wine.variety %>'>
-									            	</div>
-									            </div>
-									            <div class="form-group">
-									            	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
-									            	<div class='col-lg-3'>
-									            		<input type='number' name='wine[vintage]' class='form-control' step=1 value=<%= wine.vintage %>>
-									            	</div>
-									            </div>
-									            <div class="form-group">
-									            	<label for='wine[volume]' class='col-lg-3 control-label'>Volumen</label>
-									            	<div class='col-lg-3'>
-									            		<input type='number' name='wine[volume]' class='form-control' step=1 value=<%= wine.volume %>>
-									            	</div>
-									            	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
-									            </div>
-									          
+												<span style="padding-left:10px;">									
+													<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>
+													<a class='edit_wine btn btn-warning pull-right' data-wine-id=<%= wine.id.to_s %>>Editar</a>
+												</span>
+												<hr />
+												<div class='wine_info' data-wine-id=<%= wine.id.to_s %>>
+													<p style="padding-left:10px;">									
+														<strong>Bodega/Marca:</strong> <%= wine.brand %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Volumen:</strong> <%= wine.volume.to_s %> ml
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Costo botella:</strong> $<%= wine.bottle_cost.to_s %>
+													</p>
+													<br />
+									
+													<p style="padding-left:10px;">									
+													 <%= wine.tasting_notes %>
+													</p>
+													<br />				
 
-									           	<div class='col-lg-offset-3'>
+
+												</div>
+											</div>
+											<div class='row'>
+												<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+													<table class='table table-striped wine_info' data-wine-id=<%= wine.id.to_s %>>
+														<thead>
+															<tr>
+																<th>Medida (ml)</th>
+																<th>Precio ($)</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td><%= wine.serving_volume_low %></td>
+																<td><%= wine.serving_price_low %></td>
+															</tr>
+															<tr>
+																<td><%= wine.serving_volume_med %></td>
+																<td><%= wine.serving_price_med %></td>
+															</tr>
+															<tr>
+																<td><%= wine.serving_volume_high %></td>
+																<td><%= wine.serving_price_high %></td>
+															</tr>
+
+														</tbody>
+													</table>
+													
+												</div>
+											</div>
+											
+											<form style='padding-bottom:20px;' class='form-horizontal wine_edit_form hidden' data-wine-id=<%= wine.id.to_s %> action='/wines/edit/<%= wine.id.to_s %>' method='post'>
+											<div class='row'>
+													<div class="form-group">
+										            	<label for='wine[name]' class='col-lg-3 control-label'>Nombre</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[name]' class='form-control' value='<%= wine.name %>'>
+										            	</div>
+										            </div>
+													<div class="form-group">
+										            	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[variety]' class='form-control' value='<%= wine.variety %>'>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
+										            	<div class='col-lg-6'>
+										            		<input type='text' name='wine[brand]' class='form-control' value=<%= wine.brand %>>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[vintage]' class='form-control' step=1 value=<%= wine.vintage %>>
+										            	</div>
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[volume]' class='col-lg-3 control-label'>Volumen</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[volume]' class='form-control' step=1 value=<%= wine.volume %>>
+										            	</div>
+										            	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
+										            </div>
+										             <div class="form-group">
+										            	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Costo botella $</label>
+										            	<div class='col-lg-3'>
+										            		<input type='number' name='wine[bottle_cost]' class='form-control' step=any value=<%= wine.bottle_cost %>>
+										            	</div>
+										            
+										            </div>
+										            <div class="form-group">
+										            	<label for='wine[tasting_notes]' class='col-lg-3 control-label'>Notas</label>
+										            	<div class='col-lg-6'>
+										            		<textarea name='wine[tasting_notes]' class='form-control'><%= wine.tasting_notes %></textarea>
+										            	</div>
+										            </div>
+									          </div>
+									          
+									          <div class='row'>
+													<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_low]' class='form-control' value=<%= wine.serving_price_low %>>
+															</div>
+														</div>
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_med]" class='form-control' value=<%= wine.serving_volume_med %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_med]' class='form-control' value=<%= wine.serving_price_med %>>
+															</div>
+														</div>
+														<div class='row' style='margin-top:20px;'>
+															<div class='col-md-6 col-xs-6'>
+																<label>ml</label><input type="number" name="wine[serving_volume_high]" class='form-control' value=<%= wine.serving_volume_high %>>
+															</div>
+															<div class='col-md-6 col-xs-6'>
+																<label>$</label><input type="number" name='wine[serving_price_high]' class='form-control' value=<%= wine.serving_price_high %>>
+															</div>
+														</div>
+													</div>
+												</div>
+									           	<div class='col-lg-offset-3' style='padding-top:20px;'>
 													<button class='btn btn-primary'>Guardar</button>
 													<a class='btn btn-default cancel_edit'>Cancelar</a>
 												</div>
@@ -171,6 +265,12 @@
 				            	</div>
 				            </div>
 				            <div class="form-group">
+				            	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
+				            	<div class='col-lg-6'>
+				            		<input type='text' name='wine[brand]' class='form-control'>
+				            	</div>
+				            </div>
+				            <div class="form-group">
 				            	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
 				            	<div class='col-lg-3'>
 				            		<input type='number' name='wine[vintage]' class='form-control' step=1>
@@ -183,9 +283,52 @@
 				            	</div>
 				            	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
 				            </div>
+				            <div class="form-group">
+				            	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Costo botella $</label>
+				            	<div class='col-lg-3'>
+				            		<input type='number' name='wine[bottle_cost]' class='form-control' step=any>
+				            	</div>
+				            
+				            </div>
+				            <div class="form-group">
+				            	<label for='wine[tasting_notes]' class='col-lg-3 control-label'>Notas</label>
+				            	<div class='col-lg-6'>
+				            		<textarea name='wine[tasting_notes]' class='form-control'></textarea>
+				            	</div>
+				            </div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-lg-6 col-lg-offset-3' style='padding-left: 5px; padding-right: 5px;'>
+
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_low" class='form-control' >
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_low' class='form-control' >
+								</div>
+							</div>
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_med" class='form-control' >
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_med' class='form-control' >
+								</div>
+							</div>
+							<div class='row' style='margin-top:20px;'>
+								<div class='col-md-6 col-xs-6'>
+									<label>ml</label><input type="number" name="serving_volume_high" class='form-control'>
+								</div>
+								<div class='col-md-6 col-xs-6'>
+									<label>$</label><input type="number" name='serving_price_high' class='form-control'>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+
 				<div class='modal-footer'>
 					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
           			<button class='btn btn-primary'>Crear</button>
