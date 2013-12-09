@@ -53,7 +53,7 @@ class NewineServer < Sinatra::Application
 			if comp && @serving.tag && @serving.tag.user && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
 
 				@serving.tag.credit -= @serving.price rescue 0
-				if @serving.tag.nil? || @serving.tag.credit <= 0  || !@serving.wine
+				if @serving.tag.nil? || (@serving.tag.credit <= 0 && !(@serving.tag.user.client_type == 'manager' || @serving.tag.user.client_type == 'superclient')) || !@serving.wine
 					p "Invalid serving data: " +
 						(@serving.tag.nil? ? "Tag inexistente " : ( (@serving.tag.credit <= 0) ? "Credito insuficiente " : "")) +
 						(@serving.wine.nil? ? "Vino inexistente " : "")
