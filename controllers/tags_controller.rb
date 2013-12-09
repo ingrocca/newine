@@ -55,6 +55,7 @@ class NewineServer < Sinatra::Application
 	post '/tags' do
 		p params.to_json
 		if params[:new_user] == 'true' || params[:new_user] === true
+			params[:user][:valid_user]=true
 			@user = User.create(params[:user])
 			if @user.valid?
 				params[:tag][:user_id] = @user.id

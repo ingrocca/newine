@@ -45,6 +45,7 @@ class NewineServer < Sinatra::Application
 	end
 
 	post '/users.?:format?' do
+		params[:user][:valid_user]=true
 		@user = User.create(params[:user])
 		if @user.valid?
 			@user.valid_user = true
