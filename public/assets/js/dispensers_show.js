@@ -4,6 +4,7 @@ $(function(){
 	var render_dispenser = function(){
 		$('#dispensers-container').html('');
 		$('#bottle-holders-container').html('');
+		$('#bottle-holder-controls-container').html('');
 		$('#temperature-controls-container').html('');
 		Newine.get_instance('dispensers','/id/' + id,function(ins){
 			Newine.render_instance("dispensers",ins);
@@ -102,6 +103,7 @@ $(function(){
 	$('#bottle-holder-controls-container').on("click",".change-wine",function(){
 		current_wine_id = $(this).data('wine-id');
 		current_bh_id = $(this).data('bottle-holder-id');
+		$('.select-wine').css('background', '#FFFFFF');
 		$('.select-wine[data-wine-id=' + current_wine_id + ']').css('background', '#EEAAAA');
 		$("#change-wine-modal").modal('show');
 	});
@@ -163,6 +165,9 @@ $(function(){
 				data: JSON.stringify({wine_id: current_wine_id}),
 				success: function(data){
 					console.log('changed wine');
+					current_wine_id = 0;
+					current_bh_id = 0;
+					current_bh_shown = null;
 					
 					render_dispenser();
 					
@@ -183,7 +188,9 @@ $(function(){
 			data: JSON.stringify({wine_id: null}),
 			success: function(data){
 				console.log('changed wine');
-				
+				current_wine_id = 0;
+				current_bh_id = 0;
+				current_bh_shown = null;
 				render_dispenser();
 				
 			}

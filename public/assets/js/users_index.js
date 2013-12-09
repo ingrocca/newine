@@ -37,6 +37,7 @@ $(function(){
 		$('.user_edit_form[data-user-id=' + current_id + ']').removeClass('hidden');
 		$(this).hide();
 	});
+
 	$('.cancel_edit').click(function(){
 		$('.user_info[data-user-id=' + current_id + ']').show();
 		$('.user_edit_form[data-user-id=' + current_id + ']').addClass('hidden');

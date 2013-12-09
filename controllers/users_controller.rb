@@ -47,6 +47,8 @@ class NewineServer < Sinatra::Application
 	post '/users.?:format?' do
 		@user = User.create(params[:user])
 		if @user.valid?
+			@user.valid_user = true
+			@user.save
 			format_render params[:format], :"users/show"
 		else
 			#show_errors params[:format], :"users/new", :"users/show" 

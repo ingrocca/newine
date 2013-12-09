@@ -40,7 +40,7 @@
 											<img src='/assets/img/user-icon.png' width=40 height=40 />
 										
 											<span style="padding-left:10px;">									
-												<strong><%= user.id %>:</strong> <%= user.name %>										
+												<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>										
 											</span>						
 									</div>
 								</div>
@@ -123,7 +123,7 @@
 												<div class='panel panel-default tag-panel' data-tag-id=<%= tag.id %>>
 													<div class='panel-body'>
 														<p style="padding:10px;">									
-															<strong>Tarjeta:</strong> <%= tag.uid %>, crédito: <%= tag.credit.to_s %>
+															<strong>Tarjeta:</strong> <%= tag.uid %>, crédito: $<%= tag.credit.to_s %>
 														</p>
 														<a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
 													</div>
