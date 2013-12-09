@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Por Dispenser">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Dispenser</Data></Cell>
+        <Cell><Data ss:Type="String">Ventas</Data></Cell>
+        <Cell><Data ss:Type="String">Ventas ($)</Data></Cell>
+      </Row>
+      <% Dispenser.find_each do |dispenser| %>
+      <Row>
+          <Cell><Data ss:Type="String"><%= dispenser.id.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Por Vino">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Vino</Data></Cell>
+        <Cell><Data ss:Type="String">Ventas</Data></Cell>
+        <Cell><Data ss:Type="String">Ventas ($)</Data></Cell>
+      </Row>
+      <% Wine.find_each do |wine| %>
+      <Row>
+          <Cell><Data ss:Type="String"><%= wine.name.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:wine_id => wine.id).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:wine_id => wine.id).round(2).to_s %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

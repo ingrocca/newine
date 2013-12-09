@@ -20,6 +20,8 @@ gem 'em-websocket'
 gem 'rest-client'
 gem 'will_paginate', '~> 3.0'
 
+gem 'statistics'
+
 group :development do
   gem "tux"
 end

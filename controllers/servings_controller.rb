@@ -1,12 +1,28 @@
 class NewineServer < Sinatra::Application
 
+	get  '/report.xls' do
+		response['Content-Disposition'] = "attachent; filename=newine_report.xls"
+    	content_type 'application/xls'
+
+		params[:t] = 1 if !params[:t]
+		@stat_time = params[:t].to_i.days.ago
+		@servings = Serving.all
+		@serv_total = Serving.where('created_at > ?', @stat_time).get_stat(:total_count)
+		@money_total = Serving.where('created_at > ?', @stat_time).get_stat(:money)
+		erb :"servings/index.xls", :layout => false
+	end
+
 	get  '/servings.json' do
 		@servings = Serving.all
 		jbuilder :"servings/index"
 	end
 
 	get  '/servings' do
+		params[:t] = 1 if !params[:t]
+		@stat_time = params[:t].to_i.days.ago
 		@servings = Serving.all
+		@serv_total = Serving.where('created_at > ?', @stat_time).get_stat(:total_count)
+		@money_total = Serving.where('created_at > ?', @stat_time).get_stat(:money)
 		erb :"servings/index"
 	end
 

@@ -1,0 +1,86 @@
+<script src='/assets/js/newine.js'></script>
+<script src='/assets/js/raphael/raphael.js'></script>
+<script src='/assets/js/raphael/g.raphael.js'></script>
+<script src='/assets/js/raphael/g.pie.js'></script>
+<script src='/assets/js/servings_index.js'></script>
+<div class='container'>
+	<div class='row'>
+		<div class='col-lg-4'>
+			<h3>Ventas</h3>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-6'>
+			<h5> Ver estadísticas de:</h5>
+			<a class='btn btn-default <%= params[:t].to_i == 1 ? 'active' : '' %>' href='/servings?t=1'>1 día</a>
+			<a class='btn btn-default <%= params[:t].to_i == 5 ? 'active' : '' %>' href='/servings?t=5'>5 días</a>
+			<a class='btn btn-default <%= params[:t].to_i == 30 ? 'active' : '' %>' href='/servings?t=30'>30 días</a>
+			<a class='btn btn-default <%= params[:t].to_i == 60 ? 'active' : '' %>' href='/servings?t=60'>60 días</a>
+			<a class='btn btn-default <%= params[:t].to_i == 365 ? 'active' : '' %>' href='/servings?t=365'>365 días</a>
+		</div>
+	</div>
+	<div class='row'>
+		<div id="total_money" class='hidden'><%= @money_total.to_s %></div>
+		<div class='col-lg-4'>
+			<h4>Por dispenser:</h4>
+			<div class='row'>
+				<div id='dispensers-stat-holder'></div>
+			</div>
+			<div class='row'>
+				<div class='col-lg-12'>
+					<table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
+					<thead>
+						<tr>
+							<th class='col-lg-4'>Dispenser</th>
+							<th class='col-lg-4'>Ventas</th>
+							<th class='col-lg-4'>Total $</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% Dispenser.find_each do |dispenser| %>
+							<tr class='dispenser-pie-row'>
+								<td class='dispenser-name'><%= dispenser.id.to_s %></td>
+								<td><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></td>
+								<td class='dispenser-money-count'><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></td>
+							</tr>
+						<% end %>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		<div class='col-lg-6'>
+			<h4>Por vino:</h4>
+			<div class='row'>
+				<div id='wines-stat-holder'></div>
+			</div>
+			<div class='row'>
+				<div class='col-lg-12'>
+					<table class='table table-striped' id='wine-stats-table' style='max-height: 500px;overflow-y:scroll;'>
+					<thead>
+						<tr>
+							<th class='col-lg-8'>Vino</th>
+							<th class='col-lg-2'>Ventas</th>
+							<th class='col-lg-2'>Total $</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% Wine.find_each do |wine| %>
+							<tr class='wine-pie-row'>
+								<td class='wine-name'><%= wine.name + ' ' + wine.variety + ' ' + wine.vintage.to_s %></td>
+								<td><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:wine_id => wine.id).to_s %></td>
+								<td class='wine-money-count'><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
+							</tr>
+						<% end %>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		<div class='col-lg-2'>
+			<a class='btn btn-success' href='/report.xls?t=<%= params[:t] %>'>Exportar a Excel</a> 
+		</div>
+	</div>
+</div>
