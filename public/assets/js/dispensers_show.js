@@ -9,7 +9,15 @@ $(function(){
 			Newine.render_instance("dispensers",ins);
 			$.each(ins.bottle_holders, function(i,bh){
 				bh.wine_name = function(){ if(!(bh.wine === null || bh.wine === undefined)) return bh.wine.name; else return "Ninguno"; };
-				bh.span = 100/ins.bottle_holders.length;
+				//bh.span = 100/ins.bottle_holders.length;
+				if(ins.bottle_holders.length == 8){
+					bh.span=10;
+				}else{
+					bh.span=20;
+				}
+				
+				bh.n_bottles = ins.bottle_holders.length;
+				
 				Newine.render_instance('bottle-holders',bh);
 				Newine.render_instance('bottle-holder-controls',bh);
 			});
