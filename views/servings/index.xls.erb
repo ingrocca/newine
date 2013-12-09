@@ -36,4 +36,34 @@
       <% end %>
     </Table>
   </Worksheet>
+  <Worksheet ss:Name="Lista">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Fecha</Data></Cell>
+        <Cell><Data ss:Type="String">Vino</Data></Cell>
+        <Cell><Data ss:Type="String">Variedad</Data></Cell>
+        <Cell><Data ss:Type="String">Año</Data></Cell>
+        <Cell><Data ss:Type="String">Usuario</Data></Cell>
+        <Cell><Data ss:Type="String">Tag</Data></Cell>
+        <Cell><Data ss:Type="String">Dispenser</Data></Cell>
+        <Cell><Data ss:Type="String">Posicion</Data></Cell>
+        <Cell><Data ss:Type="String">Precio</Data></Cell>
+        <Cell><Data ss:Type="String">Credito Restante</Data></Cell>
+      </Row>
+      <% Serving.find_each do |serving| %>
+      <Row>
+          <Cell><Data ss:Type="String"><%= serving.created_at.to_s %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= serving.wine.name.to_s %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= serving.wine.variety.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= serving.wine.vintage.to_s %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= serving.user.name.to_s %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= serving.uid.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= serving.dispenser_id.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= serving.bottle_index.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= serving.price.to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= serving.remaining_credit.to_s %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
 </Workbook>
