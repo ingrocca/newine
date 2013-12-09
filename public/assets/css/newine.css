@@ -84,21 +84,46 @@ body {
 a:hover {text-decoration:none;}
 a:active {text-decoration:none;}
 
-.volume-outer {
+.volume-outer-4 {
     /*width: 100%;*/
     width: 45px;
-    height: 120px;
-    border: 2px solid #ccc;
+    height: 160px;
+   /* border: 2px solid #ccc;*/
     overflow: hidden;
     margin-left: 0px;
-    margin-top: 20px;	
-    position: relative;
+    margin-top: 157px;	
+    position: absolute;
     z-index: 0;
-    -moz-border-radius: 4px;
+   /* -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-    border-radius: 4px;
+    border-radius: 4px;*/
     background-color: #EEE;
 }
+
+.volume-outer-8 {
+    /*width: 100%;*/
+    width: 45px;
+    height: 160px;
+   /* border: 2px solid #ccc;*/
+    overflow: hidden;
+    margin-left: 0px;
+    margin-top: 180px;  
+    position: absolute;
+    z-index: 0;
+ /*   -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;*/
+    background-color: #EEE;
+}
+
+.dispenser-fg-4 div:first-child {
+  margin-left: 6px;
+}
+
+.dispenser-fg-8 div:first-child {
+  margin-left: 8px;
+}
+
 
 .bottle.active > .volume-outer {
    background-color: #999;
@@ -124,12 +149,32 @@ a:active {text-decoration:none;}
 
 .volume-inner {
     z-index: -1;
-    border: 2px solid #999;
+    /*border: 2px solid #999;*/
     border-top-width: 0;
     background-color: #390000;
     
     bottom: 0;
     height: 0%;
+}
+
+.dispenser-bg {
+
+    min-height: 220px;
+  
+    overflow: hidden;
+    margin-left: 0px;
+    margin-top: 20px; 
+    position: absolute;
+    z-index: -20;
+
+}
+
+.dispenser-fg {
+      z-index: -2;
+
+    
+    bottom: 0;
+
 }
 
 .volume-inner div {
