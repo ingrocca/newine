@@ -21,6 +21,10 @@ class NewineServer < Sinatra::Application
 		@@cache
 	end
 
+	configure do
+		set :threaded,false
+	end
+
 	helpers do
 		def format_render fmt, view
 			case fmt
@@ -110,3 +114,5 @@ def run_newine
 		NewineServer.run!(:bind=>'0.0.0.0',:port =>3000)
 	end
 end
+
+run_newine
