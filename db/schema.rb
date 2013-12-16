@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209163620) do
+ActiveRecord::Schema.define(version: 20131216003520) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.integer  "remaining_volume"
   end
 
+  add_index "bottle_holders", ["dispenser_id"], name: "index_bottle_holders_on_dispenser_id"
+
   create_table "dispensers", force: true do |t|
     t.string   "uid"
     t.string   "name"
@@ -49,6 +51,9 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.string   "ip"
     t.integer  "n_temperature_controls"
   end
+
+  add_index "dispensers", ["online"], name: "index_dispensers_on_online"
+  add_index "dispensers", ["uid"], name: "index_dispensers_on_uid"
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -77,11 +82,17 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.integer  "user_id"
   end
 
+  add_index "servings", ["dispenser_id"], name: "index_servings_on_dispenser_id"
+  add_index "servings", ["wine_id"], name: "index_servings_on_wine_id"
+
   create_table "tags", force: true do |t|
     t.string  "uid"
     t.float   "credit"
     t.integer "user_id"
   end
+
+  add_index "tags", ["uid"], name: "index_tags_on_uid"
+  add_index "tags", ["user_id"], name: "index_tags_on_user_id"
 
   create_table "temperature_controls", force: true do |t|
     t.integer  "dispenser_index"
@@ -90,6 +101,8 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "temperature_controls", ["dispenser_id"], name: "index_temperature_controls_on_dispenser_id"
 
   create_table "users", force: true do |t|
     t.string  "name"
@@ -103,6 +116,11 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.string  "email"
     t.string  "client_type"
   end
+
+  add_index "users", ["dni"], name: "index_users_on_dni"
+  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["name"], name: "index_users_on_name"
+  add_index "users", ["surname"], name: "index_users_on_surname"
 
   create_table "wines", force: true do |t|
     t.string   "name"
@@ -123,5 +141,10 @@ ActiveRecord::Schema.define(version: 20131209163620) do
     t.float    "serving_price_med"
     t.float    "serving_price_high"
   end
+
+  add_index "wines", ["brand"], name: "index_wines_on_brand"
+  add_index "wines", ["name"], name: "index_wines_on_name"
+  add_index "wines", ["variety"], name: "index_wines_on_variety"
+  add_index "wines", ["vintage"], name: "index_wines_on_vintage"
 
 end

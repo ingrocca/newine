@@ -43,4 +43,21 @@ $(function(){
 		$('.user_edit_form[data-user-id=' + current_id + ']').addClass('hidden');
 		$('.edit_user[data-user-id=' + current_id + ']').show();
 	})
+	$(".add_credit").click(function(){
+		var tag_id = $(this).data('tag-id');
+		var tag_uid = $(this).data('tag-uid');
+		var credit = $('.credit_to_add[data-tag-id=' + tag_id + ']').val();
+		$.ajax({
+			type: "POST",
+			url: '/tags/add_credit/'  + tag_uid + '.json',
+			accept: 'json',
+			dataType: 'json',
+			data: JSON.stringify({add_credit: credit}),
+			success: function(ins){
+				if(!(ins.uid === undefined)){
+					window.location = '/users/' + ins.user.id
+     			}
+			}
+		});
+	});
 });
