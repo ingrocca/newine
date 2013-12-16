@@ -159,6 +159,16 @@
 															<strong>Tarjeta:</strong> <%= tag.uid %>, crédito: $<%= tag.credit.to_s %>
 														</p>
 														<a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
+														<form class='form-horizontal'>
+															<div class="form-group">
+												            	<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
+												            	<div class='col-lg-4'>
+												            		<input type='number' name='credit' class='form-control credit_to_add' data-tag-id=<%= tag.id %>>
+												            	</div>
+												            	<a data-tag-id=<%= tag.id %> data-tag-uid=<%= tag.uid %> class='btn btn-success btn-med add_credit'><span class='glyphicon glyphicon-plus'></span></a>
+												            </div>
+												        </form>
+
 													</div>
 												</div>
 												<br />
