@@ -42,14 +42,15 @@ $(function(){
 
 	var host = window.location.hostname;
 	
-
+console.log(host);
 	var sock = new WebSocket( "ws://" + host + ":8080");
    
    	var current_uid = null;
    	var current_tag = null;
    	var tag_is_known = false;
    	sock.onopen = function(){
-	   sock.onmessage = function(evt){
+	console.log("socket open");	   
+sock.onmessage = function(evt){
 	     	
 	     	console.log(evt.data);
 	     	data = JSON.parse(evt.data)

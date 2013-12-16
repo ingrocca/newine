@@ -65,6 +65,7 @@ class NewineServer < Sinatra::Application
 			$channel.push({:dispenser=>{:id=> @dispenser.id,:online=>true}}.to_json)
 			return {:id => @dispenser.id}.to_json
 		else
+			p "Unknown uid: " + data["uid"]
 			return {:id => 0}.to_json
 		end
 	end

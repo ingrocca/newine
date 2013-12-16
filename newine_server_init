@@ -1,4 +1,3 @@
 chmod a+rw /dev/i2c-1
-start-stop-daemon --pid /var/run/thin.pid -S --startas '/usr/bin/thin' -- start -p 3000 -l thin.log -c /home/newine/newine_server/ -d -P /var/run/thin.pid
+daemon --chdir=/home/newine/newine_server --output=/home/newine/thin.log -- /usr/bin/ruby run.rb
 daemon --respawn --chdir=/home/newine/newine_server --output=/home/newine/nfc.log -- /usr/bin/rake nfc:work
-

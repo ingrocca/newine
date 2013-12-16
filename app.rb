@@ -21,6 +21,10 @@ class NewineServer < Sinatra::Application
 		@@cache
 	end
 
+	configure do
+		set :threaded,false
+	end
+
 	helpers do
 		def format_render fmt, view
 			case fmt
