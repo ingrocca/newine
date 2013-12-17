@@ -1,3 +1,3 @@
-daemon --chdir=/home/newine/newine_server --output=/home/newine/thin.log -- /usr/bin/ruby app.rb
-daemon --chdir=/home/newine/newine_server --output=/home/newine/nfc.log -- /usr/bin/rake nfc:work
-
+chmod a+rw /dev/i2c-1
+daemon --chdir=/home/newine/newine_server --output=/home/newine/thin.log -- /usr/bin/ruby run.rb
+daemon --respawn --chdir=/home/newine/newine_server --output=/home/newine/nfc.log -- /usr/bin/rake nfc:work

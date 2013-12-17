@@ -6,13 +6,14 @@ namespace :nfc do
 		begin
 			cache =  NewineServer.cache
 			
+			p "Opening context"
 			ctx = NFC::Context.new
-	
+			p "Opening device"
 			devnm = "pn532_i2c:/dev/i2c-1"
 			# Open the first available USB device
 			dev = ctx.open devnm
 	
-			
+			p "Starting loop"
 			loop do
 				while(cache.get('nfc_uid'))
 					sleep(0.020)
@@ -26,6 +27,7 @@ namespace :nfc do
 				end
 	
 				if d.respond_to? :uid
+					p "Tag found"
 					cache.set('nfc_uid',d.uid.map{|n| "%02x"%n}.join(''))
 				end
 				sleep 0.05
@@ -34,7 +36,7 @@ namespace :nfc do
 		rescue Exception => e
 			p "Error!"
 			p e.message
-			retry
+			raise e
 		end
 	end
 end
