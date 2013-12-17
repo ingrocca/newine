@@ -26,12 +26,15 @@ class NewineServer < Sinatra::Application
 		erb :"servings/index"
 	end
 
-	get '/servings/:id.?:format?' do
+	get '/servings/:id.json' do
 		@serving = Serving.where(:id => params[:id]).first
 		if @serving.nil?
 			raise Sinatra::NotFound
 		end
-		format_render params[:format], :"servings/show"
+		format_render 'json', :"servings/show"
+	end
+	get '/servings/:id' do
+		redirect to('/servings')
 	end
 
 	post '/servings.json' do
@@ -87,7 +90,7 @@ class NewineServer < Sinatra::Application
 					Event.log(
 							"Compra",
 							"Cliente: " + @serving.tag.user.name + ", Vino: " + @serving.wine.name + ", Precio: " + @serving.price.to_s,
-							"/servings/" + @serving.id.to_s,
+							"/servings",
 							0x55EE88,
 							"new_serving")
 
