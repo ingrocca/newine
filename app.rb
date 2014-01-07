@@ -105,6 +105,8 @@ def run_newine
 						d.online = false
 						d.save
 						$channel.push({:dispenser=>{:id=> d.id,:online=>false}}.to_json)
+					elsif d.last_registration > 1.minutes.ago
+						d.configure rescue nil
 					end
 				end
 				sleep 30

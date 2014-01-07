@@ -12,6 +12,7 @@ class NewineServer < Sinatra::Application
 
 	get '/users/tags/:uid.json' do
 		@tag = Tag.where(:uid => params[:uid]).first
+		p 'UID: ' + params[:uid]
 		if @tag.nil?
 			@user = User.new(:valid_user => false)
 			@tag = Tag.new

@@ -1,7 +1,7 @@
 class NewineServer < Sinatra::Application
 
 	get  '/report.xls' do
-		response['Content-Disposition'] = "attachent; filename=newine_report.xls"
+		response['Content-Disposition'] = "attachment; filename=newine_report.xls"
     	content_type 'application/xls'
 
 		params[:t] = 1 if !params[:t]
@@ -69,7 +69,7 @@ class NewineServer < Sinatra::Application
 			@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
 
 			@serving.tag = Tag.where(:uid => @serving.uid).first
-			if comp && @serving.tag && @serving.tag.user && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
+			if comp && @serving.tag && @serving.tag.user && @serving.tag.user.client_type == 'customer' && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
 
 				@serving.tag.credit -= @serving.price rescue 0
 				if @serving.tag.nil? || (@serving.tag.credit <= 0 && !(@serving.tag.user.client_type == 'manager' || @serving.tag.user.client_type == 'superclient')) || !@serving.wine
