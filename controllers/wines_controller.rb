@@ -4,8 +4,10 @@ class NewineServer < Sinatra::Application
 		if params[:q]
 			@wines = Wine.where('name like ? or vintage like ? or variety like ? or brand like ?','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%').
 			paginate(:page=>params[:page], :per_page=>5)
-		else
+		elsif params[:format] != 'json'
 			@wines = Wine.paginate(:page=>params[:page], :per_page=>5)
+		else
+			@wines = Wine.all
 		end
 		format_render params[:format], :"wines/index"
 	end
