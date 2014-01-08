@@ -21,7 +21,7 @@ json.bottle_holders do
 	
 end
 json.temperature_controls do
-	json.array!(@dispenser.temperature_controls) do |tc|
+	json.array!(@dispenser.temperature_controls.reverse) do |tc|
 		json.(tc, :id, :temperature)
 		json.dispenser_index tc.dispenser_index+1
 	end
