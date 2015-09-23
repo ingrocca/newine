@@ -251,3 +251,10 @@ a:active {text-decoration:none;}
 .centered{
   text-align: center;
 }
+.no-padding{
+  padding: 0px;
+}
+.wine-search-button{
+  margin-left: auto;
+  margin-right: auto
+}
