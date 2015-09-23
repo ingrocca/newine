@@ -239,3 +239,15 @@ a:active {text-decoration:none;}
     color: black; }
     .apple_pagination a:hover, .apple_pagination a:focus {
       text-decoration: underline; }
+
+.new-dispenser-button{
+  margin-bottom: 20px;
+}
+.dispenser-panel{
+
+  margin-left: auto;
+  margin-right: auto;
+}
+.centered{
+  text-align: center;
+}
