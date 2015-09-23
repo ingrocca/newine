@@ -3,15 +3,15 @@
 <script src='/assets/js/users_index.js'></script>
 <div class='container'>
 	<div class='row'>
-		<div class='col-lg-4'>
-			<h2>Clientes</h2>
+		<div class='col-lg-12'>
+			<h2 class='centered'>Clientes</h2>
 			<div class='row' style='padding-bottom:10px;'>
-				<div class='col-lg-10 col-offset-2'>
+				<div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1'>
 					<form class='form-search form-inline' action='/users' method='get'>
-						<div class='col-lg-8'>
+						<div class='col-lg-10 col-xs-10'>
 							<input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
 						</div>
-						<div class='col-lg-3'>
+						<div class='col-lg-2 col-xs-2'>
 							<button class='btn btn-search'>Buscar</button>
 						</div>
 					</form>
@@ -21,9 +21,9 @@
 		</div>
 	</div>
 	<div class='row'>
-		<div class='col-lg-4'>
+		<div class='col-lg-12'>
 			<div class='row'>
-				<div class='col-lg-10 col-offset-2 apple_pagination'>
+				<div class='col-lg-10 col-lg-offset-1 apple_pagination'>
 					<%= will_paginate @users %>
 				</div>
 			</div>
