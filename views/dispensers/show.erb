@@ -31,13 +31,12 @@
 	
 </script>
 <script type="text/template" id='bottle-holder-controls-template'>
-	
 		<div class='col-md-8 col-md-offset-2 hidden bh-control' data-bottle-holder-id={{id}}>
 			<div class='panel panel-default'>
 				<div class='panel-body'>
 						<div class='row'>
 							<div class='col-xs-2' style='margin:0px;padding:0px;'>
-								<br />
+								<br/>
 								<img src='/assets/img/bottle-icon.png' width='100%' />
 							</div>
 							<div class='col-xs-4 col-xs-offset-1' style='vertical-align:middle;'>
@@ -99,20 +98,20 @@
 </script>
 <script type="text/template" id='temperature-controls-template'>
 
-	<div class='col-md-3'>
+	<div class='col-xs-12 col-sm-6 col-lg-6'>
 		<div class='panel panel-default' style="margin-top: 15px;">
 			<div class='panel-body' style='padding: 8px;'>
 				<form class='temperature-form' data-temperature-control-id={{id}}>
 						
 					
-						<div class='col-md-2'>
+						<div class='col-xs-2'>
 							<img class='pull-left' src='/assets/img/temperature-icon.png' width=30 height=30 />
 						</div>
-							<div class="col-md-4" style="padding-right: 0px;">							
+							<div class="col-xs-4" style="padding-right: 0px;">							
 								<input name='temperature' type="number" class='temperature-input form-control' value={{temperature}} data-temperature-control-id={{id}} style="">
 								
 							</div>
-							<div class='col-md-5' style="">
+							<div class='col-xs-5' style="">
 							<label style="padding-top: 5px;">ºC</label>
 							<a class="update-temperature btn btn-success btn-sm pull-right" data-temperature-control-id={{id}}><span class='glyphicon glyphicon-ok'></span></a>
 							</div>					
@@ -138,16 +137,14 @@
 </div>
 <div class='container'>
 	<div class='row'>
-		<div class='col-md-3' style='padding-left: 40px;'>
+		<div class='col-lg-12 centered' style='padding-left: 40px;'>
 			<h2> Dispenser <%= @dispenser.id %></h2>
 			<span id='online_label' class='label <%= @dispenser.online ? 'label-success' : 'label-danger' %>'> <%= @dispenser.online ? 'online' : 'offline' %></span>
 		</div>
-		<div id='temperature-controls-container'>
+		<div id='temperature-controls-container' class="col-xs-10 col-xs-offset-1 col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 centered">
 		</div>
-		<div class='col-md-3' style='vertical-align:middle; margin-top:20px;'>
-			<p>
-				<a class='btn btn-danger' id='shutdown-dispenser'>Apagar</a>
-			</p>
+		<div class='col-md-2 ol-sm-offset-1 col-sm-10 col-xs-offset-1 col-md-offset-0 col-xs-10 centered' style='vertical-align:middle; margin-top:20px;'>
+			<p><a class='btn btn-danger' id='shutdown-dispenser'>Apagar</a></p>
 		</div>
 	</div>
 	<div class='row' style='height:4<%= @dispenser.n_bottles.to_s%>0px;'>
