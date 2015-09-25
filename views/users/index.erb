@@ -28,11 +28,12 @@
 				</div>
 			</div>
 			<div class='row'>
+				<div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
 
-				<div id='users-container'>
+					<div id='users-container' class='col-lg-12'>
 					<% @users.each do |user| %>
 						<div class='row'>
-							<div class='col-lg-10 col-offset-2'>
+							<div class='col-lg-12'>
 								
 								<div class='panel panel-default panel-link user-link' data-id=<%= user.id.to_s %>>
 									<div class='panel-body'>
@@ -50,49 +51,46 @@
 					<% end %>
 
 				</div>
-			</div>
-		</div>
-		<div class='col-lg-8'>
-			
-			<div id='user-details-container'>
-					<% @users.each do |user| %>
-						<div class='row user-data hidden' data-user-id=<%= user.id.to_s %>>
-							<div class='col-lg-10 col-offset-2'>
-								
-								<div class='panel panel-default' style='min-height: 300px;'>
-									<div class='panel-body'>
-										
-										
-											<span style="padding-left:10px;">									
-												<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>
-												<a class='edit_user btn btn-warning pull-right' data-user-id=<%= user.id.to_s %>>Editar</a>
-											</span>
-											<hr />
-											<div class='user_info' data-user-id=<%= user.id.to_s %>>
-												<p style="padding-left:10px;">									
-													<strong>DNI:</strong> <%= user.dni %>
-												</p>
-												<br />
-												<p style="padding-left:10px;">									
-													<strong>Email:</strong> <%= user.email %>
-												</p>
-												<br />
-												<p style="padding-left:10px;">									
-													<strong>Teléfono:</strong> <%= user.phone %>
-												</p>
-												<br />
-												<p style="padding-left:10px;">									
-													<strong>Tipo:</strong> <%= user.client_type_human %>
-												</p>
-												<br />
-											</div>
-											<form style='padding-bottom:20px;' class='form-horizontal user_edit_form hidden' data-user-id=<%= user.id.to_s %> action='/users/edit/<%= user.id.to_s %>' method='post'>
-												<div class="form-group">
-						            				<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
+				</div>
+				<div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
+					<div class='col-xs-12'>
+						<div id='user-details-container'>
+								<% @users.each do |user| %>
+									<div class='row user-data hidden' data-user-id=<%= user.id.to_s %>>
+										<div class='col-xs-12'>
+											
+											<div class='panel panel-default' style='min-height: 300px;'>
+												<div class='panel-body'>
+														<span style="padding-left:10px;">									
+															<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>
+															<a class='edit_user btn btn-warning pull-right' data-user-id=<%= user.id.to_s %>>Editar</a>
+														</span>
+														<hr />
+														<div class='user_info' data-user-id=<%= user.id.to_s %>>
+															<p style="padding-left:10px;">									
+																<strong>DNI:</strong> <%= user.dni %>
+															</p>
+															<br />
+															<p style="padding-left:10px;">									
+																<strong>Email:</strong> <%= user.email %>
+															</p>
+															<br />
+															<p style="padding-left:10px;">									
+																<strong>Teléfono:</strong> <%= user.phone %>
+															</p>
+															<br />
+															<p style="padding-left:10px;">									
+																<strong>Tipo:</strong> <%= user.client_type_human %>
+															</p>
+															<br />
+														</div>
+														<form style='padding-bottom:20px;' class='form-horizontal user_edit_form hidden' data-user-id=<%= user.id.to_s %> action='/users/edit/<%= user.id.to_s %>' method='post'>
+															<div class="form-group">
+									            	<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
 									            	<div class='col-lg-6'>
 									           			<input type='text' name='user[name]' class='form-control' value='<%= user.name %>'>
 									           		</div>
-									           	</div>
+												      </div>
 									           	<div class="form-group">
 									            	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
 									            	<div class='col-lg-6'>
@@ -117,71 +115,94 @@
 									           			<input type='text' name='user[phone]' class='form-control' value='<%= user.phone %>'>
 									           		</div>
 									           	</div>
-									           	<div class="form-group">
-													<div class="col-sm-3">
-														<div class="checkbox">
-												    		<label>
-												        		<input type="radio" name='user[permissions]' value='customer' <%= user.client_type=='customer' ? 'checked' : '' %>> Cliente
-												        	</label>
-												    	</div>
-												    </div>
-												    <div class="col-sm-3">
-														<div class="checkbox">
-												    		<label>
-												        		<input type="radio" name='user[permissions]' value='superclient' <%= user.client_type=='superclient' ? 'checked' : '' %>> SuperCliente
-												        	</label>
-												    	</div>
-												    </div>
-												    <div class="col-sm-3">
-														<div class="checkbox">
-												    		<label>
-												        		<input type="radio" name='user[permissions]' value='employee' <%= user.client_type=='employee' ? 'checked' : '' %>> Empleado
-												        	</label>
-												    	</div>
-												    </div>
-												    <div class="col-sm-3">
-														<div class="checkbox">
-												    		<label>
-												        		<input type="radio" name='user[permissions]' value='manager' <%= user.client_type=='manager' ? 'checked' : '' %>> Gerente
-												        	</label>
-												    	</div>
-												    </div>
-												</div>
-									           	<div class='col-lg-offset-3'>
-													<button class='btn btn-primary'>Guardar</button>
-													<a class='btn btn-default cancel_edit'>Cancelar</a>
-												</div>
-											</form>
-											<% user.tags.each do |tag| %>
-												<div class='panel panel-default tag-panel' data-tag-id=<%= tag.id %>>
-													<div class='panel-body'>
-														<p style="padding:10px;">									
-															<strong>Tarjeta:</strong> <%= tag.uid %>, crédito: $<%= tag.credit.to_s %>
-														</p>
-														<a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
-														<form class='form-horizontal'>
-															<div class="form-group">
-												            	<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
-												            	<div class='col-lg-4'>
-												            		<input type='number' name='credit' class='form-control credit_to_add' data-tag-id=<%= tag.id %>>
+												      <div class="form-group">
+																<div class="col-sm-3 no-padding">
+																	<div class="checkbox">
+															    		<label>
+															        		<input type="radio" name='user[permissions]' value='customer' <%= user.client_type=='customer' ? 'checked' : '' %>> Cliente
+															        	</label>
+															    	</div>
+															    </div>
+															    <div class="col-sm-3 no-padding">
+																	<div class="checkbox">
+															    		<label>
+															        		<input type="radio" name='user[permissions]' value='superclient' <%= user.client_type=='superclient' ? 'checked' : '' %>> SuperCliente
+															        	</label>
+															    	</div>
+															    </div>
+															    <div class="col-sm-3 no-padding">
+																	<div class="checkbox">
+															    		<label>
+															        		<input type="radio" name='user[permissions]' value='employee' <%= user.client_type=='employee' ? 'checked' : '' %>> Empleado
+															        	</label>
+															    	</div>
+															    </div>
+															    <div class="col-sm-3 no-padding">
+																	<div class="checkbox">
+															    		<label>
+															        		<input type="radio" name='user[permissions]' value='manager' <%= user.client_type=='manager' ? 'checked' : '' %>> Gerente
+															        	</label>
+															    	</div>
+															    </div>
+															</div>
+												      <div class='col-lg-offset-3'>
+																<button class='btn btn-primary'>Guardar</button>
+																<a class='btn btn-default cancel_edit'>Cancelar</a>
+															</div>
+														</form>
+														<% user.tags.each do |tag| %>
+															<div class='panel panel-default tag-panel' data-tag-id=<%= tag.id %>>
+																<div class='panel-body'>
+																	<div class='row'>
+																		<div class='col-xs-12'>
+													            <a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
+													          </div>
+																	</div>
+																	<div class='row'>
+																		<div class='col-lg-12 col-xs-12'>
+																			<p style="padding:10px;"><strong>Tarjeta:</strong> <%= tag.uid %>, crédito: $<%= tag.credit.to_s %></p>
+													          </div>
+																	</div>
+																	<div class='row'>
+																		<form class='form-horizontal'>
+																		<div class="form-group">
+																			<div class='col-lg-3 col-sm-3 col-xs-12'>
+																				<p style="padding-left:10px;"><label  for='credit' class='col-lg-3 col-sm-3 col-xs-12 control-label'>Recarga:</label></p>
+																			</div>
+												            	
+												            	<div class='col-lg-4 col-sm-4 col-xs-8'>
+												            		<div style="padding-left:10px; padding-top:5px;">
+												            			<div style="padding-left:10px;">
+												            				<input type='number' name='credit' class='form-control credit_to_add' data-tag-id=<%= tag.id %>>
+												            			</div>
+												            		</div>
+												            		
 												            	</div>
-												            	<a data-tag-id=<%= tag.id %> data-tag-uid=<%= tag.uid %> class='btn btn-success btn-med add_credit'><span class='glyphicon glyphicon-plus'></span></a>
-												            </div>
-												        </form>
+												            	<div class='col-lg-3 col-sm-3 col-xs-2'>
+												            		<a style="padding:10px;" data-tag-id=<%= tag.id %> data-tag-uid=<%= tag.uid %> class='btn btn-success btn-med add_credit'><span class='glyphicon glyphicon-plus'></span></a>
+												            	</div>
+												            	
+															      </div>
+															    </form>
+																	</div>
+																</div>
+															</div>
+															<br />
+														<% end %>
 
-													</div>
 												</div>
-												<br />
-											<% end %>
-
+											</div>
+										
+										</div>
 									</div>
-								</div>
-							
-							</div>
-						</div>
-					<% end %>
+								<% end %>
 
+							</div>
+					</div>
 				</div>
+				
+			</div>
 		</div>
+
 	</div>
 </div>
