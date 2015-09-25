@@ -14,7 +14,7 @@
 </script>
 <script type="text/template" id='events-template'>
 	<div class='row' style={{&style}}>
-		<div class='col-lg-12  col-xs-12 panel-link' style="border-bottom: 1px #999 solid; margin-top: 4px; margin-left: 4px;">
+		<div class='col-lg-12 col-xs-12 panel-link' style="border-bottom: 1px #999 solid; margin-top: 4px; margin-left: 4px;">
 			<a href={{link_url}} class=''>
 				<div>								
 					<p>{{timestamp}}: <strong>{{title}}</strong> - {{description}}</p>														
@@ -26,7 +26,7 @@
 </script>
 <script type="text/template" id='tags-template'>
 	<div class='row' style={{&style}}>
-		<div class='col-lg-8  col-lg-offset-2 panel panel-default panel-link'>
+		<div class='col-lg-8 col-lg-offset-2 panel panel-default panel-link'>
 			<a href='/users/tags/{{uid}}' class='panel-body'>
 				<div>								
 					<p><strong>ID:</strong> {{uid}}</p>														
@@ -139,117 +139,124 @@
 
 							<div id='existing-card-group'>
 								<div class="form-group">
-					            	<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
-					            	<div class='col-lg-4'>
-					            		<input type='number' name='credit' class='form-control' id="credit_to_add">
-					            	</div>
-					            	<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
-					            </div>
-					            <div class="form-group">
-					            	<a id='format_tag' class='btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
-					            </div>
-					        </div>
-				        	<div class='new-card-group'>
-				        		<input type='hidden' name='tag[uid]' id='tag_uid_hidden' value=null>
-				        		<div class="form-group">
-					            	<label for='tag[credit]' class='col-lg-3 control-label'>Carga inicial:</label>
-					            	<div class='col-lg-4'>
-					            		<input type='number' name='tag[credit]' class='form-control'>
-					            	</div>
-					            	<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
-					            </div>
-					            <div class="form-group">
-					            	<div class='col-lg-8 col-lg-offset-3'>
-						            	<a id='existing_user' class='btn btn-success btn-med active'>Asignar a usuario</a>
-						            	<a id='create_new_user' class='btn btn-success btn-med'>Nuevo usuario</a>
-						            </div>
-					            </div>
+									<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+	        					<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
+	        				</div>
+		            	<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+		            		<input type='number' name='credit' class='form-control' id="credit_to_add">
+		            	</div>
+		            	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
+		            		<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+		            	</div>
+		            </div>
+		            <div class="form-group">
+		            	<a id='format_tag' class='btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
+		            </div>
+					    </div>
+				      <div class='new-card-group'>
+				        <input type='hidden' name='tag[uid]' id='tag_uid_hidden' value=null>
+	        		  <div class="form-group">
+	        				<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+	        					<label for='tag[credit]' class='col-lg-3 control-label'>Carga inicial:</label>
+	        				</div>
+		            	<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+		            		<input type='number' name='tag[credit]' class='form-control'>
+		            	</div>
+		            	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
+		            		<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+		            	</div>
+		            </div>
+		            <div class="form-group">
+		            	<div class='col-lg-8 col-lg-offset-3 col-xs-12 centered'>
+			            	<a id='existing_user' class='btn btn-success btn-med active'>Asignar a usuario</a>
+			            	<a id='create_new_user' class='btn btn-success btn-med'>Nuevo usuario</a>
+			            </div>
+		            </div>
 
-					            <div id='existing_user_fields'>
-						            <div class="form-group">
-						            	<label for='user_search' class='col-lg-3 control-label'>Buscar usuario:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='search' name='user_search' id='user_search' class='form-control'>
-						           		</div>
-						           		<a id='search_users' class='btn btn-success btn-med'><span class='glyphicon glyphicon-ok'></span></a>
-						           	</div>
+		            <div id='existing_user_fields'>
+			            <div class="form-group">
+			            	<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+		        					<label for='user_search' class='col-lg-3 control-label'>Buscar usuario:</label>
+		        				</div>
+			            	
+			            	<div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
+			           			<input type='search' name='user_search' id='user_search' class='form-control'>
+			           		</div>
+			           		<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
+			           			<a id='search_users' class='btn btn-success btn-med'><span class='glyphicon glyphicon-ok'></span></a>
+			           		</div>
+			           	</div>
 
-						            <div id='users-for-tag' class='form-group'>
-						            	<div class='col-lg-4 col-lg-offset-3'>
-							        		<select name='tag[user_id]' id='tag_user_id' size=5 class='form-control'>
+			            <div id='users-for-tag' class='form-group'>
+			            	<div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
+				        		<select name='tag[user_id]' id='tag_user_id' size=5 class='form-control'>
 
-							        		</select>
-							        	</div>
-						        	</div>
-						        </div>
-						        <div id='new_user_fields'>
-						        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
-						        	<div class="form-group">
-						            	<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='text' name='user[name]' class='form-control'>
-						           		</div>
-						           	</div>
-						           	<div class="form-group">
-						            	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='text' name='user[surname]' class='form-control'>
-						           		</div>
-						           	</div>
-						           	<div class="form-group">
-						            	<label for='user[dni]' class='col-lg-3 control-label'>DNI:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='text' name='user[dni]' class='form-control'>
-						           		</div>
-						           	</div>
-						           	<div class="form-group">
-						            	<label for='user[email]' class='col-lg-3 control-label'>Email:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='text' name='user[email]' class='form-control'>
-						           		</div>
-						           	</div>
-						           	<div class="form-group">
-						            	<label for='user[phone]' class='col-lg-3 control-label'>Teléfono:</label>
-						            	<div class='col-lg-4'>
-						           			<input type='text' name='user[phone]' class='form-control'>
-						           		</div>
-						           	</div>
-
-						           	<div class="form-group">
-										<div class="col-sm-3">
-											<div class="checkbox">
-									    		<label>
-									        		<input type="radio" name='user[permissions]' value='customer' checked> Cliente
-									        	</label>
-									    	</div>
-									    </div>
-									    <div class="col-sm-3">
-											<div class="checkbox">
-									    		<label>
-									        		<input type="radio" name='user[permissions]' value='superclient' checked> SuperCliente
-									        	</label>
-									    	</div>
-									    </div>
-									    <div class="col-sm-3">
-											<div class="checkbox">
-									    		<label>
-									        		<input type="radio" name='user[permissions]' value='employee'> Empleado
-									        	</label>
-									    	</div>
-									    </div>
-									    <div class="col-sm-3">
-											<div class="checkbox">
-									    		<label>
-									        		<input type="radio" name='user[permissions]' value='manager'> Gerente
-									        	</label>
-									    	</div>
-									    </div>
-									</div>
-						        </div>
+				        		</select>
 				        	</div>
-				        	
+			        	</div>
+			        </div>
+			        <div id='new_user_fields'>
+			        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
+			        	<div class="form-group">
+		            	<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
+		            	<div class='col-lg-4'>
+		           			<input type='text' name='user[name]' class='form-control'>
+		           		</div>
+			          </div>
+		           	<div class="form-group">
+		            	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
+		            	<div class='col-lg-4'>
+		           			<input type='text' name='user[surname]' class='form-control'>
+		           		</div>
+		           	</div>
+		           	<div class="form-group">
+		            	<label for='user[dni]' class='col-lg-3 control-label'>DNI:</label>
+		            	<div class='col-lg-4'>
+		           			<input type='text' name='user[dni]' class='form-control'>
+		           		</div>
+		           	</div>
+		           	<div class="form-group">
+		            	<label for='user[email]' class='col-lg-3 control-label'>Email:</label>
+		            	<div class='col-lg-4'>
+		           			<input type='text' name='user[email]' class='form-control'>
+		           		</div>
+		           	</div>
+		           	<div class="form-group">
+		            	<label for='user[phone]' class='col-lg-3 control-label'>Teléfono:</label>
+		            	<div class='col-lg-4'>
+		           			<input type='text' name='user[phone]' class='form-control'>
+		           		</div>
+		           	</div>
 
-						</div>
+			          <div class="form-group">
+									<div class="col-sm-3 no-padding">
+								    <div class="checkbox">
+						    		  <label>
+						        		<input type="radio" name='user[permissions]' value='customer' checked> Cliente
+						        	</label>
+						    	  </div>
+						      </div>
+							    <div class="col-sm-3 no-padding">
+										<div class="checkbox">
+							    		<label>
+							        		<input type="radio" name='user[permissions]' value='superclient' checked> SuperCliente
+							        	</label>
+							    	</div>
+							    </div>
+							    <div class="col-sm-3 no-padding">
+										<div class="checkbox">
+							    		<label><input type="radio" name='user[permissions]' value='employee'> Empleado</label>
+							    	</div>
+							    </div>
+							    <div class="col-sm-3 no-padding">
+										<div class="checkbox">
+							    		<label><input type="radio" name='user[permissions]' value='manager'> Gerente</label>
+							    	</div>
+							    </div>
+								</div>
+			        </div>
+				    </div>
+					</div>
 					</div>
 				</div>
 				<div class='modal-footer new-card-group' id='tag_form_buttons'>
