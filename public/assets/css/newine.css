@@ -106,7 +106,7 @@ a:active {text-decoration:none;}
     height: 160px;
    /* border: 2px solid #ccc;*/
     overflow: hidden;
-    margin-left: 0px;
+    margin-left: -5px;
     margin-top: 180px;  
     position: absolute;
     z-index: 0;
@@ -257,4 +257,80 @@ a:active {text-decoration:none;}
 .wine-search-button{
   margin-left: auto;
   margin-right: auto
+}
+
+.dispenser-8b-row{
+  width: 670px!important;
+  margin-right: auto;
+  margin-left: auto;
+}
+.dispenser-4b-row{
+  width: 350px!important;
+  margin-right: auto;
+  margin-left: auto;
+}
+.dispenser-8b-img{
+  width: 670px!important;
+  margin-right: auto;
+  margin-left: auto;
+  position:absolute;
+}
+.dispenser-4b-img{
+  width: 350px!important;
+  margin-right: auto;
+  margin-left: auto;
+  position:absolute;
+}
+.bottle-8{
+  position:absolute;
+}
+.bottle-4{
+  position:absolute;
+}
+/*MEDIA SIZE*/
+
+@media (max-width: 767px) { /*Para monitores xs*/
+  .dispenser-8b-img{width: 400px!important;}
+  .dispenser-8b-row{width: 400px!important;}
+  .volume-outer-8 {
+    width: 35px;
+    height: 100px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
+    background-color: #EEE;
+    margin-top: 110px;
+  }
+  .dispenser-fg-8 {
+    margin-left: 5px;
+  }
+  .dispenser-fg-8 div:first-child {
+    margin-left: 5px;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) { /*Para monitores sm*/
+
+}
+
+@media (min-width: 992px) and (max-width: 1200px){ /*Para monitores md*/
+
+}
+
+@media (min-width: 1600px){ /*Para monitores de resolucion muy grande*/
+
+}
+
+/* portrait */
+@media screen and (max-width: 767px) and (orientation:portrait) { /*para celulares vertical*/
+    
+}
+/* landscape */
+@media screen and (max-width: 767px) and (orientation:landscape) {  /*para celulares horizontal*/
+
+}
+
+@media screen and (max-width: 991px) and (orientation:landscape){ /*para tablets horizontal*/
+
 }
