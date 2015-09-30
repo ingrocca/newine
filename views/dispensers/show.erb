@@ -16,7 +16,7 @@
 </script>
 <script type="text/template" id='bottle-holders-template'>
 	
-		<div style='width:{{span}}%' class='col-xs-1'>	
+		<div style='width:10.5%' class='col-xs-1'>	
 			<div class='row'>
 				<div class='col-xs-12 no-padding bottle' data-id={{id}}>
 					<div class="volume-outer volume-outer-{{n_bottles}} hover-grow">
@@ -158,7 +158,7 @@
 			<div class='col-xs-12 no-padding'>
 				<div class=''>
 					<img src='/assets/img/<%= @dispenser.n_bottles == 4 ? 'dispenser4-cut.png' : 'dispenser8-cut.png' %>' class='<%= @dispenser.n_bottles == 4 ? 'dispenser-bg dispenser-4b-img' : 'dispenser-bg dispenser-8b-img' %>' >
-					<div id='bottle-holders-container' class='dispenser-fg-<%= @dispenser.n_bottles.to_s %>'>
+					<div id='bottle-holders-container' class=' bottles-row dispenser-fg-<%= @dispenser.n_bottles.to_s %>'>
 					</div>
 				</div>
 			</div>
