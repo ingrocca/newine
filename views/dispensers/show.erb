@@ -16,7 +16,7 @@
 </script>
 <script type="text/template" id='bottle-holders-template'>
 	
-		<div style='width:10.5%' class='col-xs-1'>	
+		<div style='<%= @dispenser.n_bottles == 4 ?  'width:19%' : 'width:10.5%' %>' class='col-xs-1'>	
 			<div class='row'>
 				<div class='col-xs-12 no-padding bottle' data-id={{id}}>
 					<div class="volume-outer volume-outer-{{n_bottles}} hover-grow">
