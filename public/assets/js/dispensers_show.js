@@ -155,7 +155,7 @@ $(function(){
 
 	$('#save-wine-change').click(function(){
 
-		if(current_wine_id!=0){
+		if(current_wine_id != 0){
 			$("#change-wine-modal").modal('hide');
 			$.ajax({
 				type: "POST",
@@ -228,6 +228,26 @@ $(function(){
 				
 			}
 		});
+	});
+	$('#detach-dispenser').click(function(){
+		var reconfirm = confirm("¿Seguro desea eliminar el dispenser?");
+		if (reconfirm){
+			$.ajax({
+				type: "POST",
+				url: '/dispensers/destroy.json',
+				accept: 'json',
+				dataType: 'json',
+				data: JSON.stringify({id: id}),
+				success: function(data){
+					console.log('DESTROY OK');
+					document.location.href="/";
+				}, 
+				error: function() {
+					console.log(arguments);
+				}
+			});
+		}
+		
 	});
 
 });
