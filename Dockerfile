@@ -24,6 +24,4 @@ RUN mkdir -p /app
 
 COPY . /app
 
-RUN cd /app && make all
-
 CMD cd /app && bash newine_server_init
