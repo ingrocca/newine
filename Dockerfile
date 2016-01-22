@@ -20,18 +20,9 @@ RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 
 RUN apt-get install --yes nodejs
 
-RUN npm install -g octalbonescript_capemgr4_1
-
 RUN mkdir -p /app
 
 COPY . /app
-
-RUN cd /app && gem install bundler && bundle install
-
-
-RUN chmod +x /app/bb.org-overlays-master/dtc-overlay.sh
-
-RUN ./app/bb.org-overlays-master/dtc-overlay.sh
 
 RUN cd /app && make all
 
