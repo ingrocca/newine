@@ -35,4 +35,4 @@ RUN ./app/bb.org-overlays-master/dtc-overlay.sh
 
 RUN cd /app && make all
 
-CMD cd /app && bash newine_client_init
+CMD cd /app && bash newine_server_init
