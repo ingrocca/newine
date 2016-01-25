@@ -48,4 +48,9 @@ class NewineServer < Sinatra::Application
 		end
 		format_render 'html', :"wines/index"
 	end
+
+	get '/wines/all.json' do
+		@winess = Wine.all
+		format_render 'json', :"wines/all"
+	end
 end
