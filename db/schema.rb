@@ -37,10 +37,7 @@ ActiveRecord::Schema.define(version: 20160122175447) do
     t.integer  "remaining_volume"
     t.integer  "actual_volume"
     t.boolean  "bottle_status"
-    t.integer  "low_volume"
-    t.integer  "mid_volume"
-    t.integer  "high_volume"
-    t.integer  "micro_volume"
+    t.integer  "serving_volume_micro"
   end
 
   add_index "bottle_holders", ["dispenser_id"], name: "index_bottle_holders_on_dispenser_id"
