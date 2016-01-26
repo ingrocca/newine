@@ -8,7 +8,7 @@ dropbear -E -F &
 
 chmod a+rw /dev/i2c-0
 daemon --chdir=/app --output=/app/thin.log -- /usr/bin/ruby run.rb
-daemon --respawn --chdir=/app --output=/app/nfc.log -- /usr/bin/rake nfc:work
+daemon --respawn --chdir=/app --output=/app/nfc.log -- /usr/bin/rake2.1 nfc:work
 
 
 while true; do sleep 1; done

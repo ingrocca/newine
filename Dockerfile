@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install \
   dropbear \
   thin \
   curl \
-  device-tree-compiler
+  device-tree-compiler \
+  git-core \
+  libsqlite3-dev
 
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 
@@ -23,5 +25,11 @@ RUN apt-get install --yes nodejs
 RUN mkdir -p /app
 
 COPY . /app
+
+RUN gem install i18n -v '0.6.5'
+RUN gem install require_all -v '1.3.1'
+RUN gem install atomic -v '1.1.14'
+RUN gem install sqlite3 -v '1.3.8'
+RUN cd /app && gem install bundler && bundler install
 
 CMD cd /app && bash newine_server_init
