@@ -40,6 +40,7 @@ class NewineServer < Sinatra::Application
 			redirect to('/wines')
 		end
 	end
+
 	post '/wines/edit/:id' do
 		@wines = Wine.where(:id => params[:id]).paginate(:page=>params[:page], :per_page=>5)
 		@wine = @wines.first
@@ -49,8 +50,8 @@ class NewineServer < Sinatra::Application
 		format_render 'html', :"wines/index"
 	end
 
-	get '/wines/all.json' do
-		@winess = Wine.all
+	get '/all_wines.json' do
+		@wines = Wine.all
 		format_render 'json', :"wines/all"
 	end
 end
