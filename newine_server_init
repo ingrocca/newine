@@ -6,7 +6,7 @@ echo "root:$PASSWD" | chpasswd
 #Spawn dropbear
 dropbear -E -F &
 
-chmod a+rw /dev/i2c-0
+chmod a+rw /dev/i2c-1
 daemon --chdir=/app --output=/app/thin.log -- /usr/bin/ruby run.rb
 daemon --respawn --chdir=/app --output=/app/nfc.log -- /usr/bin/rake2.1 nfc:work
 
