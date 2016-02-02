@@ -28,13 +28,16 @@ RUN mkdir -p /app
 
 COPY . /app
 
-CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':')
-CMD mkdir -p /mnt
-CMD mount $configdev /mnt
-CMD sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json
-CMD sync
-CMD umount /mnt
-CMD connmanctl tether wifi on NewineWAP 123456789
+RUN gem install i18n -v '0.6.5'
+RUN gem install require_all -v '1.3.1'
+RUN gem install atomic -v '1.1.14'
+RUN gem install sqlite3 -v '1.3.8'
+RUN cd /app && gem install bundler && bundler install
 
-
-CMD cd /app && bash newine_server_init
+CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
+  && mount $configdev /mnt \
+  && sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json \
+  && sync \
+  && umount /mnt \
+  && connmanctl tether wifi on NewineWAP 123456789 \
+  && cd /app && bash newine_server_init
