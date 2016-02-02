@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install \
   connman
 
 RUN configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':')
+RUN mkdir -p /mnt
 RUN mount $configdev /mnt
 RUN sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json
 RUN sync
