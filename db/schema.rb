@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203190741) do
+ActiveRecord::Schema.define(version: 20160203221921) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20160203190741) do
   end
 
   add_index "bottle_holders", ["dispenser_id"], name: "index_bottle_holders_on_dispenser_id"
+
+  create_table "categories", force: true do |t|
+    t.string   "type"
+    t.integer  "percentage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "dispensers", force: true do |t|
     t.string   "uid"
