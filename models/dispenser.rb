@@ -1,9 +1,14 @@
 class Dispenser < ActiveRecord::Base
 	has_many :bottle_holders, :dependent => :destroy
 	has_many :temperature_controls, :dependent => :destroy
+	has_many :special_events, :dependent => :destroy
 
 	validates :uid, :uniqueness => true
 	#after_save :create_bottle_holders, :on => :create
+
+	def to_s
+		name
+	end
 
 	def create_bottle_holders
 		self.n_bottles.times do |t|

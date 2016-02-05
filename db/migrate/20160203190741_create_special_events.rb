@@ -4,7 +4,7 @@ class CreateSpecialEvents < ActiveRecord::Migration
   		t.string :type
   		t.string :name
   		t.integer :percentage
-  		t.belongs_to :disperser, index: true
+  		t.belongs_to :dispenser, index: true
   		t.belongs_to :bottle_holder, index: true
   		t.timestamps
   	end
