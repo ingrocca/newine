@@ -33,8 +33,7 @@ RUN gem install require_all -v '1.3.1'
 RUN gem install atomic -v '1.1.14'
 RUN gem install sqlite3 -v '1.3.8'
 RUN cd /app && gem install bundler && bundler install
-
-RUN rake db:migrate
+RUN cd /app && rake db:migrate
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
