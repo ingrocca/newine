@@ -34,6 +34,8 @@ RUN gem install atomic -v '1.1.14'
 RUN gem install sqlite3 -v '1.3.8'
 RUN cd /app && gem install bundler && bundler install
 
+RUN rake db:migrate
+
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
   && sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json \

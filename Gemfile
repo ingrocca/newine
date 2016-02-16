@@ -22,6 +22,9 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'statistics'
 
+gem 'rake'
+
+
 group :development do
   gem "tux"
 end
