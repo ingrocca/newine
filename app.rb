@@ -14,7 +14,7 @@ set :database, "sqlite3:///db/newine.sqlite3"
 class NewineServer < Sinatra::Application
 
 	options = { :namespace => "newine", :compress => false }
-	@@cache = Dalli::Client.new('localhost:11211', options)
+	@@cache = Dalli::Client.new('127.0.0.1:11211', options)
 
 	def self.cache
 		@@cache
@@ -67,7 +67,7 @@ require_all 'controllers'
 def run_newine
 	EM.run do
 		$channel = EM::Channel.new
-	 
+
 		EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 8080) do |ws|
 			ws.onopen {
 				sid = $channel.subscribe { |msg| ws.send msg }
