@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install \
   memcached
 
 
-RUN memcached -d -u  root
+
 
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 
@@ -45,4 +45,5 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && sync \
   && umount /mnt \
   && connmanctl tether wifi on NewineWAP 123456789 \
+  && memcached -d -u  root\
   && cd /app && bash newine_server_init
