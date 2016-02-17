@@ -19,11 +19,6 @@ RUN apt-get update && apt-get install \
   libsqlite3-dev \
   connman \
   libevent-dev \
-  mysql-server \
-  php5-mysql \
-  php5 \
-  php5-memcached \
-  
   memcached
 
 
