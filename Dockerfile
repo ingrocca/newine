@@ -17,8 +17,17 @@ RUN apt-get update && apt-get install \
   device-tree-compiler \
   git-core \
   libsqlite3-dev \
-  connman
+  connman \
+  libevent-dev \
+  mysql-server \
+  php5-mysql \
+  php5 \
+  php5-memcached \
+  
+  memcached
 
+
+RUN memcached -d -u  root
 
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 
