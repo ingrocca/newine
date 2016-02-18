@@ -45,5 +45,5 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && sync \
   && umount /mnt \
   && connmanctl tether wifi on NewineWAP 123456789 \
-  && memcached -d -u  root\
+  && memcached -d -u  root \
   && cd /app && bash newine_server_init
