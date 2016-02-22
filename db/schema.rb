@@ -43,8 +43,10 @@ ActiveRecord::Schema.define(version: 20160203221921) do
   add_index "bottle_holders", ["dispenser_id"], name: "index_bottle_holders_on_dispenser_id"
 
   create_table "categories", force: true do |t|
-    t.string   "type"
-    t.integer  "percentage"
+    t.string   "name"
+    t.integer  "low_percentage"
+    t.integer  "med_percentage"
+    t.integer  "high_percentage"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

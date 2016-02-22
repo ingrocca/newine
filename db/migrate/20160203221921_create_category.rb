@@ -1,8 +1,10 @@
 class CreateCategory < ActiveRecord::Migration
 	def change
   	create_table :categories do |t|
-  		t.string :type
-  		t.integer :percentage
+  		t.string :name
+  		t.integer :low_percentage
+  		t.integer :med_percentage
+  		t.integer :high_percentage
   		t.timestamps
   	end
   end
