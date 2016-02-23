@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :tags
 	has_many :servings
+	belongs_to :category
 
 	def permissions=(val)
 
