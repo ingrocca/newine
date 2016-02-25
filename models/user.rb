@@ -3,27 +3,25 @@ class User < ActiveRecord::Base
 	has_many :servings
 	belongs_to :category
 
-	def permissions=(val)
+	validates :client_type, inclusion: { in: %w(customer employee manager), message: "%{value} no es un tipo válido"}
 
+	def permissions=(val)
 		case val
 		when 'customer'
-			can_clean = false
-			can_detach = false
-			can_set_temp = false
-		when 'superclient'
-			can_clean = false
-			can_detach = false
-			can_set_temp = false
+			self.can_clean = false
+			self.can_detach = false
+			self.can_set_temp = false
 		when 'employee'
-			can_clean = true
-			can_detach = true
-			can_set_temp = true
+			self.can_clean = true
+			self.can_detach = true
+			self.can_set_temp = true
+			self.category_id = nil
 		when 'manager'
-			can_clean = true
-			can_detach = true
-			can_set_temp = true
+			self.can_clean = true
+			self.can_detach = true
+			self.can_set_temp = true
+			self.category_id = nil
 		end
-
 		self.client_type = val
 	end
 
@@ -31,8 +29,6 @@ class User < ActiveRecord::Base
 		case client_type
 		when 'customer'
 			'Cliente'
-		when 'superclient'
-			'SuperCliente'
 		when 'employee'
 			'Empleado'
 		when 'manager'

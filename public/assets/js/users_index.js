@@ -60,4 +60,12 @@ $(function(){
 			}
 		});
 	});
+
+	$("input[name='user[permissions]']").change(function(e){
+		if($(this).val() == 'customer'){
+			$(this).closest('form').find('.category-group').show();
+		}else{
+			$(this).closest('form').find('.category-group').hide();
+		}
+	})
 });
