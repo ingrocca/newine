@@ -135,7 +135,7 @@ class NewineServer < Sinatra::Application
 
 		@bottle_holder.serving_volume_high = params['serving_volume_high']
 		@bottle_holder.serving_price_high = params['serving_price_high']
-
+		@bottle_holder.discounts = params['discounts']
 		@bottle_holder.save
 		
 		@dispenser = @bottle_holder.dispenser
