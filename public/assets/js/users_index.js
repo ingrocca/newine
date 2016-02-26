@@ -68,4 +68,18 @@ $(function(){
 			$(this).closest('form').find('.category-group').hide();
 		}
 	})
+
+	$(".new-card").on("click", function(event){
+		event.preventDefault();
+		$("#panel_new_card").show('fade');
+		$('.panel-tag').hide();
+		$(this).hide();
+	})
+
+	$('.cancel-new-card').on("click", function(event){
+		event.preventDefault();
+		$("#panel_new_card").hide();
+		$('.panel-tag').show('fade');
+		$('.new-card').show('fade');
+	});
 });

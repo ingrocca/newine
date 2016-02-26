@@ -83,10 +83,12 @@
 																<strong>Tipo:</strong> <%= user.client_type_human %>
 															</p>
 															<br />
+															<% if user.client_type == 'customer' %>
 															<p style="padding-left:10px;">									
 																<strong>Categoría:</strong> <%= user.category %>
 															</p>
 															<br />
+															<% end%>
 														</div>
 														<form style='padding-bottom:20px;' class='form-horizontal user_edit_form hidden' data-user-id=<%= user.id.to_s %> action='/users/edit/<%= user.id.to_s %>' method='post'>
 															<div class="form-group">
@@ -158,8 +160,61 @@
 																<a class='btn btn-default cancel_edit'>Cancelar</a>
 															</div>
 														</form>
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="pull-right">
+																	<button class="btn btn-success new-card">
+																		<span class="glyphicon glyphicon-credit-card"></span>
+																		Nueva tarjeta
+																	</button>
+																</div>
+															</div>
+														</div>
+														<br>
+														<div id="panel_new_card" class='panel panel-default tag-panel' style="display:none">
+															<div class='panel-body'>
+																	<form action='' class='form-horizontal' method="post">
+																	<div class="form-group">
+																		<div class='col-lg-3 col-sm-3 col-xs-12'>
+																			<p style="padding-left:10px;"><label  for='credit' class='col-lg-3 col-sm-3 col-xs-12 control-label'>Tarjeta:</label></p>
+																		</div>
+											            	
+											            	<div class='col-lg-4 col-sm-4 col-xs-8'>
+											            		<div style="padding-left:10px; padding-top:5px;">
+											            			<div style="padding-left:10px;">
+											            				<input type='text' name='tag[uid]' class='form-control'>
+											            			</div>
+											            		</div>
+											            		
+											            	</div>
+														      </div>
+														      <div class="form-group">
+																		<div class='col-lg-3 col-sm-3 col-xs-12'>
+																			<p style="padding-left:10px;"><label  for='credit' class='col-lg-3 col-sm-3 col-xs-12 control-label'>Crédito:</label></p>
+																		</div>
+											            	
+											            	<div class='col-lg-4 col-sm-4 col-xs-8'>
+											            		<div style="padding-left:10px; padding-top:5px;">
+											            			<div style="padding-left:10px;">
+											            				<input type='number' name='tag[credit]' class='form-control'>
+											            			</div>
+											            		</div>
+											            		
+											            	</div>
+														      </div>
+														      <div class="form-group">
+														      	<div class="col-lg-12">
+														      		<div class="pull-right">
+														      			<a href="#" class="btn btn-default cancel-new-card">Cancelar</a>
+														      			<button class="btn btn-success">Guardar</button>
+														      		</div>
+														      	</div>
+														      </div>
+														    </form>
+															</div>
+														</div>
 														<% user.tags.each do |tag| %>
-															<div class='panel panel-default tag-panel' data-tag-id=<%= tag.id %>>
+															<div class='panel panel-default tag-panel panel-tag' data-tag-id=<%= tag.id %>>
 																<div class='panel-body'>
 																	<div class='row'>
 																		<div class='col-xs-12'>
