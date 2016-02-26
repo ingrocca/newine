@@ -6,7 +6,7 @@ gem "sinatra"
 gem "sqlite3"
 gem "activerecord"
 gem "sinatra-activerecord"
-gem "require_all" 
+gem "require_all"
 gem "tilt-jbuilder", ">= 0.4.0", :require => "sinatra/jbuilder"
 
 gem "thin"
@@ -21,6 +21,9 @@ gem 'rest-client'
 gem 'will_paginate', '~> 3.0'
 
 gem 'statistics'
+
+gem 'rake'
+
 
 group :development do
   gem "tux"
