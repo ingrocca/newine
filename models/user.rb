@@ -34,7 +34,18 @@ class User < ActiveRecord::Base
 		when 'manager'
 			'Gerente'
 		end
-
 	end
 
+	def current_tag
+		tags.where(active: true).first
+	end
+
+	def add_tag(tag)
+		if current_tag
+			tag.credit += current_tag.credit 
+			current_tag.update(active: false)
+		end
+		tag.active = true
+		tag.save 
+	end
 end

@@ -27,7 +27,12 @@ class NewineServer < Sinatra::Application
 		format_render 'html', :"users/index"
 	end
 
-	
+	post '/users/:id/tags/create' do
+		@user = User.where(:id => params[:id]).first
+		@tag = Tag.new(params[:tag].merge(user: @user))
+		@user.add_tag(@tag)
+		redirect '/users'
+	end
 
 	get '/users/:id.json' do
 		@user = User.where(:id => params[:id]).first

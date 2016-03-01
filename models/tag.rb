@@ -8,4 +8,5 @@ class Tag < ActiveRecord::Base
   def init
   	self.credit ||= 0
   end
+
 end

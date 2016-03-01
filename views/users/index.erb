@@ -163,7 +163,7 @@
 														<div class="row">
 															<div class="col-lg-12">
 																<div class="pull-right">
-																	<button class="btn btn-success new-card">
+																	<button class="btn btn-success new-card" data-panel="#panel_new_card_<%=user.id.to_s%>">
 																		<span class="glyphicon glyphicon-credit-card"></span>
 																		Nueva tarjeta
 																	</button>
@@ -171,9 +171,9 @@
 															</div>
 														</div>
 														<br>
-														<div id="panel_new_card" class='panel panel-default tag-panel' style="display:none">
+														<div id="panel_new_card_<%=user.id.to_s%>" class='panel panel-default tag-panel' style="display:none">
 															<div class='panel-body'>
-																	<form action='' class='form-horizontal' method="post">
+																	<form action='/users/<%= user.id.to_s %>/tags/create' class='form-horizontal' method="post">
 																	<div class="form-group">
 																		<div class='col-lg-3 col-sm-3 col-xs-12'>
 																			<p style="padding-left:10px;"><label  for='credit' class='col-lg-3 col-sm-3 col-xs-12 control-label'>Tarjeta:</label></p>
@@ -218,12 +218,17 @@
 																<div class='panel-body'>
 																	<div class='row'>
 																		<div class='col-xs-12'>
-													            <a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
+													            <a data-tag-id=<%= tag.id %> class='format_tag btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Eliminar</a>
 													          </div>
 																	</div>
 																	<div class='row'>
 																		<div class='col-lg-12 col-xs-12'>
 																			<p style="padding:10px;"><strong>Tarjeta:</strong> <%= tag.uid %>, crédito: $<%= tag.credit.to_s %></p>
+													          </div>
+																	</div>
+																	<div class='row'>
+																		<div class='col-lg-12 col-xs-12'>
+																			<p style="padding:10px;"><strong>Estado:</strong> <%= tag.active %></p>
 													          </div>
 																	</div>
 																	<div class='row'>
