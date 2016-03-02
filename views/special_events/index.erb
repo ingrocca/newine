@@ -16,8 +16,8 @@
 						</div>
 					</form>
 				</div>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createSpecialEvent">Crear Evento Especial</button>
 			</div>
-			
 		</div>
 	</div>
 	<div class='row'>
@@ -61,12 +61,13 @@
 												</span>
 												<hr />
 												<div class='special_event_info' data-special-event-id=<%= special_event.id.to_s %>>
+								
 													<p style="padding-left:10px;">									
-														<strong>Dispenser:</strong> <%= special_event.dispenser.id %>
+														<strong>Dispenser:</strong> <%= special_event.dispensers.map(&:id) %>
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
-														<strong>Bottle Holder:</strong> <%= special_event.bottle_holder.dispenser_index %>
+														<strong>Bottle Holder:</strong>
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
@@ -104,3 +105,49 @@
 	</div>
 </div>
 </div>
+
+<div class="modal fade" id="createSpecialEvent">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action='/special_event/save' method='post' class='form-horizontal'>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Nuevo Evento Especial</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class="form-group">
+	            	<label for='special_event[name]' class='col-lg-3 control-label'>Nombre:</label>
+	            	<div class='col-lg-6'>
+           				<input type='text' name='special_event[name]' class='form-control'>
+	           		</div>
+	           	</div>
+	           	<div class="form-group">
+	            	<label for='special_event[percentage]' class='col-lg-3 control-label'>Descuento:</label>
+	            	<div class='col-lg-6'>
+           				<input type='number' name='special_event[percentage]' min="1" max="100" class='form-control'>
+	           		</div>
+	           	</div>
+	           	<div class="form-group">
+	           		<label class='col-lg-3 control-label'>Dispenser:</label>
+	            	<div class='col-lg-6'>
+           				<select id="multiselect_dispenser" classs="form-control" name="special_event[dispenser_ids][]" multiple="multiple">
+           					<% Dispenser.all.each do |dispenser| %>
+           						<option value="<%= dispenser.id %>"><%= dispenser.id %></option>
+           					<% end %>
+           				</select>
+	           		</div>
+	           	</div>
+	          </div>
+	        </div>
+	      </div>		
+				<div class='modal-footer'>
+					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+          <button class='btn btn-primary'>Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301135132) do
+ActiveRecord::Schema.define(version: 20160302181005) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 20160301135132) do
   add_index "dispensers", ["online"], name: "index_dispensers_on_online"
   add_index "dispensers", ["uid"], name: "index_dispensers_on_uid"
 
+  create_table "dispensers_special_events", force: true do |t|
+    t.integer "dispenser_id"
+    t.integer "special_event_id"
+  end
+
+  add_index "dispensers_special_events", ["dispenser_id"], name: "index_dispensers_special_events_on_dispenser_id"
+  add_index "dispensers_special_events", ["special_event_id"], name: "index_dispensers_special_events_on_special_event_id"
+
   create_table "events", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -103,14 +111,9 @@ ActiveRecord::Schema.define(version: 20160301135132) do
     t.string   "type"
     t.string   "name"
     t.integer  "percentage"
-    t.integer  "dispenser_id"
-    t.integer  "bottle_holder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "special_events", ["bottle_holder_id"], name: "index_special_events_on_bottle_holder_id"
-  add_index "special_events", ["dispenser_id"], name: "index_special_events_on_dispenser_id"
 
   create_table "tags", force: true do |t|
     t.string  "uid"

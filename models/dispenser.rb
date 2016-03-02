@@ -1,7 +1,7 @@
 class Dispenser < ActiveRecord::Base
 	has_many :bottle_holders, :dependent => :destroy
 	has_many :temperature_controls, :dependent => :destroy
-	has_many :special_events, :dependent => :destroy
+	has_and_belongs_to_many :special_events
 
 	validates :uid, :uniqueness => true
 	#after_save :create_bottle_holders, :on => :create

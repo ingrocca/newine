@@ -6,6 +6,12 @@ class NewineServer < Sinatra::Application
 			@special_events = SpecialEvent.paginate(:page=>params[:page], :per_page=>5)
 		end
 		format_render 'html', :"special_events/index"
+	end	
+
+	post '/special_event/save' do
+		@special_event = SpecialEvent.new(params[:special_event])
+		@special_event.save
+		redirect "/special_events"
 	end
 
 	post '/special_events/update/:id' do

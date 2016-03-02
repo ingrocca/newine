@@ -24,4 +24,10 @@ $(function(){
 		$('.special_event_edit_form[data-special-event-id=' + current_id + ']').addClass('hidden');
 		$('.edit_special_event[data-special-event-id=' + current_id + ']').show();
 	})
+
+
+	$("#multiselect_dispenser").multiselect({
+		nonSelectedText: 'Seleccione uno',
+		buttonWidth: '254px'
+	});
 })

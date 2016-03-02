@@ -180,6 +180,7 @@ sock.onmessage = function(evt){
 		$(this).addClass('active');
 		$('#create_new_user').removeClass('active');
 	});
+
 	$('#create_new_user').click(function(){
 		$('#new_user_hidden').val(true);
 		$('#new_user_fields').show();
@@ -187,4 +188,5 @@ sock.onmessage = function(evt){
 		$(this).addClass('active');
 		$('#existing_user').removeClass('active');
 	});
+
 });
