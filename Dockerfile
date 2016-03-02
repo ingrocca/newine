@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install \
   libsqlite3-dev \
   connman \
   libevent-dev \
-  memcached
+  memcached \
+  ssh
 
 
 
