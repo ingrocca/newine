@@ -71,14 +71,14 @@ $(function(){
 
 	$(".new-card").on("click", function(event){
 		event.preventDefault();
-		$("#panel_new_card").show('fade');
+		$($(this).data('panel')).show('fade');
 		$('.panel-tag').hide();
 		$(this).hide();
 	})
 
 	$('.cancel-new-card').on("click", function(event){
 		event.preventDefault();
-		$("#panel_new_card").hide();
+		$(this).closest('.tag-panel').hide();
 		$('.panel-tag').show('fade');
 		$('.new-card').show('fade');
 	});
