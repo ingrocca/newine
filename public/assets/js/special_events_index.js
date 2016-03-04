@@ -26,7 +26,7 @@ $(function(){
 	})
 
 
-	$("#multiselect_dispenser").multiselect({
+	$('select').multiselect({
 		nonSelectedText: 'Seleccione uno',
 		buttonWidth: '254px'
 	});
