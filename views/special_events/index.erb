@@ -1,0 +1,191 @@
+
+<script src='/assets/js/newine.js'></script>
+<script src='/assets/js/special_events_index.js'></script>
+<div class='container'>
+	<div class='row'>
+		<div class='col-lg-12'>
+			<h2 class='centered'>Eventos Especiales</h2>
+			<div class='row' style='padding-bottom:10px;'>
+				<div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1'>
+					<form class='form-search form-inline' action='/special_events' method='get'>
+						<div class='col-lg-10 col-xs-10'>
+							<input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
+						</div>
+						<div class='col-lg-2 col-xs-2'>
+							<button class='btn btn-search'>Buscar</button>
+						</div>
+					</form>
+				</div>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createSpecialEvent">Crear Evento Especial</button>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-12'>
+			<div class='row'>
+				<div class='col-lg-10 col-lg-offset-1 apple_pagination'>
+					<%= will_paginate @special_events %>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
+					<div class='col-lg-12'>
+						<div id='special_event_container'>
+						<% @special_events.each do |special_event| %>
+							<div class='row'>
+								<div class='col-lg-12'>
+									<div class='panel panel-default panel-link special-event-link' data-id=<%= special_event.id.to_s %>>
+										<div class='panel-body'>
+												<img src='/assets/img/user-icon.png' width=40 height=40 />
+												<span style="padding-left:10px;">									
+													<strong><%= special_event.id %>:</strong> <%= special_event.name %>										
+												</span>						
+										</div>
+									</div>
+								</div>
+							</div>
+						<% end %>
+						</div>
+					</div>
+				</div>
+				<div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
+					<div class='col-xs-12'>
+						<% @special_events.each do |special_event| %>
+							<div class='row special-event-data hidden' data-special-event-id=<%= special_event.id.to_s %>>
+								<div class='col-xs-12'>
+									<div class='panel panel-default' style='min-height: 300px;'>
+										<div class='panel-body'>
+												<span style="padding-left:10px;">									
+													<strong><%= special_event.id %>:</strong> <%= special_event.name %>
+													<a class='edit_special_event btn btn-warning pull-right' data-special-event-id=<%= special_event.id.to_s %>>Editar</a>
+												</span>
+												<hr />
+												<div class='special_event_info' data-special-event-id=<%= special_event.id.to_s %>>
+								
+													<p style="padding-left:10px;">									
+														<strong>Dispenser:</strong> <%= special_event.dispensers.map(&:id) %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Bottle Holder:</strong> <%= special_event.bottle_holders.map(&:id) %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Descuento:</strong> <%= "#{special_event.percentage}%" %>
+													</p>
+													<br />
+												</div>
+												<form style='padding-bottom:20px;' class='form-horizontal special_event_edit_form hidden' data-special-event-id=<%= special_event.id.to_s %> action='/special_events/update/<%= special_event.id.to_s %>' method='post'>
+													<div class="form-group">
+							            	<label for='special_event[name]' class='col-lg-3 control-label'>Nombre:</label>
+							            	<div class='col-lg-6'>
+						           				<input type='text' name='special_event[name]' class='form-control' value='<%= special_event.name %>'>
+							           		</div>
+							           	</div>
+							           	<div class="form-group">
+							           		<label class='col-lg-3 control-label'>Dispenser:</label>
+							            	<div class='col-lg-6'>
+						           				<select classs="form-control multiselect_dispenser" name="special_event[dispenser_ids][]" multiple="multiple">
+						           					<% Dispenser.all.each do |dispenser| %>
+						           						<option value="<%= dispenser.id %>" <%= 'selected' if special_event.dispensers.pluck(:id).include? dispenser.id %>><%= dispenser.id %></option>
+						           					<% end %>
+						           				</select>
+							           		</div>
+							           	</div>
+							           	<div class="form-group">
+							           		<label class='col-lg-3 control-label'>Contendor de botella:</label>
+							            	<div class='col-lg-6'>
+						           				<select classs="form-control" name="special_event[bottle_holder_ids][]" multiple="multiple">
+						           					<% Dispenser.all.each do |dispenser| %>
+						           						<optgroup label="<%= "Dispenser #{dispenser.id}"%>">
+						           							<% dispenser.bottle_holders.each do |bh| %>
+						           								<option value="<%= bh.id %>" <%= 'selected' if special_event.bottle_holders.pluck(:id).include? bh.id %>><%= bh.id %></option>
+						           							<%end%>
+						           						</optgroup>
+						           					<% end %>
+						           				</select>
+							           		</div>
+							           	</div>
+							           	<div class="form-group">
+							            	<label for='special_event[percentage]' class='col-lg-3 control-label'>Porcentaje:</label>
+							            	<div class='col-lg-6'>
+						           				<input type='number' name='special_event[percentage]' min="1" max="100" class='form-control' value='<%= special_event.percentage %>'>
+							           		</div>
+							           	</div>
+													<div class='col-lg-offset-3'>
+														<button class='btn btn-primary'>Guardar</button>
+														<a class='btn btn-default cancel_edit'>Cancelar</a>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="createSpecialEvent">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action='/special_event/save' method='post' class='form-horizontal'>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Nuevo Evento Especial</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class="form-group">
+	            	<label for='special_event[name]' class='col-lg-3 control-label'>Nombre:</label>
+	            	<div class='col-lg-6'>
+           				<input type='text' name='special_event[name]' class='form-control'>
+	           		</div>
+	           	</div>
+	           	<div class="form-group">
+	            	<label for='special_event[percentage]' class='col-lg-3 control-label'>Descuento:</label>
+	            	<div class='col-lg-6'>
+           				<input type='number' name='special_event[percentage]' min="1" max="100" class='form-control'>
+	           		</div>
+	           	</div>
+	           	<div class="form-group">
+	           		<label class='col-lg-3 control-label'>Dispenser:</label>
+	            	<div class='col-lg-6'>
+           				<select classs="form-control" name="special_event[dispenser_ids][]" multiple="multiple">
+           					<% Dispenser.all.each do |dispenser| %>
+           						<option value="<%= dispenser.id %>"><%= dispenser.id %></option>
+           					<% end %>
+           				</select>
+	           		</div>
+	           	</div>
+	           	<div class="form-group">
+	           		<label class='col-lg-3 control-label'>Contendor de botella:</label>
+	            	<div class='col-lg-6'>
+           				<select classs="form-control" name="special_event[bottle_holder_ids][]" multiple="multiple">
+           					<% Dispenser.all.each do |dispenser| %>
+           						<optgroup label="<%= "Dispenser #{dispenser.id}"%>">
+           							<% dispenser.bottle_holders.each do |bh| %>
+           								<option value="<%= bh.id %>"><%= bh.id %></option>
+           							<%end%>
+           						</optgroup>
+           					<% end %>
+           				</select>
+	           		</div>
+	           	</div>
+	          </div>
+	        </div>
+	      </div>		
+				<div class='modal-footer'>
+					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+          <button class='btn btn-primary'>Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

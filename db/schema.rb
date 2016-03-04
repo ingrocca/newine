@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216003520) do
+ActiveRecord::Schema.define(version: 20160304180553) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -35,9 +35,30 @@ ActiveRecord::Schema.define(version: 20131216003520) do
     t.datetime "updated_at"
     t.integer  "dispenser_index"
     t.integer  "remaining_volume"
+    t.integer  "actual_volume"
+    t.boolean  "bottle_status"
+    t.integer  "serving_volume_micro"
+    t.boolean  "discounts",            default: false
   end
 
   add_index "bottle_holders", ["dispenser_id"], name: "index_bottle_holders_on_dispenser_id"
+
+  create_table "bottle_holders_special_events", force: true do |t|
+    t.integer "bottle_holder_id"
+    t.integer "special_event_id"
+  end
+
+  add_index "bottle_holders_special_events", ["bottle_holder_id"], name: "index_bottle_holders_special_events_on_bottle_holder_id"
+  add_index "bottle_holders_special_events", ["special_event_id"], name: "index_bottle_holders_special_events_on_special_event_id"
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.integer  "low_percentage"
+    t.integer  "med_percentage"
+    t.integer  "high_percentage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "dispensers", force: true do |t|
     t.string   "uid"
@@ -50,10 +71,19 @@ ActiveRecord::Schema.define(version: 20131216003520) do
     t.integer  "n_bottles"
     t.string   "ip"
     t.integer  "n_temperature_controls"
+    t.text     "ml_to_ms"
   end
 
   add_index "dispensers", ["online"], name: "index_dispensers_on_online"
   add_index "dispensers", ["uid"], name: "index_dispensers_on_uid"
+
+  create_table "dispensers_special_events", force: true do |t|
+    t.integer "dispenser_id"
+    t.integer "special_event_id"
+  end
+
+  add_index "dispensers_special_events", ["dispenser_id"], name: "index_dispensers_special_events_on_dispenser_id"
+  add_index "dispensers_special_events", ["special_event_id"], name: "index_dispensers_special_events_on_special_event_id"
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -85,10 +115,19 @@ ActiveRecord::Schema.define(version: 20131216003520) do
   add_index "servings", ["dispenser_id"], name: "index_servings_on_dispenser_id"
   add_index "servings", ["wine_id"], name: "index_servings_on_wine_id"
 
+  create_table "special_events", force: true do |t|
+    t.string   "type"
+    t.string   "name"
+    t.integer  "percentage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tags", force: true do |t|
     t.string  "uid"
     t.float   "credit"
     t.integer "user_id"
+    t.boolean "active",  default: false
   end
 
   add_index "tags", ["uid"], name: "index_tags_on_uid"
@@ -115,6 +154,7 @@ ActiveRecord::Schema.define(version: 20131216003520) do
     t.string  "phone"
     t.string  "email"
     t.string  "client_type"
+    t.integer "category_id"
   end
 
   add_index "users", ["dni"], name: "index_users_on_dni"

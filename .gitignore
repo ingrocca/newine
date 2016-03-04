@@ -21,3 +21,4 @@ config/initializers/secret_token.rb
 newine.db
 *.log
 
+.DS_Store

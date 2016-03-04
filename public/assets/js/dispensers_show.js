@@ -115,6 +115,10 @@ $(function(){
 			$('.bottle').removeClass('active');
 			$('.bh-control').hide('fade');
 			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').removeClass('hidden');
+			checkbox = $('.bh-control[data-bottle-holder-id=' + bh_id+ ']').find('input[type=checkbox]');
+			if( !checkbox.is(':checked') ){
+				checkbox.prop('checked', checkbox.data('check'));	
+			}
 			$('.bh-control[data-bottle-holder-id=' + bh_id+ ']').show('fade');
 			$('.bottle[data-id=' + bh_id+ ']').addClass('active');
 		}

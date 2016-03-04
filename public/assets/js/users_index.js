@@ -60,4 +60,26 @@ $(function(){
 			}
 		});
 	});
+
+	$("input[name='user[permissions]']").change(function(e){
+		if($(this).val() == 'customer'){
+			$(this).closest('form').find('.category-group').show();
+		}else{
+			$(this).closest('form').find('.category-group').hide();
+		}
+	})
+
+	$(".new-card").on("click", function(event){
+		event.preventDefault();
+		$($(this).data('panel')).show('fade');
+		$('.panel-tag').hide();
+		$(this).hide();
+	})
+
+	$('.cancel-new-card').on("click", function(event){
+		event.preventDefault();
+		$(this).closest('.tag-panel').hide();
+		$('.panel-tag').show('fade');
+		$('.new-card').show('fade');
+	});
 });
