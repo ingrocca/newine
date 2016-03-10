@@ -14,8 +14,7 @@ set :database, "sqlite3:///db/newine.sqlite3"
 class NewineServer < Sinatra::Application
 
 	options = { :namespace => "newine", :compress => false }
-	@@cache = Dalli::Client.new('127.0.0.1:11211', options)
-
+	@@cache = Dalli::Client.new('localhost:11211', options)
 	def self.cache
 		@@cache
 	end
