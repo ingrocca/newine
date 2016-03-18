@@ -16,8 +16,8 @@
 						</div>
 					</form>
 				</div>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createUser">Crear usuario</button>
 			</div>
-			
 		</div>
 	</div>
 	<div class='row'>
@@ -91,71 +91,8 @@
 															<% end%>
 														</div>
 														<form style='padding-bottom:20px;' class='form-horizontal user_edit_form hidden' data-user-id=<%= user.id.to_s %> action='/users/edit/<%= user.id.to_s %>' method='post'>
-															<div class="form-group">
-									            	<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
-									            	<div class='col-lg-6'>
-									           			<input type='text' name='user[name]' class='form-control' value='<%= user.name %>'>
-									           		</div>
-												      </div>
-									           	<div class="form-group">
-									            	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
-									            	<div class='col-lg-6'>
-									           			<input type='text' name='user[surname]' class='form-control' value='<%= user.surname %>'>
-									           		</div>
-									           	</div>
-									           	<div class="form-group">
-									            	<label for='user[dni]' class='col-lg-3 control-label'>DNI:</label>
-									            	<div class='col-lg-6'>
-									           			<input type='text' name='user[dni]' class='form-control' value='<%= user.dni %>'>
-									           		</div>
-									           	</div>
-									           	<div class="form-group">
-									            	<label for='user[email]' class='col-lg-3 control-label'>Email:</label>
-									            	<div class='col-lg-6'>
-									           			<input type='text' name='user[email]' class='form-control' value='<%= user.email %>'>
-									           		</div>
-									           	</div>
-									           	<div class="form-group">
-									            	<label for='user[phone]' class='col-lg-3 control-label'>Teléfono:</label>
-									            	<div class='col-lg-6'>
-									           			<input type='text' name='user[phone]' class='form-control' value='<%= user.phone %>'>
-									           		</div>
-									           	</div>
-												      <div class="form-group">
-																<div class="col-sm-3 no-padding">
-																	<div class="checkbox">
-															    		<label>
-															        		<input type="radio" name='user[permissions]' value='customer' <%= user.client_type=='customer' ? 'checked' : '' %>> Cliente
-															        	</label>
-															    	</div>
-															    </div>
-															    <div class="col-sm-3 no-padding">
-																	<div class="checkbox">
-															    		<label>
-															        		<input type="radio" name='user[permissions]' value='employee' <%= user.client_type=='employee' ? 'checked' : '' %>> Empleado
-															        	</label>
-															    	</div>
-															    </div>
-															    <div class="col-sm-3 no-padding">
-																	<div class="checkbox">
-															    		<label>
-															        		<input type="radio" name='user[permissions]' value='manager' <%= user.client_type=='manager' ? 'checked' : '' %>> Gerente
-															        	</label>
-															    	</div>
-															    </div>
-															</div>
-															<div class="form-group category-group" <%= "style='display:none'" if user.client_type != 'customer' %>>
-																<label  class='col-lg-3 control-label'>Categoría:</label>
-									            	<div class='col-lg-6'>
-																	<select class="form-control" name="user[category_id]">
-																		<option></option>
-																		<% Category.all.each do |category| %>
-																			<option value="<%= category.id %>" <%= "selected" if category.id == user.category.try(:id) %>><%= category.name %></option>
-																		<% end %>
-																	</select>
-																</div>
-															</div>
-												      <div class='col-lg-offset-3'>
+															<%= erb :"users/form", locals: {user: user} %>
+														  <div class='col-lg-offset-3'>
 																<button class='btn btn-primary'>Guardar</button>
 																<a class='btn btn-default cancel_edit'>Cancelar</a>
 															</div>
@@ -273,6 +210,29 @@
 				
 			</div>
 		</div>
-
 	</div>
 </div>
+<div class="modal fade" id="createUser">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action='/users' method='post' class='form-horizontal'>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Nuevo usuario</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div class='col-lg-12'>
+							<%= erb :"users/form", locals: {user: User.new} %>
+						</div>
+					</div>
+				</div>		
+				<div class='modal-footer'>
+					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+          <button class='btn btn-primary'>Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
