@@ -28,6 +28,7 @@ $(function(){
 
 	$('select').multiselect({
 		nonSelectedText: 'Seleccione uno',
-		buttonWidth: '254px'
+		buttonWidth: '254px',
+		enableCollapsibleOptGroups: true
 	});
 })

@@ -24,4 +24,10 @@ $(function(){
 		$('.category_edit_form[data-category-id=' + current_id + ']').addClass('hidden');
 		$('.edit_category[data-category-id=' + current_id + ']').show();
 	})
+
+	$('.category-low').on('change',function(e){
+		form = $(this).closest('form')
+		form.find(".category-med").val($(this).val())
+		form.find(".category-high").val($(this).val())
+	})
 })

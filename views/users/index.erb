@@ -150,7 +150,7 @@
 														    </form>
 															</div>
 														</div>
-														<% user.tags.each do |tag| %>
+														<% user.tags.reverse.each do |tag| %>
 															<div class='panel panel-default tag-panel panel-tag' data-tag-id=<%= tag.id %>>
 																<div class='panel-body'>
 																	<div class='row'>
