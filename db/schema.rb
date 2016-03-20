@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304180553) do
+ActiveRecord::Schema.define(version: 20160320160853) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -116,11 +116,11 @@ ActiveRecord::Schema.define(version: 20160304180553) do
   add_index "servings", ["wine_id"], name: "index_servings_on_wine_id"
 
   create_table "special_events", force: true do |t|
-    t.string   "type"
     t.string   "name"
     t.integer  "percentage"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type_special_event"
   end
 
   create_table "tags", force: true do |t|

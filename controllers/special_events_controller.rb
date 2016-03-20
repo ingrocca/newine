@@ -15,6 +15,7 @@ class NewineServer < Sinatra::Application
 	end
 
 	post '/special_events/update/:id' do
+		puts params[:special_event]
 		@special_event = SpecialEvent.where(id: params[:id]).first
 		if(@special_event)
 			@special_event.update_attributes(params[:special_event])

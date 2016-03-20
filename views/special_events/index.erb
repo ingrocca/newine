@@ -61,13 +61,16 @@
 												</span>
 												<hr />
 												<div class='special_event_info' data-special-event-id=<%= special_event.id.to_s %>>
-								
 													<p style="padding-left:10px;">									
-														<strong>Dispenser:</strong> <%= special_event.dispensers.map(&:id) %>
+														<strong>Tipo de evento:</strong> <%= special_event.special_event_type_human %>
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
-														<strong>Bottle Holder:</strong> <%= special_event.bottle_holders.map(&:id) %>
+														<strong>Dispenser:</strong> <%= special_event.bottle_holders.map(&:dispenser_id).uniq %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Bottle Holder:</strong> <%= special_event.bottle_holders.map(&:dispenser_index) %>
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
@@ -76,42 +79,7 @@
 													<br />
 												</div>
 												<form style='padding-bottom:20px;' class='form-horizontal special_event_edit_form hidden' data-special-event-id=<%= special_event.id.to_s %> action='/special_events/update/<%= special_event.id.to_s %>' method='post'>
-													<div class="form-group">
-							            	<label for='special_event[name]' class='col-lg-3 control-label'>Nombre:</label>
-							            	<div class='col-lg-6'>
-						           				<input type='text' name='special_event[name]' class='form-control' value='<%= special_event.name %>'>
-							           		</div>
-							           	</div>
-							           	<div class="form-group">
-							           		<label class='col-lg-3 control-label'>Dispenser:</label>
-							            	<div class='col-lg-6'>
-						           				<select classs="form-control multiselect_dispenser" name="special_event[dispenser_ids][]" multiple="multiple">
-						           					<% Dispenser.all.each do |dispenser| %>
-						           						<option value="<%= dispenser.id %>" <%= 'selected' if special_event.dispensers.pluck(:id).include? dispenser.id %>><%= dispenser.id %></option>
-						           					<% end %>
-						           				</select>
-							           		</div>
-							           	</div>
-							           	<div class="form-group">
-							           		<label class='col-lg-3 control-label'>Contendor de botella:</label>
-							            	<div class='col-lg-6'>
-						           				<select classs="form-control" name="special_event[bottle_holder_ids][]" multiple="multiple">
-						           					<% Dispenser.all.each do |dispenser| %>
-						           						<optgroup label="<%= "Dispenser #{dispenser.id}"%>">
-						           							<% dispenser.bottle_holders.each do |bh| %>
-						           								<option value="<%= bh.id %>" <%= 'selected' if special_event.bottle_holders.pluck(:id).include? bh.id %>><%= bh.id %></option>
-						           							<%end%>
-						           						</optgroup>
-						           					<% end %>
-						           				</select>
-							           		</div>
-							           	</div>
-							           	<div class="form-group">
-							            	<label for='special_event[percentage]' class='col-lg-3 control-label'>Porcentaje:</label>
-							            	<div class='col-lg-6'>
-						           				<input type='number' name='special_event[percentage]' min="1" max="100" class='form-control' value='<%= special_event.percentage %>'>
-							           		</div>
-							           	</div>
+													<%= erb :"special_events/form", locals: {special_event: special_event } %>
 													<div class='col-lg-offset-3'>
 														<button class='btn btn-primary'>Guardar</button>
 														<a class='btn btn-default cancel_edit'>Cancelar</a>
@@ -141,42 +109,7 @@
 				<div class="modal-body">
 					<div class='row'>
 						<div class='col-lg-12'>
-							<div class="form-group">
-	            	<label for='special_event[name]' class='col-lg-3 control-label'>Nombre:</label>
-	            	<div class='col-lg-6'>
-           				<input type='text' name='special_event[name]' class='form-control'>
-	           		</div>
-	           	</div>
-	           	<div class="form-group">
-	            	<label for='special_event[percentage]' class='col-lg-3 control-label'>Descuento:</label>
-	            	<div class='col-lg-6'>
-           				<input type='number' name='special_event[percentage]' min="1" max="100" class='form-control'>
-	           		</div>
-	           	</div>
-	           	<div class="form-group">
-	           		<label class='col-lg-3 control-label'>Dispenser:</label>
-	            	<div class='col-lg-6'>
-           				<select classs="form-control" name="special_event[dispenser_ids][]" multiple="multiple">
-           					<% Dispenser.all.each do |dispenser| %>
-           						<option value="<%= dispenser.id %>"><%= dispenser.id %></option>
-           					<% end %>
-           				</select>
-	           		</div>
-	           	</div>
-	           	<div class="form-group">
-	           		<label class='col-lg-3 control-label'>Contendor de botella:</label>
-	            	<div class='col-lg-6'>
-           				<select classs="form-control" name="special_event[bottle_holder_ids][]" multiple="multiple">
-           					<% Dispenser.all.each do |dispenser| %>
-           						<optgroup label="<%= "Dispenser #{dispenser.id}"%>">
-           							<% dispenser.bottle_holders.each do |bh| %>
-           								<option value="<%= bh.id %>"><%= bh.id %></option>
-           							<%end%>
-           						</optgroup>
-           					<% end %>
-           				</select>
-	           		</div>
-	           	</div>
+							<%= erb :"special_events/form", locals: {special_event: SpecialEvent.new} %>
 	          </div>
 	        </div>
 	      </div>		
