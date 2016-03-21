@@ -17,9 +17,9 @@ class User < ActiveRecord::Base
 			self.can_set_temp = true
 			self.category_id = nil
 		when 'manager'
-			self.can_clean = true
-			self.can_detach = true
-			self.can_set_temp = true
+			self.can_clean = false
+			self.can_detach = false
+			self.can_set_temp = false
 			self.category_id = nil
 		end
 		self.client_type = val

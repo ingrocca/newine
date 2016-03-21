@@ -77,9 +77,14 @@
 														<strong>Descuento:</strong> <%= "#{special_event.percentage}%" %>
 													</p>
 													<br />
+													<p style="padding-left:10px;">									
+														<strong>Activo:</strong> <%= "#{boolean_humanize special_event.active}" %>
+													</p>
+													<br />
 												</div>
 												<form style='padding-bottom:20px;' class='form-horizontal special_event_edit_form hidden' data-special-event-id=<%= special_event.id.to_s %> action='/special_events/update/<%= special_event.id.to_s %>' method='post'>
 													<%= erb :"special_events/form", locals: {special_event: special_event } %>
+													<br>
 													<div class='col-lg-offset-3'>
 														<button class='btn btn-primary'>Guardar</button>
 														<a class='btn btn-default cancel_edit'>Cancelar</a>

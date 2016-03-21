@@ -233,12 +233,12 @@ $(function(){
 			}
 		});
 	});
-	$('#detach-dispenser').click(function(){
+	$('#detach-dispenser').click(function(event){
 		var reconfirm = confirm("¿Seguro desea eliminar el dispenser?");
 		if (reconfirm){
 			$.ajax({
 				type: "POST",
-				url: '/dispensers/destroy.json',
+				url: $(this).data("href"),
 				accept: 'json',
 				dataType: 'json',
 				data: JSON.stringify({id: id}),

@@ -11,4 +11,16 @@ class BottleHolder < ActiveRecord::Base
     self.serving_volume_high ||= wine.try(:serving_volume_high)
     self.serving_volume_micro ||= 25
   end
+
+  def remaining_volume 
+    read_attribute(:remaining_volume) - 20
+  end
+
+  def has_special_events
+    !special_events.where(active: true).empty?
+  end
+
+  def discounts_special_events
+    special_events.where(active: true).map(&:calculate_percentage).inject(0, &:+)
+  end
 end
