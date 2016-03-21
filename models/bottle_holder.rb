@@ -13,7 +13,7 @@ class BottleHolder < ActiveRecord::Base
   end
 
   def remaining_volume 
-    read_attribute(:remaining_volume) - 20
+    read_attribute(:remaining_volume) - 20 rescue 0 
   end
 
   def has_special_events

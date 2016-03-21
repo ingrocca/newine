@@ -58,8 +58,8 @@ class NewineServer < Sinatra::Application
 			params[:user][:valid_user]=true
 			@user = User.create(params[:user])
 			if @user.valid?
-				params[:tag][:user_id] = @user.id
-				@tag = Tag.create(params[:tag])
+				@tag = Tag.new(params[:tag])
+				@user.add_tag(@tag)
 				p 'created tag'
 				if @tag.valid?
 					Event.log(
@@ -88,7 +88,8 @@ class NewineServer < Sinatra::Application
 				redirect to('/')
 			end
 		else
-			@tag = Tag.create(params[:tag])
+			@tag = Tag.new(params[:tag])
+			@tag.user.add_tag(@tag)
 			p 'created tag'
 			if @tag.valid?
 				Event.log(
