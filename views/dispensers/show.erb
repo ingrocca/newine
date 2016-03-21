@@ -149,7 +149,7 @@
 			<span id='online_label' class='label <%= @dispenser.online ? 'label-success' : 'label-danger' %>'> <%= @dispenser.online ? 'online' : 'offline' %></span>
 		</div>
 		<div class='col-lg-3 col-md-3 col-sm-12  col-xs-12' style='vertical-align:middle; margin-top:20px;'>
-			<p><a class='btn btn-danger pull-right' id='detach-dispenser'>Desvincular Dispenser</a></p>
+			<p><a href="#" data-href='<%= url("/dispensers/#{@dispenser.id}/destroy")%>'class='btn btn-danger pull-right' id='detach-dispenser'>Desvincular Dispenser</a></p>
 		</div>
 		
 		<div id='temperature-controls-container' class="col-xs-10 col-xs-offset-1 col-lg-offset-2 col-lg-6 col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-10 centered">

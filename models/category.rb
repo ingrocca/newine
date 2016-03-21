@@ -8,4 +8,16 @@ class Category < ActiveRecord::Base
 	def to_s
 		name
 	end
+
+	def calculate_low_percentage
+		low_percentage.to_f / 100.0
+	end
+
+	def calculate_med_percentage
+		med_percentage.to_f / 100.0
+	end
+	
+	def calculate_high_percentage
+		high_percentage.to_f / 100.0
+	end
 end

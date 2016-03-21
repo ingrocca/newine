@@ -123,6 +123,7 @@ class NewineServer < Sinatra::Application
 		@dispenser.configure
 		jbuilder :'dispensers/show'
 	end
+
 	post '/dispensers/bottle_holders/servings/:id.json' do
 		
 		@bottle_holder = BottleHolder.find(params[:id])
@@ -174,5 +175,11 @@ class NewineServer < Sinatra::Application
 		$channel.push({:temperature_control => @temperature_control}.to_json)
 
 		"TEMP OK"
+	end
+
+	post '/dispensers/:id/destroy' do |id|
+		@dispenser = Dispenser.find(id)
+		@dispenser.destroy
+		{ status: 200 }.to_json
 	end
 end

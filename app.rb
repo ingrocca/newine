@@ -44,6 +44,19 @@ class NewineServer < Sinatra::Application
 					p 'Unrecognized format'
 			end
 		end
+
+		def boolean_humanize boolean
+			case boolean
+			when true
+				"Si"
+			else
+				'No'
+			end
+		end
+
+		def percentage_humanize percentage
+			percentage * 100
+		end
 	end
 
 	#get '/nfc' do

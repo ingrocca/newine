@@ -39,6 +39,77 @@ class NewineServer < Sinatra::Application
 
 	post '/servings.json' do
 		data = JSON.parse(request.body.read)
+		puts data["serving"]
+		@serving = Serving.new(data["serving"])
+		#@serving.dispenser.update(last_activity:  Time.now)
+		@serving.bottle_holder = @serving.dispenser.bottle_holders.where(dispenser_index: @serving.bottle_index).first
+		@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
+		@serving.tag = Tag.where(:uid => @serving.uid).first
+		#Search price of index of bottle holder
+		case @serving.volume
+			when @serving.bottle_holder.serving_volume_low
+				comp = @serving.bottle_holder.serving_price_low
+				discount = @serving.tag.user.category.try(:calculate_low_percentage) || 0
+			when @serving.bottle_holder.serving_volume_med
+				comp = @serving.bottle_holder.serving_price_med
+				discount = @serving.tag.user.category.try(:calculate_med_percentage) || 0 
+			when @serving.bottle_holder.serving_volume_high
+				comp = @serving.bottle_holder.serving_price_high
+				discount = @serving.tag.user.category.try(:calculate_high_percentage) || 0 
+			else
+				comp = false
+		end
+
+		#Check if apply discount 
+		if comp && ( ( @serving.tag.user.category && @serving.bottle_holder.discounts) || @serving.bottle_holder.has_special_events )
+			discount += @serving.bottle_holder.discounts_special_events
+			comp -= (comp * discount)
+		end
+
+		if @serving.tag.user.client_type == 'customer' && (@serving.tag.credit - comp) >= 0
+			@serving.tag.credit -= comp 
+		end
+
+		if @serving.tag.user.client_type == 'manager'
+			comp = 0 
+			discount = 1
+		end
+		puts "Comp: #{comp}"
+
+		if comp && @serving.tag.user.client_type != 'employee' && (@serving.bottle_holder.remaining_volume >= @serving.volume)
+			#descontar si tiene categoria y si lo permite el dispenser
+			Serving.transaction do
+				@serving.tag.save
+				@serving.remaining_credit = @serving.tag.credit if @serving.tag.user.client_type == 'customer'
+				@serving.bottle_holder.remaining_volume -= @serving.volume
+				@serving.bottle_holder.save
+				@serving.user_id = @serving.tag.user.id
+				@serving.save		
+			end
+			Event.log(
+				"Compra",
+				"Cliente: #{@serving.tag.user.name}, Vino: #{@serving.wine.name}, Precio: #{comp}, Descuento: #{percentage_humanize discount}%",
+				"/servings",
+				0x55EE88,
+				"new_serving")
+
+			if @serving.bottle_holder.remaining_volume < @serving.bottle_holder.serving_volume_high
+				Event.log(
+					"Queda poco vino",
+					"Dispenser: #{@serving.dispenser.uid}, Botella: #{@serving.bottle_index.to_s}",
+					"/dispensers/id/#{@serving.dispenser_id.to_s}",
+					0xAA1111,
+					"empty_bottle")
+			end	
+		else
+			p "Tarjeta sin usuario o error en los datos de medidas"
+			@serving.valid_serving = false
+		end
+		return jbuilder :"servings/show"
+	end
+
+	post '/servings_old.json' do
+		data = JSON.parse(request.body.read)
 		@serving = Serving.new(data["serving"])
 		p 'created serving'
 		p @serving
@@ -69,7 +140,7 @@ class NewineServer < Sinatra::Application
 			@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
 
 			@serving.tag = Tag.where(:uid => @serving.uid).first
-			if comp && @serving.tag && @serving.tag.user && @serving.tag.user.client_type == 'customer' && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
+			if @serving.tag.user.client_type == 'customer' && (@serving.tag.credit - @serving.remaining_credit).abs < 0.001 && (@serving.bottle_holder.remaining_volume >= @serving.volume)
 
 				@serving.tag.credit -= @serving.price rescue 0
 				if @serving.tag.nil? || (@serving.tag.credit <= 0 && !(@serving.tag.user.client_type == 'manager' || @serving.tag.user.client_type == 'superclient')) || !@serving.wine
@@ -84,8 +155,7 @@ class NewineServer < Sinatra::Application
 						@serving.bottle_holder.remaining_volume -= @serving.volume
 						@serving.bottle_holder.save
 						@serving.user_id = @serving.tag.user.id
-						@serving.save
-									
+						@serving.save		
 					end
 					Event.log(
 							"Compra",

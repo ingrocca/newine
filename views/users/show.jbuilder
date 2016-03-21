@@ -1,4 +1,4 @@
-json.(@user, :id, :name)
+json.(@user, :id, :name, :client_type)
 json.uid @tag.uid
 json.credit @tag.credit
 

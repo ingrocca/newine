@@ -5,7 +5,10 @@ class SpecialEvent < ActiveRecord::Base
 	validates :type_special_event, inclusion: { in: %w(discount happy_hour), message: "%{value} no es un tipo válido"}
 	validates :percentage, inclusion: { in: 1..100 }, if: Proc.new { |obj| obj.percentage.present? }
 
-
+	def calculate_percentage
+		percentage / 100.0
+	end
+	
 	def special_event_type_human
 		case type_special_event
 		when 'discount'
