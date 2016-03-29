@@ -5,4 +5,5 @@ class Wine < ActiveRecord::Base
 	validates :vintage, :presence=>true
 	validates :variety, :presence=>true
 	validates :volume, :presence=>true, :numericality=>true
+	validates :open_days, :presence=>true, :numericality=>true
 end

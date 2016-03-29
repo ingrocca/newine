@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320192753) do
+ActiveRecord::Schema.define(version: 20160329175923) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 20160320192753) do
     t.string   "link_url"
     t.integer  "color"
     t.string   "event_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.text     "description"
+    t.boolean  "read",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -181,6 +188,7 @@ ActiveRecord::Schema.define(version: 20160320192753) do
     t.float    "serving_price_low"
     t.float    "serving_price_med"
     t.float    "serving_price_high"
+    t.integer  "open_days"
   end
 
   add_index "wines", ["brand"], name: "index_wines_on_brand"
