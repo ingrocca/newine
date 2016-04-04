@@ -1,6 +1,6 @@
 class NewineServer < Sinatra::Application
 	get "/notifications" do
-		@notifications = Notification.paginate(:page=>params[:page], :per_page=>5)
+		@notifications = Notification.paginate(:page=>params[:page], :per_page=>10)
 		format_render 'html', :"notifications/index"
 	end
 
