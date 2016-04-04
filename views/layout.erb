@@ -59,6 +59,11 @@
 						<li>
 							<a href='/servings'>Reportes</a>
 						</li>
+						<li>
+							<a href='/notifications'>
+								Notificaciones 
+								<%=  (number = Notification.where(read: false).count) > 0 ? "<span class='label label-danger'>#{number}</span>" : "" %></a>
+						</li>
 					</ul>
 <!--
 					<ul class='user-info nav navbar-nav navbar-right'>

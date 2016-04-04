@@ -112,6 +112,7 @@ class NewineServer < Sinatra::Application
 
 			@bottle_holder.serving_volume_high = @wine.serving_volume_high
 			@bottle_holder.serving_price_high = @wine.serving_price_high
+			@bottle_holder.date_bottle_change = Date.today
 
 			@bottle_holder.save
 		else

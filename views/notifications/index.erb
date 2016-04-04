@@ -1,0 +1,40 @@
+<div class='container'>
+	<div class='row'>
+		<div class='col-lg-12'>
+			<h2 class='centered'>Notificaciones</h2>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-10 col-lg-offset-1 apple_pagination'>
+			<%= will_paginate @notifications %>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-10 col-lg-offset-1 apple_pagination'>
+			<%= will_paginate @notifications %>
+		</div>
+		<div class='col-lg-12'>
+			<% @notifications.each do |notification|	%>
+				<div class='panel panel-default'>
+					<div class='panel-body'>
+						<div class="col-lg-9">
+							<%= notification.description %>
+						</div>
+						<div class="col-lg-3">
+							<div class="col-lg-9">
+								<i>Estado: <%= notification.read ? "Leído" : "No leído" %></i>
+							</div>
+							<div class="col-lg-3">
+								<% if !notification.read %>
+									<form action="/notifications/<%= notification.id %>/read" method="post" class="form-inline">
+										<button type="submit" class="btn btn-xs btn-primary">Aceptar</button>
+									</form>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

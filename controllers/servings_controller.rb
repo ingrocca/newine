@@ -96,12 +96,7 @@ class NewineServer < Sinatra::Application
 				"new_serving")
 
 			if @serving.bottle_holder.remaining_volume < @serving.bottle_holder.serving_volume_high
-				Event.log(
-					"Queda poco vino",
-					"Dispenser: #{@serving.dispenser.uid}, Botella: #{@serving.bottle_index.to_s}",
-					"/dispensers/id/#{@serving.dispenser_id.to_s}",
-					0xAA1111,
-					"empty_bottle")
+				Notification.create(description: "Queda poco vino en dispenser: #{@serving.dispenser.uid}, Botella: #{@serving.bottle_index.to_s}", url: "/dispensers/id/#{@serving.dispenser_id.to_s}" )
 			end	
 		else
 			p "Tarjeta sin usuario o error en los datos de medidas"
