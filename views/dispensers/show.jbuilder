@@ -3,7 +3,7 @@ json.(@dispenser, :id, :uid)
 json.bottle_holders do
 	json.array!(@dispenser.bottle_holders) do |bh|
 		json.(bh,:id, :serving_volume_low, :serving_volume_med, :serving_volume_high,
-		 :serving_price_low, :serving_price_med, :serving_price_high, :discounts )
+		 :serving_price_low, :serving_price_med, :serving_price_high, :discounts, :last_clean, :open_days)
 		json.dispenser_index bh.dispenser_index + 1
 		if bh.wine
 			json.wine do

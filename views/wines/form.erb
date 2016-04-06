@@ -7,9 +7,15 @@
         </div>
 	<div class="form-group">
         	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
-        	<div class='col-lg-6'>
-        		<input type='text' name='wine[variety]' class='form-control' value='<%= wine.variety %>'>
-        	</div>
+            <div class='col-lg-6'>
+                <select class="form-control" name="wine[variety]" id="select_variety">
+                    <option></option>
+                    <% Variety.all.each do |variety| %>
+                        <option value="<%= variety.id %>" <%= "selected" if variety.id == wine.variety.try(:id) %>><%= variety.name %></option>
+                    <% end %>
+                </select>
+            </div>
+            <a href="#" class="btn btn-primary add-variety"><span class='glyphicon glyphicon-plus'></span></a>
         </div>
         <div class="form-group">
         	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>

@@ -19,11 +19,13 @@ $(function(){
 
 	
 	$('.edit_wine').click(function(){
+		$("form.form-active").removeClass('form-active');
 		$('.wine_info[data-wine-id=' + current_id + ']').hide();
-		$('.wine_edit_form[data-wine-id=' + current_id + ']').removeClass('hidden');
+		data = $('.wine_edit_form[data-wine-id=' + current_id + ']').removeClass('hidden').addClass('form-active');
 		$(this).hide();
 	});
 	$('.cancel_edit').click(function(){
+		$("form.form-active").removeClass('form-active');
 		$('.wine_info[data-wine-id=' + current_id + ']').show();
 		$('.wine_edit_form[data-wine-id=' + current_id + ']').addClass('hidden');
 		$('.edit_wine[data-wine-id=' + current_id + ']').show();
@@ -31,5 +33,23 @@ $(function(){
 
 	$('#new_wine_btn').click(function(){
 		$('#new-wine-modal').modal('show');
+		$('#new-wine-modal').find('form').addClass('form-active');
 	});
+
+	$(".add-variety").click(function(e){
+		e.preventDefault();
+		$("#new_variety_modal").modal();
+	})
+
+	$("#form_variety").submit(function(event){
+		event.preventDefault();
+		$.post($(this).attr('action'), $(this).serialize(), function(data){
+			data = $.parseJSON(data);
+			option = "<option value='"+data.id+"' selected>"+data.name+"</option>"
+			$("form.form-active").find("#select_variety").append(option);
+		})
+		$(this)[0].reset()
+		$(this).closest(".modal").modal('hide');
+		
+	})
 });

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329181923) do
+ActiveRecord::Schema.define(version: 20160406174446) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -173,6 +173,12 @@ ActiveRecord::Schema.define(version: 20160329181923) do
   add_index "users", ["name"], name: "index_users_on_name"
   add_index "users", ["surname"], name: "index_users_on_surname"
 
+  create_table "varieties", force: true do |t|
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "wines", force: true do |t|
     t.string   "name"
     t.string   "brand"
@@ -183,7 +189,6 @@ ActiveRecord::Schema.define(version: 20160329181923) do
     t.integer  "vintage"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "variety"
     t.integer  "volume"
     t.integer  "serving_volume_low"
     t.integer  "serving_volume_med"
@@ -192,11 +197,11 @@ ActiveRecord::Schema.define(version: 20160329181923) do
     t.float    "serving_price_med"
     t.float    "serving_price_high"
     t.integer  "open_days"
+    t.integer  "variety_id"
   end
 
   add_index "wines", ["brand"], name: "index_wines_on_brand"
   add_index "wines", ["name"], name: "index_wines_on_name"
-  add_index "wines", ["variety"], name: "index_wines_on_variety"
   add_index "wines", ["vintage"], name: "index_wines_on_vintage"
 
 end
