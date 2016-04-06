@@ -99,6 +99,10 @@
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
+														<strong>Variedad:</strong> <%= wine.variety %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
 														<strong>Volumen:</strong> <%= wine.volume.to_s %> ml
 													</p>
 													<br />
@@ -189,4 +193,30 @@
 			</form>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="new_variety_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action='/variety' method='post' class='form-horizontal' id="form_variety">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Nueva variedad</h4>
+                </div>
+                <div class="modal-body">
+                	<div class="form-group">
+        						<label for='variety[name]' class='col-lg-3 control-label'>Nombre</label>
+					        	<div class='col-lg-6'>
+                    	<input type="text" class='form-control' name="variety[name]" required/>
+					        	</div>
+        					</div>
+                </div>
+
+                <div class='modal-footer'>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                    <button class='btn btn-primary'>Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

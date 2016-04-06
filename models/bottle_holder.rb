@@ -24,19 +24,28 @@ class BottleHolder < ActiveRecord::Base
     special_events.where(active: true).map(&:calculate_percentage).inject(0, &:+)
   end
 
-  def check_bottle_status
+  def last_clean
     begin
-      (Date.today - date_bottle_change).to_i >= wine.open_days
+      (Date.today - last_day_cleaned).to_i
     rescue
-      false
+      0
     end
   end
 
-  def check_bottle_cleaned
+  def open_days
     begin
-      (Date.today - last_day_cleaned).to_i >= 7
-    rescue 
-      false
+      (Date.today - date_bottle_change).to_i
+    rescue
+      0
     end
   end
+
+  def check_bottle_status
+    self.open_days >= wine.open_days
+  end
+
+  def check_bottle_cleaned
+    self.last_clean >= 7
+  end
+
 end
