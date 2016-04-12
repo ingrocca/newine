@@ -46,7 +46,7 @@ $(function(){
 		$.post($(this).attr('action'), $(this).serialize(), function(data){
 			data = $.parseJSON(data);
 			option = "<option value='"+data.id+"' selected>"+data.name+"</option>"
-			$("form.form-active").find("#select_variety").append(option);
+			$(".select_variety").each(function(index, element){ $(element).append(option) })
 		})
 		$(this)[0].reset()
 		$(this).closest(".modal").modal('hide');

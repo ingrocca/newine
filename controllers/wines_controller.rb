@@ -31,7 +31,7 @@ class NewineServer < Sinatra::Application
 		if @wine.valid?
 			Event.log(
 				"Nuevo Vino",
-				@wine.name + ", " + @wine.variety + " " + @wine.vintage.to_s,
+				@wine.name + ", " + @wine.variety.to_s + " " + @wine.vintage.to_s,
 				"/wines/" + @wine.id.to_s,
 				0xA88,
 				"new_wine")

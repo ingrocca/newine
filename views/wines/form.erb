@@ -8,7 +8,7 @@
 	<div class="form-group">
         	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
             <div class='col-lg-6'>
-                <select class="form-control" name="wine[variety_id]" id="select_variety">
+                <select class="form-control select_variety" name="wine[variety_id]">
                     <option></option>
                     <% Variety.all.each do |variety| %>
                         <option value="<%= variety.id %>" <%= "selected" if variety.id == wine.variety.try(:id) %>><%= variety.name %></option>
