@@ -5,8 +5,14 @@ class Wine < ActiveRecord::Base
 	validates :name, :presence=>true
 	validates :vintage, :presence=>true
 	validates :variety, :presence=>true
-	validates :volume, :presence=>true, :numericality=>true
-	validates :open_days, :presence=>true, :numericality=>true
+	validates :volume, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :open_days, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_volume_low, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_volume_med, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_volume_high, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_price_low, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_price_med, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
+	validates :serving_price_high, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
 
 	after_initialize :init
 

@@ -71,7 +71,7 @@
 					<tbody>
 						<% Wine.find_each do |wine| %>
 							<tr class='wine-pie-row'>
-								<td class='wine-name'><%= wine.name + ' ' + wine.variety + ' ' + wine.vintage.to_s %></td>
+								<td class='wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
 								<td><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:wine_id => wine.id).to_s %></td>
 								<td class='wine-money-count'><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
 							</tr>

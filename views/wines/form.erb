@@ -2,13 +2,13 @@
 	<div class="form-group">
         	<label for='wine[name]' class='col-lg-3 control-label'>Nombre</label>
         	<div class='col-lg-6'>
-        		<input type='text' name='wine[name]' class='form-control' value='<%= wine.name %>'>
+        		<input type='text' name='wine[name]' class='form-control' value='<%= wine.name %>' required>
         	</div>
         </div>
 	<div class="form-group">
         	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
             <div class='col-lg-6'>
-                <select class="form-control select_variety" name="wine[variety_id]">
+                <select class="form-control select_variety" name="wine[variety_id]" required>
                     <option></option>
                     <% Variety.all.each do |variety| %>
                         <option value="<%= variety.id %>" <%= "selected" if variety.id == wine.variety.try(:id) %>><%= variety.name %></option>
@@ -20,33 +20,33 @@
         <div class="form-group">
         	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
         	<div class='col-lg-6'>
-        		<input type='text' name='wine[brand]' class='form-control' value=<%= wine.brand %>>
+        		<input type='text' name='wine[brand]' class='form-control' value=<%= wine.brand %> required>
         	</div>
         </div>
         <div class="form-group">
         	<label for='wine[vintage]' class='col-lg-3 control-label'>Año</label>
         	<div class='col-lg-3'>
-        		<input type='number' name='wine[vintage]' class='form-control' step=1 value=<%= wine.vintage %>>
+        		<input type='number' name='wine[vintage]' class='form-control' step=1 value=<%= wine.vintage %> required>
         	</div>
         </div>
         <div class="form-group">
         	<label for='wine[volume]' class='col-lg-3 control-label'>Volumen</label>
         	<div class='col-lg-3'>
-        		<input type='number' name='wine[volume]' class='form-control' step=1 value=<%= wine.volume %>>
+        		<input type='number' name='wine[volume]' class='form-control' step=1 value=<%= wine.volume %> required>
         	</div>
         	<label class='col-lg-1' style='margin-top:5px;'>ml</label>
         </div>
          <div class="form-group">
         	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Costo botella $</label>
         	<div class='col-lg-3'>
-        		<input type='number' name='wine[bottle_cost]' class='form-control' step=any value=<%= wine.bottle_cost %>>
+        		<input type='number' name='wine[bottle_cost]' class='form-control' step=any value=<%= wine.bottle_cost %> required>
         	</div>
         
         </div>
          <div class="form-group">
         	<label for='wine[bottle_cost]' class='col-lg-3 control-label'>Botella abierta (d&iacute;as)</label>
         	<div class='col-lg-3'>
-        		<input type='number' name='wine[open_days]' class='form-control' step=any value=<%= wine.open_days %>>
+        		<input type='number' name='wine[open_days]' class='form-control' step=any value=<%= wine.open_days %> required>
         	</div>
         
         </div>
@@ -63,26 +63,26 @@
 
 		<div class='row' style='margin-top:20px;'>
 			<div class='col-md-6 col-xs-6'>
-				<label>ml</label><input type="number" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %>>
+				<label>ml</label><input type="number" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %> required>
 			</div>
 			<div class='col-md-6 col-xs-6'>
-				<label>$</label><input type="number" name='wine[serving_price_low]' class='form-control' value=<%= wine.serving_price_low %>>
-			</div>
-		</div>
-		<div class='row' style='margin-top:20px;'>
-			<div class='col-md-6 col-xs-6'>
-				<label>ml</label><input type="number" name="wine[serving_volume_med]" class='form-control' value=<%= wine.serving_volume_med %>>
-			</div>
-			<div class='col-md-6 col-xs-6'>
-				<label>$</label><input type="number" name='wine[serving_price_med]' class='form-control' value=<%= wine.serving_price_med %>>
+				<label>$</label><input type="number" name='wine[serving_price_low]' class='form-control' value=<%= wine.serving_price_low %> required>
 			</div>
 		</div>
 		<div class='row' style='margin-top:20px;'>
 			<div class='col-md-6 col-xs-6'>
-				<label>ml</label><input type="number" name="wine[serving_volume_high]" class='form-control' value=<%= wine.serving_volume_high %>>
+				<label>ml</label><input type="number" name="wine[serving_volume_med]" class='form-control' value=<%= wine.serving_volume_med %> required>
 			</div>
 			<div class='col-md-6 col-xs-6'>
-				<label>$</label><input type="number" name='wine[serving_price_high]' class='form-control' value=<%= wine.serving_price_high %>>
+				<label>$</label><input type="number" name='wine[serving_price_med]' class='form-control' value=<%= wine.serving_price_med %> required>
+			</div>
+		</div>
+		<div class='row' style='margin-top:20px;'>
+			<div class='col-md-6 col-xs-6'>
+				<label>ml</label><input type="number" name="wine[serving_volume_high]" class='form-control' value=<%= wine.serving_volume_high %> required>
+			</div>
+			<div class='col-md-6 col-xs-6'>
+				<label>$</label><input type="number" name='wine[serving_price_high]' class='form-control' value=<%= wine.serving_price_high %> required>
 			</div>
 		</div>
 	</div>

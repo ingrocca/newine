@@ -197,63 +197,8 @@
 			        </div>
 			        <div id='new_user_fields'>
 			        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
-			        	<div class="form-group">
-		            	<label for='user[name]' class='col-lg-3 control-label'>Nombre:</label>
-		            	<div class='col-lg-4'>
-		           			<input type='text' name='user[name]' class='form-control'>
-		           		</div>
-			          </div>
-		           	<div class="form-group">
-		            	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
-		            	<div class='col-lg-4'>
-		           			<input type='text' name='user[surname]' class='form-control'>
-		           		</div>
-		           	</div>
-		           	<div class="form-group">
-		            	<label for='user[dni]' class='col-lg-3 control-label'>DNI:</label>
-		            	<div class='col-lg-4'>
-		           			<input type='text' name='user[dni]' class='form-control'>
-		           		</div>
-		           	</div>
-		           	<div class="form-group">
-		            	<label for='user[email]' class='col-lg-3 control-label'>Email:</label>
-		            	<div class='col-lg-4'>
-		           			<input type='text' name='user[email]' class='form-control'>
-		           		</div>
-		           	</div>
-		           	<div class="form-group">
-		            	<label for='user[phone]' class='col-lg-3 control-label'>Teléfono:</label>
-		            	<div class='col-lg-4'>
-		           			<input type='text' name='user[phone]' class='form-control'>
-		           		</div>
-		           	</div>
-
-			          <div class="form-group">
-									<div class="col-sm-3 no-padding">
-								    <div class="checkbox">
-						    		  <label>
-						        		<input type="radio" name='user[permissions]' value='customer' checked> Cliente
-						        	</label>
-						    	  </div>
-						      </div>
-							    <div class="col-sm-3 no-padding">
-										<div class="checkbox">
-							    		<label>
-							        		<input type="radio" name='user[permissions]' value='superclient' checked> SuperCliente
-							        	</label>
-							    	</div>
-							    </div>
-							    <div class="col-sm-3 no-padding">
-										<div class="checkbox">
-							    		<label><input type="radio" name='user[permissions]' value='employee'> Empleado</label>
-							    	</div>
-							    </div>
-							    <div class="col-sm-3 no-padding">
-										<div class="checkbox">
-							    		<label><input type="radio" name='user[permissions]' value='manager'> Gerente</label>
-							    	</div>
-							    </div>
-								</div>
+			        	<%= erb :"users/form", locals: {user: User.new} %>
+								<script src='/assets/js/users_index.js'></script>
 			        </div>
 				    </div>
 					</div>
