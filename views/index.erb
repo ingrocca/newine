@@ -196,6 +196,7 @@
 			        	</div>
 			        </div>
 			        <div id='new_user_fields'>
+			        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
 			        	<%= erb :"users/form", locals: {user: User.new} %>
 								<script src='/assets/js/users_index.js'></script>
 			        </div>
