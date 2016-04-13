@@ -33,7 +33,7 @@ class Dispenser < ActiveRecord::Base
 			data['serving_options'][bh.dispenser_index]['med'] = {:price=>bh.serving_price_med,:volume=>bh.serving_volume_med}
 			data['serving_options'][bh.dispenser_index]['high'] = {:price=>bh.serving_price_high,:volume=>bh.serving_volume_high}
 			data['wine_names'][bh.dispenser_index] = (bh.wine ? bh.wine.name : 'Vacio')
-			data['wine_details'][bh.dispenser_index] = (bh.wine ? bh.wine.variety + ' ' + bh.wine.vintage.to_s : '')
+			data['wine_details'][bh.dispenser_index] = (bh.wine ? bh.wine.variety.to_s + ' ' + bh.wine.vintage.to_s : '')
 			data['remaining_volumes'][bh.dispenser_index] = bh.remaining_volume
 		end
 
