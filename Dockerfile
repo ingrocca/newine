@@ -45,10 +45,7 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json \
   && sync \
   && umount /mnt \
-<<<<<<< HEAD
   && connmanctl tether wifi off \
-=======
->>>>>>> refs/remotes/origin/fix-errors
   && connmanctl tether wifi on Newine dispenser \
   && memcached -d -u  root \
   && cd /app && bash newine_server_init
