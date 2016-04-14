@@ -79,6 +79,7 @@ sock.onmessage = function(evt){
 			     		$('.new-card-group').show();
 			     		$('#existing_user_fields').show();
 			     		$('#new_user_fields').hide();
+			     		$("#new_user_fields :input").attr("disabled", true);
 			     		$('#tag_form_buttons').show();
 			     		return true;
 			     	});
@@ -89,6 +90,7 @@ sock.onmessage = function(evt){
 		     			$('#tag_form_buttons').show();
 		     			$('#existing_user_fields').show();
 			     		$('#new_user_fields').hide();
+			     		$("#new_user_fields :input").attr("disabled", true);
 		     		}else{
 		     			$('#existing-card-group').show();
 		     		}
@@ -176,6 +178,7 @@ sock.onmessage = function(evt){
 	$('#existing_user').click(function(){
 		$('#new_user_hidden').val(false);
 		$('#new_user_fields').hide();
+		$("#new_user_fields :input").attr("disabled", true);
 		$('#existing_user_fields').show();
 		$(this).addClass('active');
 		$('#create_new_user').removeClass('active');
@@ -184,6 +187,7 @@ sock.onmessage = function(evt){
 	$('#create_new_user').click(function(){
 		$('#new_user_hidden').val(true);
 		$('#new_user_fields').show();
+		$("#new_user_fields :input").attr("disabled", false);
 		$('#existing_user_fields').hide();
 		$(this).addClass('active');
 		$('#existing_user').removeClass('active');

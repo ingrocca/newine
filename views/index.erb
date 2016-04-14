@@ -93,15 +93,6 @@
 				            	</div>
 				            </div>
 							<div class="form-group">
-				            	<label for='dispenser[n_bottles]' class='col-lg-3 control-label'>Botellas</label>
-				            	<div class='col-lg-2'>
-				            		<select name='dispenser[n_bottles]' class='form-control'>
-				            			<option value=4>4</option>
-				            			<option value=8>8</option>
-				            		</select>
-				            	</div>
-							</div>
-							<div class="form-group">
 				            	<label for='dispenser[n_temperature_controls]' class='col-lg-3 control-label'>Controles de temperatura</label>
 				            	<div class='col-lg-2'>
 				            		<select name='dispenser[n_temperature_controls]' class='form-control'>
@@ -195,7 +186,7 @@
 				        	</div>
 			        	</div>
 			        </div>
-			        <div id='new_user_fields'>
+			        <div id='new_user_fields' style="display:none;">
 			        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
 			        	<%= erb :"users/form", locals: {user: User.new} %>
 								<script src='/assets/js/users_index.js'></script>
