@@ -72,4 +72,10 @@ class NewineServer < Sinatra::Application
 		end
 		format_render 'html', :"users/index"
 	end
+
+	post '/users/destroy/:id' do
+		@user = User.find(params[:id])
+		@user.destroy
+		redirect "/users"
+	end
 end

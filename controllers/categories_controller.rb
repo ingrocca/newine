@@ -29,4 +29,10 @@ class NewineServer < Sinatra::Application
 		end
 		redirect "/categories"
 	end
+
+	post "/categories/destroy/:id" do
+		@category = Category.find(params[:id])
+		@category.destroy
+		redirect "/categories"
+	end
 end

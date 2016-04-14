@@ -20,7 +20,7 @@
         <div class="form-group">
         	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
         	<div class='col-lg-6'>
-        		<input type='text' name='wine[brand]' class='form-control' value=<%= wine.brand %> required>
+        		<input type='text' name='wine[brand]' class='form-control' value="<%= wine.brand %>" required>
         	</div>
         </div>
         <div class="form-group">
@@ -63,7 +63,7 @@
 
 		<div class='row' style='margin-top:20px;'>
 			<div class='col-md-6 col-xs-6'>
-				<label>ml</label><input type="number" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %> required>
+				<label>ml</label><input type="number" min="1" max="1000" name="wine[serving_volume_low]" class='form-control'  value=<%= wine.serving_volume_low %> required>
 			</div>
 			<div class='col-md-6 col-xs-6'>
 				<label>$</label><input type="number" name='wine[serving_price_low]' class='form-control' value=<%= wine.serving_price_low %> required>

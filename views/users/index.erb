@@ -63,7 +63,10 @@
 												<div class='panel-body'>
 														<span style="padding-left:10px;">									
 															<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>
-															<a class='edit_user btn btn-warning pull-right' data-user-id=<%= user.id.to_s %>>Editar</a>
+															<div class="pull-right">
+																<a class='edit_user btn btn-warning ' data-user-id=<%= user.id.to_s %>>Editar</a>
+																<a class="delete btn btn-danger" data-delete="<%= url('/users/destroy/'+user.id.to_s) %>"> Eliminar</a>
+															</div>
 														</span>
 														<hr />
 														<div class='user_info' data-user-id=<%= user.id.to_s %>>

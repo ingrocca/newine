@@ -58,7 +58,10 @@
 										<div class='panel-body'>
 												<span style="padding-left:10px;">									
 													<strong><%= category.id %>:</strong> <%= category.name %>
-													<a class='edit_category btn btn-warning pull-right' data-category-id=<%= category.id.to_s %>>Editar</a>
+													<div class="pull-right">
+														<a class='edit_category btn btn-warning ' data-category-id=<%= category.id.to_s %>>Editar</a>
+														<a class="delete btn btn-danger" data-delete="<%= url('/categories/destroy/'+category.id.to_s)%>">Eliminar</a>
+													</div>
 												</span>
 												<hr />
 												<div class='category_info' data-category-id=<%= category.id.to_s %>>

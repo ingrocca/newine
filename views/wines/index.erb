@@ -90,7 +90,12 @@
 										
 												<span style="padding-left:10px;">									
 													<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>
-													<a class='edit_wine btn btn-warning pull-right' data-wine-id=<%= wine.id.to_s %>>Editar</a>
+													<div class="pull-right">
+														<a class='edit_wine btn btn-warning' data-wine-id=<%= wine.id.to_s %>>Editar</a>
+														<% if wine.bottle_holders.empty? %>
+															<a class="delete btn btn-danger" data-delete="<%= url('wines/destroy/'+wine.id.to_s)%>">Eliminar</a>
+														<% end %>
+													</div>
 												</span>
 												<hr />
 												<div class='wine_info' data-wine-id=<%= wine.id.to_s %>>

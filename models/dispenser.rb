@@ -5,6 +5,12 @@ class Dispenser < ActiveRecord::Base
 
 	validates :uid, :uniqueness => true
 	#after_save :create_bottle_holders, :on => :create
+	
+	after_initialize :init
+
+  def init
+  	self.n_bottles ||= 8 
+  end
 
 	def to_s
 		name
