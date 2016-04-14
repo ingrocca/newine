@@ -57,7 +57,10 @@
 										<div class='panel-body'>
 												<span style="padding-left:10px;">									
 													<strong><%= special_event.id %>:</strong> <%= special_event.name %>
-													<a class='edit_special_event btn btn-warning pull-right' data-special-event-id=<%= special_event.id.to_s %>>Editar</a>
+													<div class="pull-right">
+														<a class='edit_special_event btn btn-warning' data-special-event-id=<%= special_event.id.to_s %>>Editar</a>
+														<a class="delete btn btn-danger" data-delete="<%= url('special_events/destroy/'+special_event.id.to_s)%>">Eliminar</a>
+													</div>
 												</span>
 												<hr />
 												<div class='special_event_info' data-special-event-id=<%= special_event.id.to_s %>>

@@ -22,4 +22,10 @@ class NewineServer < Sinatra::Application
 		end
 		redirect "/special_events"
 	end
+
+	post '/special_events/destroy/:id' do
+		@special_event = SpecialEvent.find(params[:id])
+		@special_event.destroy
+		redirect "/special_events"
+	end
 end

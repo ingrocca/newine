@@ -54,4 +54,10 @@ class NewineServer < Sinatra::Application
 		@wines = Wine.all
 		format_render 'json', :"wines/all"
 	end
+
+	post "/wines/destroy/:id" do
+		@wine = Wine.find(params[:id])
+		@wine.destroy
+		redirect "/wines"
+	end
 end

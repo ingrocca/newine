@@ -82,4 +82,5 @@ $(function(){
 		$('.panel-tag').show('fade');
 		$('.new-card').show('fade');
 	});
+
 });

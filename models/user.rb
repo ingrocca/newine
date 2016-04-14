@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	has_many :tags
+	has_many :tags, dependent: :destroy
 	has_many :servings
 	belongs_to :category
 
