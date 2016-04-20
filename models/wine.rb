@@ -24,4 +24,8 @@ class Wine < ActiveRecord::Base
     self.serving_volume_med ||= 70
     self.serving_volume_high ||= 140
   end
+
+  def taste
+  	self.volume -= 20
+  end
 end
