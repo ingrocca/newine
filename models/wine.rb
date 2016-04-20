@@ -27,5 +27,6 @@ class Wine < ActiveRecord::Base
 
   def taste
   	self.volume -= 20
+  	self.save
   end
 end
