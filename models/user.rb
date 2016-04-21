@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
 			tag.credit += current_tag.credit 
 			current_tag.update(active: false)
 		end
+		tag.user = self if tag.user.nil?
 		tag.active = true
 		tag.save 
 	end

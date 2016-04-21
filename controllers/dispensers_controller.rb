@@ -95,6 +95,7 @@ class NewineServer < Sinatra::Application
 	post '/dispensers/bottle_holders/wine/:id.json' do
 		data = JSON.parse(request.body.read)
 		p data
+		throw data
 		@bottle_holder = BottleHolder.find(params[:id])
 
 		if data['wine_id']
