@@ -98,8 +98,9 @@ class NewineServer < Sinatra::Application
 		begin
 			@bottle_holder = BottleHolder.find(params[:id])
 		rescue
-			@bottle_holder = BottleHolder.where(dispenser_id: params['dispenser_id'], dispenser_index: params['dispenser_index']).last
+			@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
 		end
+		
 		if data['wine_id']
 			@wine = Wine.find(data['wine_id'])
 
