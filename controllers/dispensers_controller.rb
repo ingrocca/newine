@@ -95,9 +95,11 @@ class NewineServer < Sinatra::Application
 	post '/dispensers/bottle_holders/wine/:id.json' do
 		data = JSON.parse(request.body.read)
 		p data
-		throw data
-		@bottle_holder = BottleHolder.find(params[:id])
-
+		begin
+			@bottle_holder = BottleHolder.find(params[:id])
+		rescue
+			@bottle_holder = BottleHolder.where(dispenser_id: params['dispenser_id'], dispenser_index: params['dispenser_index']).last
+		end
 		if data['wine_id']
 			@wine = Wine.find(data['wine_id'])
 
