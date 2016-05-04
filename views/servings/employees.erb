@@ -1,0 +1,33 @@
+<div class="container">
+	<%= erb :"servings/menu" %>
+	<div class="row">
+		<div class='col-lg-7'>
+			<div class='row'>
+				<div class='col-lg-12'>
+					<table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
+					<thead>
+						<tr>
+							<th>Usuario</th>
+							<th>Fecha</th>
+							<th>Vino</th>
+							<th>ML</th>
+							<th>Precio</th>
+							<th>Ganancia</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @employees.each do |employee| %>
+							<tr>
+								<td><%= serving.user %></td>
+								<td><%= serving.created_at.strftime("%d/%m/%Y")%></td>
+								<td><%= serving.wine %></td>
+								<td><%= serving.volume %> ml</td>
+								<td>$ <%= serving.price %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+	<%= erb :"servings/menu" %>
+	<div class="row">
+		<div class='col-lg-7'>
+			<div class='row'>
+				<div class='col-lg-12'>
+					<table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
+					<thead>
+						<tr>
+							<th>Usuario</th>
+							<th>Fecha</th>
+							<th>Vino</th>
+							<th>ML</th>
+							<th>Precio</th>
+							<th>Ganancia</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @servings.all.each do |serving| %>
+							<tr>
+								<td><%= serving.user %></td>
+								<td><%= serving.created_at.strftime("%d/%m/%Y")%></td>
+								<td><%= serving.wine %></td>
+								<td><%= serving.volume %> ml</td>
+								<td>$ <%= serving.price %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+		<div class='col-lg-5'>
+			<div class='row'>
+				<div class='col-lg-12'>
+					<table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
+					<thead>
+						<tr>
+							<th>Usuario</th>
+							<th>Categoria</th>
+							<th>Ventas</th>
+							<th>Total Ml</th>
+							<th>Total $</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @users.find_each do |user| %>
+							<tr class='wine-pie-row'>
+								<td><%= user %></td>
+								<td><%= user.client_type_human %></td>
+								<td><%= user.servings.count%></td>
+								<td><%= user.servings.inject(0){ |sum, s| sum + s.volume }%> ml</td>
+								<td>$ <%= user.servings.inject(0){ |sum, s| sum + s.price }%></td>
+							</tr>
+						<% end %>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-10 col-lg-offset-1 apple_pagination'>
+			<%= will_paginate @servings %>
+		</div>
+	</div>
+</div>
