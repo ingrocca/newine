@@ -13,4 +13,8 @@ class Serving < ActiveRecord::Base
 
 	define_statistic :total_count, :count=>:all, :filter_on => {:dispenser_id => 'dispenser_id = ?', :wine_id => 'wine_id = ?', :user_id => 'user_id = ?'}
 	define_statistic :money, :sum => :all, :column_name => 'price', :filter_on => {:dispenser_id => 'dispenser_id = ?', :wine_id => 'wine_id = ?', :user_id => 'user_id = ?'}
+
+	def check_remaining_volume
+		(self.bottle_holder.remaining_volume - 10) >= self.volume
+	end
 end

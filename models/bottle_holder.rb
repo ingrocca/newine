@@ -16,10 +16,6 @@ class BottleHolder < ActiveRecord::Base
     self.remaining_volume -= 20
     self.save
   end
-  
-  def remaining_volume 
-    read_attribute(:remaining_volume) - 20 rescue 0 
-  end
 
   def has_special_events
     !special_events.where(active: true).empty?
