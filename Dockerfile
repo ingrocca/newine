@@ -39,8 +39,6 @@ RUN gem install atomic -v '1.1.14'
 RUN gem install sqlite3 -v '1.3.8'
 RUN cd /app && gem install bundler && bundler install
 RUN cd /app && rake db:migrate
-RUN wget https://get.docker.io/builds/Linux/x86_64/docker-latest -O /bin/docker
-RUN chmod +x /bin/docker
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
