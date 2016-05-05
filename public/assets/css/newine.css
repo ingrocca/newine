@@ -103,11 +103,11 @@ a:active {text-decoration:none;}
 .volume-outer-8 {
     /*width: 100%;*/
     width: 45px;
-    height: 160px;
+    height: 170px;
    /* border: 2px solid #ccc;*/
     overflow: hidden;
     margin-left: -5px;
-    margin-top: 158px;  
+    margin-top: 148px;  
     position: absolute;
     z-index: 0;
  /*   -moz-border-radius: 4px;
@@ -117,25 +117,25 @@ a:active {text-decoration:none;}
 }
 
 .volume-outer-8.bottle-index-7{
-  margin-left: 20px !important;
+  margin-left: 18px !important;
 }
 .volume-outer-8.bottle-index-6{
-  margin-left: 14px !important;
+  margin-left: 12px !important;
 }
 .volume-outer-8.bottle-index-5{
-  margin-left: 9px !important;
+  margin-left: 6px !important;
 }
 .volume-outer-8.bottle-index-4{
-  margin-left: 3px !important;
+  margin-left: 1px !important;
 }
 .volume-outer-8.bottle-index-3{
-  margin-left: -1px !important;
+  margin-left: -5px !important;
 }
 .volume-outer-8.bottle-index-2{
-  margin-left: -8px !important;
+  margin-left: -10px !important;
 }
 .volume-outer-8.bottle-index-1{
-  margin-left: -12px !important;
+  margin-left: -14px !important;
 }
 
 .dispenser-fg-4 div:first-child {
