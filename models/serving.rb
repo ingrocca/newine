@@ -17,4 +17,8 @@ class Serving < ActiveRecord::Base
 	def check_remaining_volume
 		(self.bottle_holder.remaining_volume - 10) >= self.volume
 	end
+
+	def cost
+		self.volume * self.volume_cost
+	end
 end

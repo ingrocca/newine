@@ -76,6 +76,7 @@ class NewineServer < Sinatra::Application
 				@serving.bottle_holder.remaining_volume -= @serving.volume
 				@serving.bottle_holder.save
 				@serving.user_id = @serving.tag.user.id
+				@serving.volume_cost = @serving.bottle_holder.wine.try(:volume_cost)
 				@serving.save		
 			end
 			Event.log(
@@ -103,14 +104,15 @@ class NewineServer < Sinatra::Application
 
 	get '/servings/users' do
 		@view = "users"
-		@servings = Serving.paginate(:page=>params[:page], :per_page=>20)
+		@q = Serving.ransack(params[:q])
+		@servings = @q.result.paginate(:page=>params[:page], :per_page=>20)
 		@users = User.where(client_type: ["customer", "manager"])
 		erb :"servings/users"
 	end
 
-	get '/servings/employees' do
-		@view = "employees"
-		@employees = User.where(client_type: "employee")
-		erb :"servings/employees"
+	get '/servings/activities' do
+		@view = "activities"
+		@activities = Event.where(event_type: ["taste","change_bottle"])
+		erb :"servings/activities"
 	end
 end

@@ -16,6 +16,10 @@ class Wine < ActiveRecord::Base
 
 	after_initialize :init
 
+	def to_s
+		"#{name} - #{variety} - #{vintage}"
+	end
+
   def init
     self.vintage ||= Date.today.year
     self.volume ||= 750 
@@ -25,4 +29,7 @@ class Wine < ActiveRecord::Base
     self.serving_volume_high ||= 140
   end
 
+  def volume_cost
+  	self.bottle_cost / self.volume
+  end
 end

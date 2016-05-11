@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406174446) do
+ActiveRecord::Schema.define(version: 20160510125208) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160406174446) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.float    "volume_cost"
   end
 
   add_index "servings", ["dispenser_id"], name: "index_servings_on_dispenser_id"

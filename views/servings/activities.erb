@@ -1,0 +1,22 @@
+<div class="container">
+	<%= erb :"servings/menu" %>
+	<div class="row">
+		<div class='col-lg-12'  style='min-height: 300px;'>
+			<table class='table table-striped' style='max-height: 500px; overflow-y:scroll;'>
+			<thead>
+				<tr>
+					<th>Actividad</th>
+					<th>Fecha</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @activities.each do |activity| %>
+					<tr>
+						<td><%= activity.description %></td>
+						<td><%= activity.created_at.strftime("%d/%m/%Y") %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

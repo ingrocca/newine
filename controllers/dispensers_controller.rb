@@ -119,6 +119,12 @@ class NewineServer < Sinatra::Application
 			@bottle_holder.date_bottle_change = Date.today
 
 			@bottle_holder.save
+			Event.log(
+			"Cambio de botella",
+			"Se coloco el vino #{@bottle_holder.wine} en el dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index}",
+			"#",
+			0xffffff,
+			"change_bottle")
 		else
 			@bottle_holder.wine_id = nil
 			@bottle_holder.remaining_volume = 0

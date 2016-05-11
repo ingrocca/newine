@@ -4,6 +4,12 @@ class NewineServer < Sinatra::Application
 		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
 		@bottle_holder.taste
 		@dispenser = @bottle_holder.dispenser
+		Event.log(
+			"Muestra",
+			"Muestra de vino #{@bottle_holder.wine} en el dispenser #{@bottle_holder.dispenser.name}",
+			"#",
+			0xffffff,
+			"taste")
 		@dispenser.configure
 		{ status: 200, id: @bottle_holder.id }.to_json
 	end
@@ -13,6 +19,12 @@ class NewineServer < Sinatra::Application
 		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
 		@bottle_holder.update(remaining_volume: @bottle_holder.wine.volume, date_bottle_change: Date.today)
 		@dispenser = @bottle_holder.dispenser
+		Event.log(
+			"Cambio de botella",
+			"Se coloco el vino #{@bottle_holder.wine} en el dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index}",
+			"#",
+			0xffffff,
+			"change_bottle")
 		@dispenser.configure
 		{ status: 200, id: @bottle_holder.id }.to_json
 	end

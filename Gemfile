@@ -11,7 +11,7 @@ gem "tilt-jbuilder", ">= 0.4.0", :require => "sinatra/jbuilder"
 
 gem "thin"
 
-gem 'nfc', :git => 'git://github.com/pcarranzav/nfc.git', :ref => '15001c2'
+#gem 'nfc', :git => 'git://github.com/pcarranzav/nfc.git', :ref => '15001c2'
 
 gem 'dalli'
 
@@ -24,7 +24,9 @@ gem 'statistics'
 
 gem 'rake'
 
+gem "ransack", "~> 1.7.0"
 
 group :development do
+	gem 'pry', '~> 0.10.3'
   gem "tux"
 end
