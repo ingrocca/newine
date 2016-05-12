@@ -7,13 +7,53 @@
 	<%= erb :"servings/menu" %>
 	<div class='row'>
 		<div class='col-lg-12 centered'>
-			<h5> Ver estadísticas de:</h5>
-			<a class='btn btn-default <%= params[:t].to_i == 1 ? 'active' : '' %>' href='/servings?t=1'>1 día</a>
-			<a class='btn btn-default <%= params[:t].to_i == 5 ? 'active' : '' %>' href='/servings?t=5'>5 días</a>
-			<a class='btn btn-default <%= params[:t].to_i == 30 ? 'active' : '' %>' href='/servings?t=30'>30 días</a>
-			<a class='btn btn-default <%= params[:t].to_i == 60 ? 'active' : '' %>' href='/servings?t=60'>60 días</a>
-			<a class='btn btn-default <%= params[:t].to_i == 365 ? 'active' : '' %>' href='/servings?t=365'>365 días</a>
-		</div>
+			<br>
+				<form class="form-horizontal well">
+				  <div class="row">
+					  <div class="col-md-6">
+					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Dispenser</label>
+					  		<div class="col-sm-9">
+					  			<select class="form-control" name="q[dispenser_id_eq]"> 
+					  				<option></option>
+					  				<% Dispenser.all.each do |dispenser| %>
+					  					<option value='<%= dispenser.id %>' <%= "selected" if dispenser.id == @q.dispenser_id_eq %>><%= dispenser.name %></option>
+					  				<% end %>
+					  			</select>
+					  		</div>
+					  	</div>
+					  </div>
+					  <div class="col-md-6">
+					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Vino</label>
+					  		<div class="col-sm-9">
+					  			<select class="form-control" name="q[wine_id_eq]"> 
+					  				<option></option>
+					  				<% Wine.all.each do |wine| %>
+					  					<option value='<%= wine.id %>' <%= "selected" if wine.id == @q.wine_id_eq %> ><%= wine %></option>
+					  				<% end %>
+					  			</select>
+					  		</div>
+					  	</div>
+					  </div>
+					  <div class="col-md-6">
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">A partir de</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
+						    </div>
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+					    <div class="pull-right">
+					      <button type="submit" class="btn btn-primary">Buscar</button>
+					    </div>
+					  </div>
+					</div>
+				</form>
+			</div>
 	</div>
 	<div class='row'>
 		<div id="total_money" class='hidden'><%= @money_total.to_s %></div>
@@ -36,8 +76,8 @@
 						<% Dispenser.find_each do |dispenser| %>
 							<tr class='dispenser-pie-row'>
 								<td class='dispenser-name'><%= dispenser.id.to_s %></td>
-								<td><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></td>
-								<td class='dispenser-money-count'><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></td>
+								<td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></td>
+								<td class='dispenser-money-count'><%= @servings.get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></td>
 							</tr>
 						<% end %>
 					</tbody>
@@ -65,8 +105,8 @@
 						<% Wine.find_each do |wine| %>
 							<tr class='wine-pie-row'>
 								<td class='wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
-								<td><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:wine_id => wine.id).to_s %></td>
-								<td class='wine-money-count'><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
+								<td><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></td>
+								<td class='wine-money-count'><%= @servings.get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
 							</tr>
 						<% end %>
 					</tbody>

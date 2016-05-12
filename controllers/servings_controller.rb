@@ -4,9 +4,8 @@ class NewineServer < Sinatra::Application
 		response['Content-Disposition'] = "attachment; filename=newine_report.xls"
     	content_type 'application/xls'
 
-		params[:t] = 1 if !params[:t]
-		@stat_time = params[:t].to_i.days.ago
-		@servings = Serving.all
+		@q = Serving.ransack(params[:q])
+		@servings = @q.result
 		@serv_total = Serving.where('created_at > ?', @stat_time).get_stat(:total_count)
 		@money_total = Serving.where('created_at > ?', @stat_time).get_stat(:money)
 		erb :"servings/index.xls", :layout => false
@@ -18,12 +17,11 @@ class NewineServer < Sinatra::Application
 	end
 
 	get  '/servings' do
-		params[:t] = 1 if !params[:t]
-		@stat_time = params[:t].to_i.days.ago
 		@view = "index"
-		@servings = Serving.all
-		@serv_total = Serving.where('created_at > ?', @stat_time).get_stat(:total_count)
-		@money_total = Serving.where('created_at > ?', @stat_time).get_stat(:money)
+		@q = Serving.ransack(params[:q])
+		@servings = @q.result
+		@serv_total = @servings.get_stat(:total_count)
+		@money_total = @servings.get_stat(:money)
 		erb :"servings/index"
 	end
 
@@ -81,7 +79,7 @@ class NewineServer < Sinatra::Application
 			end
 			Event.log(
 				"Compra",
-				"Cliente: #{@serving.tag.user.name}, Vino: #{@serving.wine.name}, Precio: #{comp}, Descuento: #{percentage_humanize discount}%",
+				"Cliente: #{@serving.tag.user.name}, Vino: #{@serving.wine.name}, Cantidad: #{@serving.volume} ml, Precio: $ #{comp}, Descuento: #{percentage_humanize discount}%",
 				"/servings",
 				0x55EE88,
 				"new_serving")
