@@ -1,10 +1,25 @@
 <br>
 <div class="panel">
 	<form method="get" action="<%= url('/servings/users')%>" class="form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-2">Nombre o Apellido</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" name="q[user_name_or_user_surname_start]" value="<%= @q.user_name_or_user_surname_start %>" />
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-3">Nombre o Apellido</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="q[user_name_or_user_surname_start]" value="<%= @q.user_name_or_user_surname_start %>" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-3">Categoría</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="q[user_category_id_eq]">
+						<option value=""></option>
+						<% Category.all.each do |category| %>
+							<option value="<%= category.id %>" <%= "selected" if category.id == @q.user_category_id_eq%>><%= category.name %></option>
+						<% end %>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">

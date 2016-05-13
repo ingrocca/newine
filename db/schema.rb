@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20160510125208) do
     t.integer  "n_bottles"
     t.string   "ip"
     t.integer  "n_temperature_controls"
-    t.text     "ml_to_ms"
   end
 
   add_index "dispensers", ["online"], name: "index_dispensers_on_online"
@@ -120,7 +119,7 @@ ActiveRecord::Schema.define(version: 20160510125208) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.float    "volume_cost"
+    t.float    "volume_cost",      default: 0.0
   end
 
   add_index "servings", ["dispenser_id"], name: "index_servings_on_dispenser_id"
