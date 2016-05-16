@@ -37,6 +37,8 @@ RUN gem install i18n -v '0.6.5'
 RUN gem install require_all -v '1.3.1'
 RUN gem install atomic -v '1.1.14'
 RUN gem install sqlite3 -v '1.3.8'
+RUN gem install rake -v '10.1.0'
+
 RUN cd /app && gem install bundler && bundler install
 RUN cd /app && rake db:migrate
 
