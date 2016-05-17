@@ -40,6 +40,7 @@ RUN gem install sqlite3 -v '1.3.8'
 RUN gem install rake -v '10.1.0'
 
 RUN cd /app && gem install bundler && bundler install
+RUN cd /app && rake db:migrate
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
