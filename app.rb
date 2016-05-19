@@ -119,7 +119,7 @@ def run_newine
 						d.configure rescue nil
 					end
 				end
-				sleep 30
+				sleep 1.minutes
 			end
 		end
 
