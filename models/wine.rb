@@ -30,6 +30,7 @@ class Wine < ActiveRecord::Base
     self.serving_price_low ||= 0
     self.serving_price_med ||= 0
     self.serving_price_high ||= 0
+    self.bottle_cost ||= 0
   end
 
   def volume_cost
