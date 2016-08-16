@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20160406174446) do
     t.integer  "n_bottles"
     t.string   "ip"
     t.integer  "n_temperature_controls"
-    t.text     "ml_to_ms"
   end
 
   add_index "dispensers", ["online"], name: "index_dispensers_on_online"
