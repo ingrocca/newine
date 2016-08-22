@@ -49,3 +49,5 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && connmanctl tether wifi on Newine dispenser \
   && memcached -d -u  root \
   && cd /app && rake db:migrate && bash newine_server_init
+
+ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
