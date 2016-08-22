@@ -313,10 +313,46 @@ a:active {text-decoration:none;}
   
   }
 /*MEDIA SIZE*/
+ @media(max-width : 767px) {
+    .volume-outer-8 {
+      margin-top: 148px;
+    }
+  }
+@media (min-width: 768px) { /*Para monitores xs*/
+  .volume-outer-8 {
+    margin-top: 148px;
+  }
 
-@media (max-width: 767px) { /*Para monitores xs*/
-  .dispenser-8b-img{width: 400px!important;}
-  .dispenser-8b-row{width: 400px!important;}
+  .volume-outer-8.bottle-index-8 {
+    margin-left: 27px;
+  }
+  .volume-outer-8.bottle-index-7 {
+    margin-left: 25px;
+  }
+  .volume-outer-8.bottle-index-6 {
+    margin-left: 21px;
+  }
+  .volume-outer-8.bottle-index-5 {
+    margin-left: 19px;
+  }
+  .volume-outer-8.bottle-index-4 {
+    margin-left: 17px;
+  }
+  .volume-outer-8.bottle-index-3 {
+    margin-left: 15px;
+  }
+  .volume-outer-8.bottle-index-2 {
+    margin-left: 11px;
+  }
+  .volume-outer-8.bottle-index-1 {
+    margin-left: 8px;
+  }
+
+}
+
+@media (min-width: 992px)and(max-width: 1199px) {
+  .dispenser-8b-img{width: 400px;}
+  .dispenser-8b-row{width: 400px;}
   .volume-outer-8 {
     width: 35px;
     height: 100px;
@@ -324,7 +360,7 @@ a:active {text-decoration:none;}
     position: absolute;
     z-index: 0;
     background-color: #EEE;
-    margin-top: 110px;
+    margin-top: 148px;
   }
   .dispenser-fg-8 {
     margin-left: 5px;
@@ -335,30 +371,20 @@ a:active {text-decoration:none;}
   .bottles-row{
 
   }
-
 }
 
-@media (min-width: 768px) and (max-width: 991px) { /*Para monitores sm*/
-
-}
-
-@media (min-width: 992px) and (max-width: 1200px){ /*Para monitores md*/
-
-}
-
-@media (min-width: 1600px){ /*Para monitores de resolucion muy grande*/
-
-}
-
-/* portrait */
-@media screen and (max-width: 767px) and (orientation:portrait) { /*para celulares vertical*/
-    
-}
-/* landscape */
-@media screen and (max-width: 767px) and (orientation:landscape) {  /*para celulares horizontal*/
-
-}
-
-@media screen and (max-width: 991px) and (orientation:landscape){ /*para tablets horizontal*/
-
+@media (min-width: 1200px){ /*Para monitores de resolucion muy grande*/
+  .volume-outer-8 {
+    width: 45px;
+    height: 170px;
+    overflow: hidden;
+    margin-left: -5px;
+    margin-top: 148px;  
+    position: absolute;
+    z-index: 0;
+    background-color: #EEE;
+  }
+  .dispenser-fg-8 div:first-child {
+    margin-left: 23px;
+  }
 }

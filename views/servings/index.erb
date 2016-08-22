@@ -37,6 +37,22 @@
 					  	</div>
 					  </div>
 					  <div class="col-md-6">
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">Desde</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
+						    </div>
+						  </div>
+						</div>
+					  <div class="col-md-6">
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">Hasta</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control datetimepicker" name="q[created_at_lteq]" value="<%= @q.created_at_lteq %>">
+						    </div>
+						  </div>
+						</div>
+					  <div class="col-md-6">
 							<div class="form-group">
 								<label class="col-sm-3">Cliente Categoría</label>
 								<div class="col-sm-9">
@@ -48,14 +64,6 @@
 									</select>
 								</div>
 							</div>
-						</div>
-					  <div class="col-md-6">
-						  <div class="form-group">
-						    <label class="col-sm-3 control-label">A partir de</label>
-						    <div class="col-sm-9">
-						      <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
-						    </div>
-						  </div>
 						</div>
 					</div>
 					<div class="col-md-12">
