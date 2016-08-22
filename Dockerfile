@@ -40,7 +40,6 @@ RUN gem install sqlite3 -v '1.3.8'
 RUN gem install rake -v '10.1.0'
 
 RUN cd /app && gem install bundler && bundler install
-RUN cd /app && rake db:migrate
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
@@ -49,4 +48,4 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && umount /mnt \
   && connmanctl tether wifi on Newine dispenser \
   && memcached -d -u  root \
-  && cd /app && bash newine_server_init
+  && cd /app && rake db:migrate && bash newine_server_init
