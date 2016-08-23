@@ -54,9 +54,6 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-<<<<<<< HEAD
-    rake (11.2.2)
-=======
     rake (10.1.0)
     ransack (1.7.0)
       actionpack (>= 3.0)
@@ -64,7 +61,6 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
->>>>>>> 808a76238897782a23cb7d91027f4d8b0c8c62b2
     require_all (1.3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -111,13 +107,9 @@ DEPENDENCIES
   activerecord
   dalli
   em-websocket
-<<<<<<< HEAD
-  rake
-=======
   pry (~> 0.10.3)
   rake
   ransack (~> 1.7.0)
->>>>>>> 808a76238897782a23cb7d91027f4d8b0c8c62b2
   require_all
   rest-client
   sinatra
@@ -130,8 +122,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-<<<<<<< HEAD
-   1.12.5
-=======
    1.11.2
->>>>>>> 808a76238897782a23cb7d91027f4d8b0c8c62b2
