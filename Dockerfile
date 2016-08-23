@@ -37,8 +37,9 @@ RUN gem install i18n -v '0.6.5'
 RUN gem install require_all -v '1.3.1'
 RUN gem install atomic -v '1.1.14'
 RUN gem install sqlite3 -v '1.3.8'
+RUN gem install rake -v '10.1.0'
+
 RUN cd /app && gem install bundler && bundler install
-RUN cd /app && rake db:migrate
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
@@ -47,4 +48,6 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && umount /mnt \
   && connmanctl tether wifi on Newine2 dispenser \
   && memcached -d -u  root \
-  && cd /app && bash newine_server_init
+  && cd /app && rake db:migrate && bash newine_server_init
+
+ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket

@@ -4,7 +4,16 @@ class User < ActiveRecord::Base
 	belongs_to :category
 
 	validates :client_type, inclusion: { in: %w(customer employee manager), message: "%{value} no es un tipo válido"}
+	validates :name, :presence=>true
+	validates :surname, :presence=>true
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
+
+	def to_s
+		"#{name} #{surname}"
+	end
+	
 	def permissions=(val)
 		case val
 		when 'customer'
@@ -45,6 +54,7 @@ class User < ActiveRecord::Base
 			tag.credit += current_tag.credit 
 			current_tag.update(active: false)
 		end
+		tag.user = self if tag.user.nil?
 		tag.active = true
 		tag.save 
 	end

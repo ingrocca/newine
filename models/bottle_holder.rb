@@ -12,8 +12,9 @@ class BottleHolder < ActiveRecord::Base
     self.serving_volume_micro ||= 25
   end
 
-  def remaining_volume 
-    read_attribute(:remaining_volume) - 20 rescue 0 
+  def taste
+    self.remaining_volume -= 20
+    self.save
   end
 
   def has_special_events

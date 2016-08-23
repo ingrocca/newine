@@ -24,7 +24,9 @@ gem 'statistics'
 
 gem 'rake'
 
+gem "ransack", "~> 1.7.0"
 
 group :development do
+	gem 'pry', '~> 0.10.3'
   gem "tux"
 end

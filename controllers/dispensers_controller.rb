@@ -95,8 +95,12 @@ class NewineServer < Sinatra::Application
 	post '/dispensers/bottle_holders/wine/:id.json' do
 		data = JSON.parse(request.body.read)
 		p data
-		@bottle_holder = BottleHolder.find(params[:id])
-
+		begin
+			@bottle_holder = BottleHolder.find(params[:id])
+		rescue
+			@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
+		end
+		
 		if data['wine_id']
 			@wine = Wine.find(data['wine_id'])
 
@@ -115,6 +119,12 @@ class NewineServer < Sinatra::Application
 			@bottle_holder.date_bottle_change = Date.today
 
 			@bottle_holder.save
+			Event.log(
+			"Cambio de botella",
+			"Se coloco el vino #{@bottle_holder.wine} en el dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index}",
+			"#",
+			0xffffff,
+			"change_bottle")
 		else
 			@bottle_holder.wine_id = nil
 			@bottle_holder.remaining_volume = 0

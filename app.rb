@@ -8,8 +8,7 @@ require 'will_paginate/active_record'
 
 require_all 'models'
 
-
-set :database, "sqlite3:///db/newine.sqlite3"
+set :database, {adapter: "sqlite3", database: "../data/newine.sqlite3"}
 
 class NewineServer < Sinatra::Application
 
@@ -120,7 +119,7 @@ def run_newine
 						d.configure rescue nil
 					end
 				end
-				sleep 30
+				sleep 1.minutes
 			end
 		end
 

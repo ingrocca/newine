@@ -14,8 +14,8 @@
       <% Dispenser.find_each do |dispenser| %>
       <Row>
           <Cell><Data ss:Type="String"><%= dispenser.id.to_s %></Data></Cell>
-          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></Data></Cell>
-          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @servings.get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></Data></Cell>
         </Row>
       <% end %>
     </Table>
@@ -30,8 +30,8 @@
       <% Wine.find_each do |wine| %>
       <Row>
           <Cell><Data ss:Type="String"><%= wine.name.to_s %></Data></Cell>
-          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:total_count,:wine_id => wine.id).to_s %></Data></Cell>
-          <Cell><Data ss:Type="Number"><%= Serving.where('created_at > ?', @stat_time).get_stat(:money,:wine_id => wine.id).round(2).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @servings.get_stat(:money,:wine_id => wine.id).round(2).to_s %></Data></Cell>
         </Row>
       <% end %>
     </Table>
