@@ -107,9 +107,13 @@ DEPENDENCIES
   activerecord
   dalli
   em-websocket
+<<<<<<< HEAD
   pry (~> 0.10.3)
   rake
   ransack (~> 1.7.0)
+=======
+  rake
+>>>>>>> origin/new-changes
   require_all
   rest-client
   sinatra
@@ -122,4 +126,8 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
+<<<<<<< HEAD
    1.11.2
+=======
+   1.12.5
+>>>>>>> origin/new-changes
