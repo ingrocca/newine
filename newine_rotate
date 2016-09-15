@@ -1,0 +1,4 @@
+/data/*.log{
+	daily                                                                                                 rotate 7
+	copytruncate
+}  

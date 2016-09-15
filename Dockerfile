@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install \
   connman \
   libevent-dev \
   memcached \
-  ssh
-
+  ssh \
+  logrotate
 
 
 
@@ -40,6 +40,8 @@ RUN gem install sqlite3 -v '1.3.8'
 RUN gem install rake -v '10.1.0'
 
 RUN cd /app && gem install bundler && bundler install
+
+RUN mv newine_rotate /etc/logrotate.d/
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
