@@ -48,7 +48,7 @@ CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json \
   && sync \
   && umount /mnt \
-  && connmanctl tether wifi on Newine dispenser \
+  && connmanctl tether wifi on Newine2 dispenser \
   && memcached -d -u  root \
   && cd /app && rake db:migrate && bash newine_server_init
 
