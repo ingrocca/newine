@@ -33,6 +33,8 @@ RUN mkdir -p /app
 
 COPY . /app
 
+RUN cp /app/newine_rotate /etc/logrotate.d/
+
 RUN gem install i18n -v '0.6.5'
 RUN gem install require_all -v '1.3.1'
 RUN gem install atomic -v '1.1.14'
@@ -41,7 +43,6 @@ RUN gem install rake -v '10.1.0'
 
 RUN cd /app && gem install bundler && bundler install
 
-RUN mv newine_rotate /etc/logrotate.d/
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && mount $configdev /mnt \
