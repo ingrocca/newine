@@ -1,0 +1,23 @@
+#!/bin/bash
+
+PING="/bin/ping -q -c1"
+HOST=www.google.com
+
+echo "Including new RTC device in i2c-adapter"
+echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-1/new_device
+
+echo "Setting Time Zone"
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/America/Buenos_Aires /etc/localtime
+hwclock --localtime -f /dev/rtc1
+
+echo "Checking Internet connection"
+${PING} ${HOST}
+if [ $? -ne 0 ]; then
+   	echo "No internet connection - Current time will be set from external RTC"
+	hwclock -w -f /dev/rtc1	
+
+else
+	echo "There is internet connection - Current time will be stored in external RTC"
+       	hwclock --systohc -f /dev/rtc1
+fi
