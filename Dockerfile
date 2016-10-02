@@ -37,7 +37,7 @@ COPY . /app
 
 CMD cron
 RUN cp /app/newine_cron /etc/cron.d/
-COPY crontab /etc/cron.d/newine_cron
+ADD crontab /etc/cron.d/newine_cron
 RUN chmod 0644 /etc/cron.d/newine_cron
 
 RUN gem install i18n -v '0.6.5'
