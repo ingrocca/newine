@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install \
   libevent-dev \
   memcached \
   ssh \
+  sshpass \
+  cron \
   logrotate
 
 
