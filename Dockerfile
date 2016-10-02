@@ -35,7 +35,9 @@ RUN mkdir -p /app
 
 COPY . /app
 
-RUN cp /app/newine_rotate /etc/logrotate.d/
+RUN cp /app/newine_cron /etc/cron.d/
+ADD crontab /etc/cron.d/newine_cron
+RUN chmod 0644 /etc/cron.d/newine_cron
 
 RUN gem install i18n -v '0.6.5'
 RUN gem install require_all -v '1.3.1'

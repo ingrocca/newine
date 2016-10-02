@@ -1,0 +1,2 @@
+00 07 * * 1 rm /data/*.log
+05 07 * * * DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host_run/dbus/system_bus_socket dbus-send --system --print-reply --reply-timeout=2000 --type=method_call --dest=org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.Reboot

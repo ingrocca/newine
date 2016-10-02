@@ -11,6 +11,9 @@ chmod a+rw /dev/i2c-1
 daemon --chdir=/app --output=/data/thin.log -- /usr/bin/ruby run.rb
 daemon --respawn --chdir=/app --output=/data/nfc.log -- /usr/bin/rake2.1 nfc:work
 
+#Starts cron
+sudo service cron start
+
 #Sets time from external RTC module if no internet connection is present
 bash rtc
 
