@@ -1,20 +1,19 @@
 class NewineServer < Sinatra::Application
-
+	
 	get '/categories' do
-		if params[:q]
-			@categories = Category.where("name LIKE :query", query: "%#{params[:q]}%").paginate(:page=>params[:page], :per_page=>5)
-		else
-			@categories = Category.paginate(:page=>params[:page], :per_page=>5)
-		end
+		@q = Category.ransack(params[:q])
+		@categories = @q.result.paginate(:page=>params[:page], :per_page=>5)
 		format_render 'html', :"categories/index"
 	end
-
+	
 	get '/categories/:id' do
-		@categories = Category.where(:id => params[:id]).paginate(:page=>params[:page], :per_page=>5)
+		@q = Category.ransack(:id => params[:id])
+		@categories = @q.result.paginate(:page=>params[:page], :per_page=>5)
 		format_render 'html', :"categories/index"
 	end
 
-	post '/category/save' do
+
+	post '/categories/save' do
 		@category = Category.new(params[:category])
 		if(@category.save)
 			redirect "/categories/#{@category.id}"
@@ -22,7 +21,7 @@ class NewineServer < Sinatra::Application
 		redirect "/categories"
 	end
 
-	post '/category/update/:id' do
+	post '/categories/update/:id' do
 		@category = Category.where(id: params[:id]).first
 		if(@category)
 			@category.update_attributes(params[:category])

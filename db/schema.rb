@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510125208) do
+ActiveRecord::Schema.define(version: 20161029024040) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -53,11 +53,24 @@ ActiveRecord::Schema.define(version: 20160510125208) do
   add_index "bottle_holders_special_events", ["bottle_holder_id"], name: "index_bottle_holders_special_events_on_bottle_holder_id"
   add_index "bottle_holders_special_events", ["special_event_id"], name: "index_bottle_holders_special_events_on_special_event_id"
 
+  create_table "brands", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.integer  "low_percentage"
     t.integer  "med_percentage"
     t.integer  "high_percentage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "complementary_drinks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "bottle_holder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160510125208) do
     t.integer  "n_bottles"
     t.string   "ip"
     t.integer  "n_temperature_controls"
+    t.boolean  "complementary_drink",    default: false
   end
 
   add_index "dispensers", ["online"], name: "index_dispensers_on_online"
@@ -181,7 +195,6 @@ ActiveRecord::Schema.define(version: 20160510125208) do
 
   create_table "wines", force: true do |t|
     t.string   "name"
-    t.string   "brand"
     t.text     "tasting_notes"
     t.text     "description"
     t.string   "brief"
@@ -198,9 +211,9 @@ ActiveRecord::Schema.define(version: 20160510125208) do
     t.float    "serving_price_high"
     t.integer  "open_days"
     t.integer  "variety_id"
+    t.integer  "brand_id"
   end
 
-  add_index "wines", ["brand"], name: "index_wines_on_brand"
   add_index "wines", ["name"], name: "index_wines_on_name"
   add_index "wines", ["vintage"], name: "index_wines_on_vintage"
 

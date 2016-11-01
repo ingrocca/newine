@@ -1,7 +1,8 @@
 class BottleHolder < ActiveRecord::Base
 	belongs_to :wine
 	belongs_to :dispenser
-	has_and_belongs_to_many :special_events
+  has_and_belongs_to_many :special_events
+	has_many :complementary_drinks
 
 	after_initialize :init
 
@@ -49,4 +50,11 @@ class BottleHolder < ActiveRecord::Base
     self.last_clean >= 7
   end
 
+  def can_complementary_drink(user)
+    if dispenser.complementary_drink
+      complementary_drinks.where("created_at >= ?", Time.now.beginning_of_day).where(user_id: user.id).empty?
+    else
+      false
+    end
+  end
 end

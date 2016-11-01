@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_many :tags, dependent: :destroy
 	has_many :servings
 	belongs_to :category
+	has_many :complementary_drinks
 
 	validates :client_type, inclusion: { in: %w(customer employee manager), message: "%{value} no es un tipo válido"}
 	validates :name, :presence=>true

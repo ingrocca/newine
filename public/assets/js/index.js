@@ -193,4 +193,12 @@ sock.onmessage = function(evt){
 		$('#existing_user').removeClass('active');
 	});
 
+	$('body').on("click", ".dispenser-complementary-drink", function(e){
+		var form = $(this).closest('form');
+		$.ajax({
+			url: form.attr('action'),
+			type: "POST",
+			data: form.serialize()
+		})
+	})
 });

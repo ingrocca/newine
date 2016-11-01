@@ -1,0 +1,10 @@
+#!/bin/bash
+RACK_ENV=${RACK_ENV-"development"}
+
+if command -v pry 2>/dev/null; then
+  cmd=pry
+else
+  cmd=irb
+fi
+
+RACK_ENV=$RACK_ENV $cmd -r'./app.rb'

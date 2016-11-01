@@ -1,13 +1,11 @@
 class NewineServer < Sinatra::Application
 
 	get '/wines.?:format?' do
-		if params[:q]
-			@wines = Wine.where('name like ? or vintage like ? or brand like ?','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%').
-			paginate(:page=>params[:page], :per_page=>5)
-		elsif params[:format] != 'json'
-			@wines = Wine.paginate(:page=>params[:page], :per_page=>5)
-		else
+		if params[:format] == 'json'
 			@wines = Wine.all
+		else
+			@q = Wine.ransack(params[:q])
+			@wines = @q.result.paginate(:page=>params[:page], :per_page=>5)
 		end
 		format_render params[:format], :"wines/index"
 	end
@@ -21,7 +19,8 @@ class NewineServer < Sinatra::Application
 	end
 
 	get '/wines/:id' do
-		@wines = Wine.where(:id => params[:id]).paginate(:page=>params[:page], :per_page=>5)
+		@q = Wine.ransack({id_eq: params[:id]})
+		@wines = @q.result.paginate(:page=>params[:page], :per_page=>5)
 		format_render 'html', :"wines/index"
 	end
 

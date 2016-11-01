@@ -22,6 +22,11 @@ $(function(){
 		$("form.form-active").removeClass('form-active');
 		$('.wine_info[data-wine-id=' + current_id + ']').hide();
 		data = $('.wine_edit_form[data-wine-id=' + current_id + ']').removeClass('hidden').addClass('form-active');
+		$('.wine_edit_form[data-wine-id=' + current_id + ']').find(".select2").select2({
+  		placeholder: 'Seleccione una opción',
+  		language: "es",
+  		theme: "bootstrap"
+		});
 		$(this).hide();
 	});
 	$('.cancel_edit').click(function(){
@@ -52,4 +57,13 @@ $(function(){
 		$(this).closest(".modal").modal('hide');
 		
 	})
+
+	$('#new-wine-modal').on('shown.bs.modal', function () {
+		$(this).find(".select2").select2({
+  		placeholder: 'Seleccione una opción',
+  		language: "es",
+  		theme: "bootstrap"
+		});
+	})
+
 });

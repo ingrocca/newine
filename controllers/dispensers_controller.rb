@@ -193,4 +193,10 @@ class NewineServer < Sinatra::Application
 		@dispenser.destroy
 		{ status: 200 }.to_json
 	end
+
+	post '/dispensers/:id/update' do |id|
+		@dispenser = Dispenser.find(id)
+		@dispenser.update_attributes(params[:dispenser])
+		{ status: 200 }.to_json
+	end
 end

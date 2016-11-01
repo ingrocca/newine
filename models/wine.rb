@@ -1,6 +1,7 @@
 class Wine < ActiveRecord::Base
 	has_many :bottle_holders
 	belongs_to :variety
+	belongs_to :brand
 
 	validates :name, :presence=>true
 	validates :vintage, :presence=>true

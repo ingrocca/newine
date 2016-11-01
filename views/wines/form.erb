@@ -8,9 +8,9 @@
 	<div class="form-group">
         	<label for='wine[variety]' class='col-lg-3 control-label'>Tipo/Variedad</label>
             <div class='col-lg-6'>
-                <select class="form-control select_variety" name="wine[variety_id]" required>
+                <select class="form-control select_variety select2" name="wine[variety_id]" required>
                     <option></option>
-                    <% Variety.all.each do |variety| %>
+                    <% Variety.order('name ASC').all.each do |variety| %>
                         <option value="<%= variety.id %>" <%= "selected" if variety.id == wine.variety.try(:id) %>><%= variety.name %></option>
                     <% end %>
                 </select>
@@ -20,7 +20,12 @@
         <div class="form-group">
         	<label for='wine[brand]' class='col-lg-3 control-label'>Bodega/Marca</label>
         	<div class='col-lg-6'>
-        		<input type='text' name='wine[brand]' class='form-control' value="<%= wine.brand %>" required>
+        		<select class="form-control select2" name="wine[brand_id]" required>
+                    <option></option>
+                    <% Brand.order('name ASC').all.each do |brand| %>
+                        <option value="<%= brand.id %>" <%= "selected" if brand.id == wine.brand.try(:id) %>><%= brand.name %></option>
+                    <% end %>
+                </select>
         	</div>
         </div>
         <div class="form-group">
