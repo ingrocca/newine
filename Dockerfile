@@ -48,10 +48,6 @@ RUN cd /app && gem install bundler && bundler install
 
 
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
-  && mount $configdev /mnt \
-  && sed -r -i "s#\[WiFi\]\\\nEnable=true\\\nTethering=false#\[WiFi\]\\\nEnable=true\\\nTethering=true#" /mnt/config.json \
-  && sync \
-  && umount /mnt \
   && connmanctl tether wifi on Newine dispenser \
   && memcached -d -u  root \
   && cd /app && rake db:migrate && bash newine_server_init
