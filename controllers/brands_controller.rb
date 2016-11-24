@@ -7,16 +7,15 @@ class NewineServer < Sinatra::Application
 	end
 	
 	get '/brands/:id' do
-		@q = Brand.ransack(:id => params[:id])
-		@brands = @q.results.paginate(:page=>params[:page], :per_page=>5)
+		@q = Brand.ransack({id_eq: params[:id]})
+		@brands = @q.result.paginate(:page=>params[:page], :per_page=>5)
 		format_render 'html', :"brands/index"
 	end
-
 
 	post '/brands/save' do
 		@brand = Brand.new(params[:brand])
 		if(@brand.save)
-			redirect "/brands/#{@brand.id}"
+			redirect "/brands/" + @brand.id.to_s
 		end
 		redirect "/brands"
 	end
@@ -26,7 +25,7 @@ class NewineServer < Sinatra::Application
 		if(@brand)
 			@brand.update_attributes(params[:brand])
 		end
-		redirect "/brands"
+		redirect "/brands/" + @brand.id.to_s
 	end
 
 	post "/brands/destroy/:id" do
