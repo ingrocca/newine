@@ -32,6 +32,7 @@ class NewineServer < Sinatra::Application
 		@user = User.where(:id => params[:id]).first
 		@tag = Tag.new(params[:tag].merge(user: @user))
 		@user.add_tag(@tag)
+		TagMovement.create(tag_id: @tag.id, credit: @tag.credit)
 		redirect '/users'
 	end
 

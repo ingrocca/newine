@@ -80,17 +80,12 @@
 								Notificaciones 
 								<%=  (number = Notification.where(read: false).count) > 0 ? "<span class='label label-danger'>#{number}</span>" : "" %></a>
 						</li>
-					</ul>
-<!--
-					<ul class='user-info nav navbar-nav navbar-right'>
-						<li id='user-email'>
-							<a href='/profile'><%= "username" %></a>
-						</li>
-						<li id='sign-out'>
-							<a href="/logout">Salir</a>
+						<li>
+							<a href="/tag-movements">
+								Movimientos
+							</a>
 						</li>
 					</ul>
--->
 				</nav>
 			</div>
 		</header>
