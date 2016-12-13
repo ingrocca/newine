@@ -12,7 +12,9 @@ class NewineServer < Sinatra::Application
 
 	get '/users/tags/:uid.json' do
 		@tag = Tag.where(:uid => params[:uid]).first
-		@dispenser = Dispenser.where(id: params[:dispenser_id]).first
+		if(params[:dispenser_id])
+			@dispenser = Dispenser.where(id: params[:dispenser_id]).first
+		end
 		puts 'UID: ' + params[:uid]
 		if @tag.nil? || !@tag.active
 			@user = User.new(:valid_user => false)
