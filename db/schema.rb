@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206093540) do
+ActiveRecord::Schema.define(version: 20161213093540) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -159,7 +159,8 @@ ActiveRecord::Schema.define(version: 20161206093540) do
     t.string  "uid"
     t.float   "credit"
     t.integer "user_id"
-    t.boolean "active",  default: false
+    t.boolean "active",   default: false
+    t.date    "due_date"
   end
 
   add_index "tags", ["uid"], name: "index_tags_on_uid"

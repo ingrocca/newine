@@ -16,7 +16,7 @@ class NewineServer < Sinatra::Application
 			@dispenser = Dispenser.where(id: params[:dispenser_id]).first
 		end
 		puts 'UID: ' + params[:uid]
-		if @tag.nil? || !@tag.active
+		if @tag.nil? || !@tag.active?
 			@user = User.new(:valid_user => false)
 			@tag = Tag.new
 		else
@@ -33,8 +33,9 @@ class NewineServer < Sinatra::Application
 	post '/users/:id/tags/create' do
 		@user = User.where(:id => params[:id]).first
 		@tag = Tag.new(params[:tag].merge(user: @user))
-		@user.add_tag(@tag)
-		TagMovement.create(tag_id: @tag.id, credit: @tag.credit)
+		if @user.add_tag(@tag)
+			TagMovement.create(tag_id: @tag.id, credit: @tag.credit)
+		end
 		redirect '/users'
 	end
 

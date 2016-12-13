@@ -11,4 +11,14 @@ class Tag < ActiveRecord::Base
   def init
   	self.credit ||= 0
   end
+
+  def active?
+  	self.active && check_due_date
+  end
+
+  def check_due_date
+  	self.due_date >= Time.now
+  rescue
+  	true
+  end
 end
