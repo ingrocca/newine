@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
 	def current_tag
 		tag = tags.last
-		tag if tag.active?
+		tag if tag && tag.active?
 	end
 
 	def add_tag(tag)
