@@ -60,8 +60,8 @@
 				<tr>
 					<th>Usuario</th>
 					<th>Tarjeta</th>
-					<th>Monto</th>
 					<th>Fecha</th>
+					<th>Monto</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -69,12 +69,19 @@
 					<tr>
 						<td><%= tag_movement.tag.user %></td>
 						<td><%= tag_movement.tag.uid %></td>
-						<td><%= tag_movement.credit %></td>
 						<td><%= tag_movement.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+						<td><%= tag_movement.credit %></td>
 					</tr>
 				<% end %>
 			</tbody>
 		</table>
+	</div>
+	<div class='row'>
+		<div class='col-lg-10 col-lg-offset-1'>
+			<div class="pull-right">
+				<h3>Total: $<%= @total %></h3>
+			</div>
+		</div>
 	</div>
 	<div class='row'>
 		<div class='col-lg-12  apple_pagination'>
