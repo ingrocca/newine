@@ -4,25 +4,12 @@
 	<div class='row'>
 		<div class='col-lg-12'>
 			<div class='row'>
-				<div class='col-lg-12 col-xs-12 centered'><h2>Movimientos de tarjetas</h2></div>
+				<div class='col-lg-12 col-xs-12 centered'><h2>Caja diaria</h2></div>
 			</div>
 			<div class='row' style='padding-bottom:10px;'>
 				<div class='col-lg-12 col-sm-12 col-xs-12 no-padding'>
 					<form class='form-horizontal well' action='/tag-movements' method='get'>
 						<div class="row">
-							<div class="col-md-4">
-						  	<div class="form-group">
-						  		<label class="col-sm-3 control-label">Usuario</label>
-						  		<div class="col-sm-9">
-						  			<select class="form-control" name="q[tag_user_id_eq]"> 
-						  				<option></option>
-						  				<% User.all.each do |user| %>
-						  					<option value='<%= user.id %>' <%= "selected" if user.id == @q.tag_user_id_eq %> ><%= user %></option>
-						  				<% end %>
-						  			</select>
-						  		</div>
-						  	</div>
-						  </div>
 							<div class="col-md-4">
 							  <div class="form-group">
 							    <label class="col-sm-3 control-label">Desde</label>
@@ -38,6 +25,19 @@
 							      <input type="text" class="form-control datetimepicker" name="q[created_at_lteq]" value="<%= @q.created_at_lteq %>">
 							    </div>
 							  </div>
+							</div>
+							<div class="col-md-4">
+						  	<div class="form-group">
+						  		<label class="col-sm-3 control-label">Usuario</label>
+						  		<div class="col-sm-9">
+						  			<select class="form-control" name="q[tag_user_id_eq]"> 
+						  				<option></option>
+						  				<% User.all.each do |user| %>
+						  					<option value='<%= user.id %>' <%= "selected" if user.id == @q.tag_user_id_eq %> ><%= user %></option>
+						  				<% end %>
+						  			</select>
+						  		</div>
+						  	</div>
 							</div>
 						</div>
 						<div class="col-md-12">
