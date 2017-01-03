@@ -8,7 +8,13 @@
  	<div class="form-group">
   	<label for='user[surname]' class='col-lg-3 control-label'>Apellido:</label>
   	<div class='col-lg-6'>
- 			<input type='text' name='user[surname]' class='form-control' value='<%= user.surname %>' required>
+ 			<input type='text' name='user[surname]' class='form-control' value='<%= user.surname %>'>
+ 		</div>
+ 	</div>
+ 	<div class="form-group">
+  	<label for='user[membership_number]' class='col-lg-3 control-label'>Nro de socio:</label>
+  	<div class='col-lg-6'>
+ 			<input type='text' name='user[membership_number]' class='form-control' value='<%= user.membership_number %>'>
  		</div>
  	</div>
  	<div class="form-group">
@@ -20,7 +26,7 @@
  	<div class="form-group">
   	<label for='user[email]' class='col-lg-3 control-label'>Email:</label>
   	<div class='col-lg-6'>
- 			<input type='text' name='user[email]' class='form-control' value='<%= user.email %>' required>
+ 			<input type='email' name='user[email]' class='form-control' value='<%= user.email %>'>
  		</div>
  	</div>
  	<div class="form-group">

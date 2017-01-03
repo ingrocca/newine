@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213093540) do
+ActiveRecord::Schema.define(version: 20170103093540) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 20161213093540) do
     t.string  "email"
     t.string  "client_type"
     t.integer "category_id"
+    t.integer "membership_number"
   end
 
   add_index "users", ["dni"], name: "index_users_on_dni"

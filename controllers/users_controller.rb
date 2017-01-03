@@ -61,11 +61,10 @@ class NewineServer < Sinatra::Application
 		if @user.valid?
 			@user.valid_user = true
 			@user.save
-			#format_render params[:format], :"users/show"
 			redirect "users/#{@user.id}"
 		else
-			redirect "users/index"
-			#show_errors params[:format], :"users/new", :"users/show" 
+			flash[:error] = "Ocurrió un error creando el usuario #{@user.errors.messages}"
+			redirect "/users"
 		end
 	end
 

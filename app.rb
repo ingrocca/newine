@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra/activerecord/rake'
 require 'bundler/setup'
+require 'sinatra/flash'
 
 Bundler.require(:default)
 require 'will_paginate'
@@ -11,6 +12,8 @@ require_all 'models'
 set :database, {adapter: "sqlite3", database: "../data/newine.sqlite3"}
 
 class NewineServer < Sinatra::Application
+	enable :sessions
+  register Sinatra::Flash
 
 	options = { :namespace => "newine", :compress => false }
 	@@cache = Dalli::Client.new('localhost:11211', options)

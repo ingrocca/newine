@@ -90,6 +90,12 @@
 			</div>
 		</header>
 		<div id="wrap">
+			<% if message = flash[:error] %>
+				<div class="alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+					<%= message %>
+				</div>
+			<% end %>
 			<div id='main'>
 				<%= yield %>
 			</div>
