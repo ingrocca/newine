@@ -66,4 +66,21 @@ $(function(){
 		});
 	})
 
+	$(".serving_volume_low").on("change", function(e){
+		var high = $(this).closest("form").find(".serving_volume_high")
+		if( parseInt(high.val()) < parseInt($(this).val()) )
+		{
+			$(this).val(high.val());
+			alert("El valor no puede superior al de la copa mayor")
+		}
+	})
+
+	$(".serving_volume_med").on("change", function(e){
+		var high = $(this).closest("form").find(".serving_volume_high")
+		if( parseInt(high.val()) < parseInt($(this).val()) )
+		{
+			$(this).val(high.val());
+			alert("El valor no puede superior al de la copa mayor")
+		}
+	})
 });
