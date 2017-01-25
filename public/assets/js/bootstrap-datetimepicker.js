@@ -10,6 +10,9 @@ $(function(){
 
 	$(".datetimepicker").datetimepicker({
 		locale: "es",
-		format: "YYYY-MM-DD HH:mm"
+		format: "YYYY-MM-DD",
+		enabledHours: false,
+		showClose: true
 	});
+
 })
