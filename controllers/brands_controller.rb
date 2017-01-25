@@ -16,14 +16,16 @@ class NewineServer < Sinatra::Application
 		@brand = Brand.new(params[:brand])
 		if(@brand.save)
 			redirect "/brands/" + @brand.id.to_s
+		else
+			flash[:error] = "Ocurrió un error creando la bodega #{@brand.errors.messages}"
+			redirect "/brands"
 		end
-		redirect "/brands"
 	end
 
 	post '/brands/update/:id' do
 		@brand = Brand.where(id: params[:id]).first
-		if(@brand)
-			@brand.update_attributes(params[:brand])
+		if( !@brand.update_attributes(params[:brand]) )
+			flash[:error] = "Ocurrió un error actualizando la bodega #{@brand.errors.messages}"
 		end
 		redirect "/brands/" + @brand.id.to_s
 	end

@@ -14,14 +14,19 @@ class NewineServer < Sinatra::Application
 	end
 
 	post "/variety.?:format?" do
-		@variety = Variety.create(params[:variety])
-		redirect to('/varieties/' + @variety.id.to_s)
+		@variety = Variety.new(params[:variety])
+		if(@variety.save)
+			redirect to('/varieties/' + @variety.id.to_s)
+		else
+			flash[:error] = "Ocurrió un error creando la variedad #{@variety.errors.messages}"
+			redirect "/varieties"
+		end
 	end
 
 	post '/varieties/update/:id' do
 		@variety = Variety.where(:id => params[:id]).first
-		if(@variety)
-			@variety.update_attributes(params[:variety])
+		if( ! @variety.update_attributes(params[:variety]) )
+			flash[:error] = "Ocurrió un error actualizando la variedad #{@variety.errors.messages}"
 		end
 		redirect to('/varieties/' + @variety.id.to_s)
 	end

@@ -1,7 +1,7 @@
 class Brand < ActiveRecord::Base
 	has_many :wines
 
-	validates :name, :presence=>true
+	validates :name, presence: true, uniqueness: true
 
 	before_create :titleize_name
 	def to_s
