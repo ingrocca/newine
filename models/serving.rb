@@ -19,6 +19,6 @@ class Serving < ActiveRecord::Base
 	end
 
 	def cost
-		self.volume * self.volume_cost
+		(self.volume * self.volume_cost).round(2)
 	end
 end
