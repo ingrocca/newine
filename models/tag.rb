@@ -17,7 +17,7 @@ class Tag < ActiveRecord::Base
   end
 
   def check_due_date
-  	self.due_date >= Time.now
+  	self.due_date >= Time.now.to_date
   rescue
   	true
   end
