@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 		when 'customer'
 			'Cliente'
 		when 'employee'
-			'Empleado'
+			'Staff'
 		when 'manager'
 			'Gerente'
 		end
