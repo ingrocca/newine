@@ -12,7 +12,12 @@ require_all 'models'
 set :database, {adapter: "sqlite3", database: "../data/newine.sqlite3"}
 
 class NewineServer < Sinatra::Application
-	enable :sessions
+	# Satisfies assumption number 1 above.
+	use Rack::Session::Cookie
+
+	# Mixes `Shield::Helpers` into your routes context.
+	helpers Shield::Helpers
+  
   register Sinatra::Flash
 
 	options = { :namespace => "newine", :compress => false }
@@ -59,20 +64,25 @@ class NewineServer < Sinatra::Application
 		def percentage_humanize percentage
 			percentage * 100
 		end
+
+		def current_user
+    	@current_user ||= authenticated(Admin)
+		end
 	end
 
-	#get '/nfc' do
-	#	uid =  @@cache.get('nfc_uid')
-	#	if uid
-	#		@@cache.set('nfc_uid',nil)
-	#		return uid.to_s
-	#	else
-	#		return "Nothing"
-	#	end
-	#end
-
+  before do
+    unless request.path_info == '/login' || current_user
+      session[:back_url] = request.path_info
+      redirect '/login'
+    end
+  end
+	
 	get '/' do
 		erb :index
+	end
+
+	get '/download' do
+		send_file "../data/newine.sqlite3", type: "sqlite3", disposition: 'attachment', filename: "newine.sqlite3"
 	end
 end
 

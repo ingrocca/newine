@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
 	has_many :tags, dependent: :destroy
 	has_many :servings
 	belongs_to :category
@@ -9,11 +10,9 @@ class User < ActiveRecord::Base
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, format: { with: VALID_EMAIL_REGEX }, :allow_blank => true
 
-
 	def to_s
 		"#{name} #{surname}"
 	end
-	
 	def permissions=(val)
 		case val
 		when 'customer'

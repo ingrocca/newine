@@ -23,6 +23,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
+    armor (0.0.3)
     atomic (1.1.14)
     bond (0.4.3)
     builder (3.1.4)
@@ -72,6 +73,8 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5)
       ripl (>= 0.3.5)
+    shield (2.1.1)
+      armor
     sinatra (1.4.3)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -114,6 +117,7 @@ DEPENDENCIES
   ransack (~> 1.7.0)
   require_all
   rest-client
+  shield (~> 2.1, >= 2.1.1)
   sinatra
   sinatra-activerecord
   sinatra-flash (~> 0.3.0)

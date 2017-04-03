@@ -16,7 +16,7 @@ class NewineServer < Sinatra::Application
 		jbuilder :"servings/index"
 	end
 
-	get  '/servings' do
+	get '/servings' do
 		@view = "index"
 		@q = Serving.ransack(params[:q])
 		@servings = @q.result
