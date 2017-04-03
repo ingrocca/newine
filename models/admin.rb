@@ -3,11 +3,11 @@ class Admin < ActiveRecord::Base
   include Shield::Model
   
   validates :username, :length => {:within => 3..40}
-  validates :password, :length => {:within => 5..40}
-  validates :username, :presence => true, :uniqueness => true
-  validates :email, :presence => true, :uniqueness => true
-  validates :password, :presence => true
-  validates :password_confirmation, :presence => true
+  validates :password, :length => {:within => 5..40}, on: :create
+  validates :username, presence: true, uniqueness: true, on: :create
+  validates :email, presence: true, uniqueness: true, on: :create
+  validates :password, presence: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
   validates :password, :confirmation => true
   validates :email, :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => "Invalid email" }
 
@@ -25,7 +25,6 @@ class Admin < ActiveRecord::Base
 
   # Saves password (actually a hashed version of it)
   def password=(pass)
-    @password=pass
     self.crypted_password = Shield::Password.encrypt(pass)
   end
 
