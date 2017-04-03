@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331093540) do
+ActiveRecord::Schema.define(version: 20170403150455) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -106,14 +106,6 @@ ActiveRecord::Schema.define(version: 20170331093540) do
     t.string   "link_url"
     t.integer  "color"
     t.string   "event_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notifications", force: true do |t|
-    t.text     "description"
-    t.string   "url"
-    t.boolean  "read",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

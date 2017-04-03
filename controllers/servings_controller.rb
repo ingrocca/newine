@@ -83,10 +83,6 @@ class NewineServer < Sinatra::Application
 				"/servings",
 				0x55EE88,
 				"new_serving")
-
-			if @serving.bottle_holder.remaining_volume < @serving.bottle_holder.serving_volume_high
-				Notification.create(description: "Queda poco vino en dispenser: #{@serving.dispenser.uid}, Botella: #{@serving.bottle_index.to_s}", url: "/dispensers/id/#{@serving.dispenser_id.to_s}" )
-			end	
 		else
 			p "Tarjeta sin usuario o error en los datos de medidas"
 			@serving.valid_serving = false
