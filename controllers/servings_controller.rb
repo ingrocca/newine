@@ -100,7 +100,6 @@ class NewineServer < Sinatra::Application
 		@view = "users"
 		@q = Serving.ransack(params[:q])
 		@servings = @q.result.paginate(:page=>params[:page], :per_page=>20)
-		@users = User.where(client_type: ["customer", "manager"])
 		erb :"servings/users"
 	end
 

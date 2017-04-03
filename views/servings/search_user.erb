@@ -1,3 +1,4 @@
+<script src='/assets/js/search_user.js'></script>
 <br>
 <div class="panel">
 	<form method="get" action="<%= url('/servings/users')%>" class="form-horizontal">
@@ -5,7 +6,9 @@
 			<div class="form-group">
 				<label class="col-sm-3">Nombre o Apellido</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="q[user_name_or_user_surname_start]" value="<%= @q.user_name_or_user_surname_start %>" />
+					<select id="user-search" class="form-control" name="q[user_id_eq]">
+						<option><%= User.find(@q.user_id_eq) if @q.user_id_eq %></option> 
+					</select>
 				</div>
 			</div>
 		</div>

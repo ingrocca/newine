@@ -1,5 +1,11 @@
 class NewineServer < Sinatra::Application
 
+	get  '/users/search' do
+		@users = User.where('name like ? or surname like ?','%' + params[:q] + '%','%' + params[:q] + '%')
+		content_type :json
+  	@users.to_json
+	end
+	
 	get  '/users.?:format?' do
 		if params[:q]
 			@users = User.where('name like ? or surname like ? or dni like ? or email like ?','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%').

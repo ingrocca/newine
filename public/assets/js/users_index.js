@@ -32,6 +32,8 @@ $(function(){
 			});
 		}
 	});
+
+	
 	$('.edit_user').click(function(){
 		$('.user_info[data-user-id=' + current_id + ']').hide();
 		$('.user_edit_form[data-user-id=' + current_id + ']').removeClass('hidden');
