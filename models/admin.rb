@@ -2,14 +2,10 @@
 class Admin < ActiveRecord::Base
   include Shield::Model
 
-  validates :password, :length => {:within => 5..40}, on: :create
   validates :email, presence: true, uniqueness: true, on: :create
-  validates :password, presence: true, on: :create
-  validates :password_confirmation, presence: true, on: :create
-  validates :password, :confirmation => true
   validates :email, :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => "Invalid email" }
 
-  attr_accessor :password, :password_confirmation
+  attr_reader :password
 
   class << self
     def [](id)
@@ -17,7 +13,11 @@ class Admin < ActiveRecord::Base
     end
     
     def fetch(identifier)
-      where(email: identifier).first || where(username: identifier).first
+      where(email: identifier).first
+    end
+
+    def password=(password)
+      self.crypted_password = Shield::Password.encrypt(password.to_s)
     end
   end
 
