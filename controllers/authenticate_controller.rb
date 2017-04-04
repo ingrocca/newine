@@ -11,7 +11,7 @@ class NewineServer < Sinatra::Application
 	    redirect "/"
 	  else
 	    flash[:error] = "Combinación de nombre de usuario y/o contraseña no válida."
-	    erb :login, locales: { username: params["username"] } 
+	    erb :login, locals: { username: params["username"] } 
 	  end
 	end
 
