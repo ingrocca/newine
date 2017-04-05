@@ -70,12 +70,12 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
-  before do
-    unless request.path_info == '/login' || current_user
-      session[:back_url] = request.path_info
-      redirect '/login'
-    end
-  end
+  # before do
+  #   unless request.path_info == '/login' || current_user
+  #     session[:back_url] = request.path_info
+  #     redirect '/login'
+  #   end
+  # end
 	
 	get '/' do
 		erb :index
