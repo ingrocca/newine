@@ -4,6 +4,7 @@
 			<input type='text' name='special_event[name]' class='form-control' value='<%= special_event.name %>' required>
 		</div>
 	</div>
+  <!--
   <div class="form-group">
 		<label for='special_event[type_special_event]' class='col-lg-3 control-label'>Tipo de evento:</label>
 		<div class="col-sm-3 no-padding">
@@ -21,6 +22,8 @@
     	</div>
     </div>
   </div>
+  -->
+  <input type="hidden" name='special_event[type_special_event]' value='discount'>
 	<div class="form-group">
 	<label for='special_event[percentage]' class='col-lg-3 control-label'>Descuento:</label>
 	<div class='col-lg-6'>
@@ -36,9 +39,9 @@
 		<div class='col-lg-6'>
 			<select classs="form-control" name="special_event[bottle_holder_ids][]" multiple="multiple" required>
 				<% Dispenser.all.each do |dispenser| %>
-					<optgroup label="<%= "Dispenser #{dispenser.id}"%>">
+					<optgroup label="<%= "Dispenser #{dispenser.name}"%>">
 						<% dispenser.bottle_holders.each do |bh| %>
-							<option value="<%= bh.id %>" <%= 'selected' if special_event.bottle_holders.pluck(:id).include? bh.id %>><%= bh.dispenser_index %></option>
+							<option value="<%= bh.id %>" <%= 'selected' if special_event.bottle_holders.pluck(:id).include? bh.id %>>Posición <%= bh.dispenser_index + 1 %></option>
 						<%end%>
 					</optgroup>
 				<% end %>

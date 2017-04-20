@@ -120,22 +120,22 @@ a:active {text-decoration:none;}
   margin-left: 18px !important;
 }
 .volume-outer-8.bottle-index-6{
-  margin-left: 12px !important;
+  margin-left: 24px !important;
 }
 .volume-outer-8.bottle-index-5{
-  margin-left: 6px !important;
+  margin-left: 30px !important;
 }
 .volume-outer-8.bottle-index-4{
-  margin-left: 1px !important;
+  margin-left: 37px !important;
 }
 .volume-outer-8.bottle-index-3{
-  margin-left: -5px !important;
+  margin-left: 43px !important;
 }
 .volume-outer-8.bottle-index-2{
-  margin-left: -10px !important;
+  margin-left: 48px !important;
 }
 .volume-outer-8.bottle-index-1{
-  margin-left: -14px !important;
+  margin-left: 53px !important;
 }
 
 .dispenser-fg-4 div:first-child {
@@ -143,7 +143,7 @@ a:active {text-decoration:none;}
 }
 
 .dispenser-fg-8 div:first-child {
-  margin-left: 24px;
+  margin-left: 14px;
 }
 
 
@@ -315,12 +315,12 @@ a:active {text-decoration:none;}
 /*MEDIA SIZE*/
  @media(max-width : 767px) {
     .volume-outer-8 {
-      margin-top: 148px;
+      margin-top: 203px;
     }
   }
 @media (min-width: 768px) { /*Para monitores xs*/
   .volume-outer-8 {
-    margin-top: 148px;
+    margin-top: 202px;
   }
 
   .volume-outer-8.bottle-index-8 {
@@ -379,12 +379,12 @@ a:active {text-decoration:none;}
     height: 170px;
     overflow: hidden;
     margin-left: -5px;
-    margin-top: 148px;  
+    margin-top: 203px;  
     position: absolute;
     z-index: 0;
     background-color: #EEE;
   }
   .dispenser-fg-8 div:first-child {
-    margin-left: 23px;
+    margin-left: 14px;
   }
 }
