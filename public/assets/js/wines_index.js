@@ -46,12 +46,28 @@ $(function(){
 		$("#new_variety_modal").modal();
 	})
 
+	$(".add-brand").click(function(e){
+		e.preventDefault();
+		$("#new_brand_modal").modal();
+	})
+
 	$("#form_variety").submit(function(event){
 		event.preventDefault();
 		$.post($(this).attr('action'), $(this).serialize(), function(data){
 			data = $.parseJSON(data);
 			option = "<option value='"+data.id+"' selected>"+data.name+"</option>"
 			$(".select_variety").each(function(index, element){ $(element).append(option) })
+		})
+		$(this)[0].reset()
+		$(this).closest(".modal").modal('hide');
+		
+	})
+
+	$("#form_brand").submit(function(event){
+		event.preventDefault();
+		$.post($(this).attr('action'), $(this).serialize(), function(data){
+			option = "<option value='"+data.id+"' selected>"+data.name+"</option>"
+			$(".select_brand").each(function(index, element){ $(element).append(option) })
 		})
 		$(this)[0].reset()
 		$(this).closest(".modal").modal('hide');

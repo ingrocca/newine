@@ -22,6 +22,14 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
+	post '/brands' do
+		@brand = Brand.new(params[:brand])
+		if(@brand.save)
+			content_type :json
+			@brand.to_json
+		end
+	end
+
 	post '/brands/update/:id' do
 		@brand = Brand.where(id: params[:id]).first
 		if( !@brand.update_attributes(params[:brand]) )
