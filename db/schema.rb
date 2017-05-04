@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404150455) do
+ActiveRecord::Schema.define(version: 20170504175339) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20170404150455) do
     t.integer  "open_days"
     t.integer  "variety_id"
     t.integer  "brand_id"
+    t.float    "bottle_price",        default: 0.0
   end
 
   add_index "wines", ["name"], name: "index_wines_on_name"

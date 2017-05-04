@@ -2,10 +2,10 @@ class NewineServer < Sinatra::Application
 
 	get '/wines.?:format?' do
 		if params[:format] == 'json'
-			@wines = Wine.all
+			@wines = Wine.order(:name).all
 		else
 			@q = Wine.ransack(params[:q])
-			@wines = @q.result.paginate(:page=>params[:page], :per_page=>5)
+			@wines = @q.result.order(:name).paginate(:page=>params[:page], :per_page=>5)
 		end
 		format_render params[:format], :"wines/index"
 	end
@@ -45,8 +45,10 @@ class NewineServer < Sinatra::Application
 		@wine = @wines.first
 		if(@wine)
 			@wine.update_attributes(params[:wine])
+			redirect to("/wines/#{@wine.id}")
+		else
+			redirect to('/wines')
 		end
-		format_render 'html', :"wines/index"
 	end
 
 	get '/all_wines.json' do

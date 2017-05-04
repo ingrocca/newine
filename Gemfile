@@ -12,7 +12,7 @@ gem "tilt-jbuilder", ">= 0.4.0", :require => "sinatra/jbuilder"
 
 gem "thin"
 
-gem 'nfc', :git => 'git://github.com/pcarranzav/nfc.git', :ref => '15001c2'
+#gem 'nfc', :git => 'git://github.com/pcarranzav/nfc.git', :ref => '15001c2'
 
 gem 'dalli'
 

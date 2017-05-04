@@ -8,7 +8,7 @@
 							<img src='/assets/img/bottle-icon.png' width=50 height=50 />
 						
 							<span style="padding-left:10px;">									
-								<strong>{{id}}:</strong> {{name}} - {{variety}} - {{vintage}}										
+								<strong>{{name}}</strong>  - {{variety}} - {{vintage}}										
 							</span>						
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 										<img src='/assets/img/bottle-icon.png' width=40 height=40 />
 									
 										<span style="padding-left:10px;">									
-											<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>									
+											<strong><%= wine.name %></strong> - <%= wine.variety %> (<%= wine.vintage %>)									
 										</span>						
 									</div>
 								</div>
@@ -127,7 +127,7 @@
 											<div class='row'>
 										
 												<span style="padding-left:10px;">									
-													<strong><%= wine.id %>:</strong> <%= wine.name %> <%= wine.variety %> <%= wine.vintage %>
+													<strong><%= wine.name %></strong> - <%= wine.variety %> (<%= wine.vintage %>)
 													<div class="pull-right">
 														<a class='edit_wine btn btn-warning' data-wine-id=<%= wine.id.to_s %>>Editar</a>
 														<% if wine.bottle_holders.empty? %>
@@ -151,6 +151,10 @@
 													<br />
 													<p style="padding-left:10px;">									
 														<strong>Costo botella:</strong> $<%= wine.bottle_cost.to_s %>
+													</p>
+													<br />
+													<p style="padding-left:10px;">									
+														<strong>Precio botella:</strong> $<%= wine.bottle_price.to_s %>
 													</p>
 													<br />
 													<p style="padding-left:10px;">									
