@@ -1,3 +1,3 @@
 json.array!(@wines) do |wine|
-	json.(wine, :id, :name, :vintage, :variety, :tasting_notes)
+	json.(wine, :id, :name, :vintage, :variety, :tasting_notes, :bottle_price)
 end
