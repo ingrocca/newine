@@ -7,7 +7,7 @@ json.bottle_holders do
 		json.dispenser_index bh.dispenser_index + 1
 		if bh.wine
 			json.wine do
-				json.(bh.wine,:name, :id, :variety, :vintage, :tasting_notes, :bottle_price)
+				json.(bh.wine,:name, :id, :variety, :vintage, :tasting_notes)
 				
 			end
 			json.volume_percent (bh.remaining_volume.to_f / bh.wine.volume) * 100
