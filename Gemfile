@@ -1,5 +1,4 @@
 # Gemfile for newine_server
-
 source 'https://rubygems.org'
 
 gem "sinatra"
