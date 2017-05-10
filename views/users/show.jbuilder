@@ -1,11 +1,8 @@
-json.(@user, :id, :name, :client_type)
+json.(@user, :id, :name)
 json.uid @tag.uid
 json.credit @tag.credit
 
 json.valid_user @user.valid_user === true
-json.can_clean @user.can_clean === true
-json.can_detach @user.can_detach === true
-json.can_set_temp @user.can_set_temp === true
 
 json.category @user.category.try(:name)
 json.category_low_percentage @user.category ? @user.category.low_percentage : 0

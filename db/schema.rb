@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504175339) do
+ActiveRecord::Schema.define(version: 20170510144058) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
     t.string   "email"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.boolean  "is_super_admin"
     t.string   "crypted_password"
   end
 
@@ -177,7 +176,6 @@ ActiveRecord::Schema.define(version: 20170504175339) do
     t.string  "dni"
     t.string  "phone"
     t.string  "email"
-    t.string  "client_type"
     t.integer "category_id"
     t.integer "membership_number"
   end

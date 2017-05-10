@@ -35,30 +35,7 @@
  			<input type='text' name='user[phone]' class='form-control' value='<%= user.phone %>'>
  		</div>
  	</div>
-  <div class="form-group">
-		<div class="col-sm-3 no-padding">
-			<div class="checkbox">
-	    		<label>
-	        		<input type="radio" name='user[permissions]' value='customer' <%= user.client_type=='customer' ? 'checked' : '' %>> Cliente
-	        	</label>
-	    	</div>
-	    </div>
-	    <div class="col-sm-3 no-padding">
-			<div class="checkbox">
-	    		<label>
-	        		<input type="radio" name='user[permissions]' value='employee' <%= user.client_type=='employee' ? 'checked' : '' %>> Staff
-	        	</label>
-	    	</div>
-	    </div>
-	    <div class="col-sm-3 no-padding">
-			<div class="checkbox">
-	    		<label>
-	        		<input type="radio" name='user[permissions]' value='manager' <%= user.client_type=='manager' ? 'checked' : '' %>> Gerente
-	        	</label>
-	    	</div>
-	    </div>
-	</div>
-	<div class="form-group category-group" <%= "style='display:none'" if user.client_type != 'customer' %>>
+	<div class="form-group category-group">
 		<label  class='col-lg-3 control-label'>Categoría:</label>
   	<div class='col-lg-6'>
 			<select class="form-control" name="user[category_id]">
