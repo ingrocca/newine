@@ -40,18 +40,6 @@ class NewineServer < Sinatra::Application
 		end
 	end
 
-	post '/dispensers/shutdown.?:format?' do
-		data = JSON.parse(request.body.read)
-		@dispenser = Dispenser.find(data['id']) rescue nil
-		if @dispenser && @dispenser.ip
-			@dispenser.shutdown
-			halt 200
-		else
-			halt 404
-		end
-
-	end
-
 	post '/dispensers/register.json' do
 		data = JSON.parse(request.body.read)
 		@dispenser = Dispenser.where(:uid => data["uid"]).first

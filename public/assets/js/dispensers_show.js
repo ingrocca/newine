@@ -218,21 +218,6 @@ $(function(){
 		$('.loading-header').slideUp();
 	});
 
-	$('#shutdown-dispenser').click(function(){
-		$.ajax({
-			type: "POST",
-			url: '/dispensers/shutdown.json',
-			accept: 'json',
-			dataType: 'json',
-			data: JSON.stringify({id: id}),
-			success: function(data){
-				console.log('SHUTDOWN OK');
-				
-				render_dispenser();
-				
-			}
-		});
-	});
 	$('#detach-dispenser').click(function(event){
 		var reconfirm = confirm("¿Seguro desea eliminar el dispenser?");
 		if (reconfirm){

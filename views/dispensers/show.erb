@@ -130,7 +130,6 @@
 			<!-- <span id='online_label' class='label <%= @dispenser.online ? 'label-success' : 'label-danger' %>'> <%= @dispenser.online ? 'online' : 'offline' %></span> -->
 		</div>
 		<div class='col-lg-3 col-md-3 col-sm-12  col-xs-12' style='vertical-align:middle; margin-top:20px;'>
-			<a class='btn btn-warning' id='shutdown-dispenser'>Apagar</a>
 			<a href="#" data-href='<%= url("/dispensers/#{@dispenser.id}/destroy")%>'class='btn btn-danger pull-right' id='detach-dispenser'>Desvincular Dispenser</a>
 		</div>
 		
