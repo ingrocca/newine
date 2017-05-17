@@ -54,28 +54,18 @@ class NewineServer < Sinatra::Application
 			comp -= (comp * discount)
 		end
 
-		if comp && @serving.tag.user.client_type == 'customer' && (@serving.tag.credit - comp) >= 0
-			@serving.tag.credit -= comp
-		else
-			comp = false
-		end
-
-		if @serving.tag.user.client_type == 'manager'
-			comp = 0 
-			discount = 1
-		end
 		puts "Comp: #{comp}"
 
-		if comp && @serving.tag.user.client_type != 'employee' && (@serving.check_remaining_volume)
+		if comp && @serving.check_remaining_volume
 			#descontar si tiene categoria y si lo permite el dispenser
 			Serving.transaction do
 				@serving.tag.save
-				@serving.remaining_credit = @serving.tag.credit if @serving.tag.user.client_type == 'customer'
+				@serving.remaining_credit = @serving.tag.credit
 				@serving.bottle_holder.remaining_volume -= @serving.volume
 				@serving.bottle_holder.save
 				@serving.user_id = @serving.tag.user.id
 				@serving.volume_cost = @serving.bottle_holder.wine.try(:volume_cost)
-				@serving.save		
+				@serving.save
 			end
 			Event.log(
 				"Compra",
