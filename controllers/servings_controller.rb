@@ -54,6 +54,12 @@ class NewineServer < Sinatra::Application
 			comp -= (comp * discount)
 		end
 
+		if comp && ((@serving.tag.credit - comp) >= 0)
+			@serving.tag.credit -= comp
+		else
+			comp = false
+		end
+
 		puts "Comp: #{comp}"
 
 		if comp && @serving.check_remaining_volume
