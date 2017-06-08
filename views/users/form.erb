@@ -39,7 +39,6 @@
 		<label  class='col-lg-3 control-label'>Categoría:</label>
   	<div class='col-lg-6'>
 			<select class="form-control" name="user[category_id]">
-				<option></option>
 				<% Category.all.each do |category| %>
 					<option value="<%= category.id %>" <%= "selected" if category.id == user.category.try(:id) %>><%= category.name %></option>
 				<% end %>

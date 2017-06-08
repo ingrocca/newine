@@ -67,6 +67,7 @@ class NewineServer < Sinatra::Application
 			Serving.transaction do
 				@serving.tag.save
 				@serving.remaining_credit = @serving.tag.credit
+				@serving.price = comp
 				@serving.bottle_holder.remaining_volume -= @serving.volume
 				@serving.bottle_holder.save
 				@serving.user_id = @serving.tag.user.id

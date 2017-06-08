@@ -118,9 +118,8 @@ class NewineServer < Sinatra::Application
 		@tag = Tag.where(:uid => params[:uid]).first
 		if @tag && @tag.user
 			@tag.credit += data["add_credit"].to_f
-			if @tag.save
-				TagMovement.create(tag_id: @tag.id, credit: data["add_credit"].to_f)
-			end
+			@tag.save
+			TagMovement.create(tag_id: @tag.id, credit: data["add_credit"].to_f)
 
 			Event.log(
 				"Tag recargado",
