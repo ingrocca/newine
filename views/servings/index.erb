@@ -3,6 +3,7 @@
 <script src='/assets/js/raphael/g.raphael.js'></script>
 <script src='/assets/js/raphael/g.pie.js'></script>
 <script src='/assets/js/servings_index.js'></script>
+<script src='/assets/js/search_user.js'></script>
 <div class='container'>
 	<%= erb :"servings/menu" %>
 	<div class='row'>
@@ -23,13 +24,28 @@
 					  		</div>
 					  	</div>
 					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-md-6">
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">Bodega</label>
+						    <div class="col-sm-9">
+						      <select class="form-control" name="q[wine_brand_id_eq]"> 
+					  				<option></option>
+					  				<% Brand.order('name asc').each do |brand| %>
+					  					<option value='<%= brand.id %>' <%= "selected" if brand.id == @q.wine_id_eq %> ><%= brand %></option>
+					  				<% end %>
+					  			</select>
+						    </div>
+						  </div>
+						</div>
 					  <div class="col-md-6">
 					  	<div class="form-group">
 					  		<label class="col-sm-3 control-label">Vino</label>
 					  		<div class="col-sm-9">
 					  			<select class="form-control" name="q[wine_id_eq]"> 
 					  				<option></option>
-					  				<% Wine.all.each do |wine| %>
+					  				<% Wine.order('name asc').each do |wine| %>
 					  					<option value='<%= wine.id %>' <%= "selected" if wine.id == @q.wine_id_eq %> ><%= wine %></option>
 					  				<% end %>
 					  			</select>
@@ -54,7 +70,7 @@
 						</div>
 					  <div class="col-md-6">
 							<div class="form-group">
-								<label class="col-sm-3">Cliente Categoría</label>
+								<label class="col-sm-3 control-label">Categoría</label>
 								<div class="col-sm-9">
 									<select class="form-control" name="q[user_category_id_eq]">
 										<option value=""></option>
@@ -62,6 +78,19 @@
 											<option value="<%= category.id %>" <%= "selected" if category.id == @q.user_category_id_eq%>><%= category.name %></option>
 										<% end %>
 									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Cliente</label>
+								<div class="col-sm-9">
+									<select id="user-search" class="form-control" name="q[user_id_eq]">
+                    <option></option>
+                    <% User.order('name desc').each do |user| %>
+                        <option value="<%= user.id %>" <%= "selected" if user.id == @q.user_id_eq %>><%= "#{user.name} #{user.surname}" %></option>
+                    <% end %>
+                </select>
 								</div>
 							</div>
 						</div>
@@ -95,7 +124,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% Dispenser.find_each do |dispenser| %>
+						<% @dispensers.each do |dispenser| %>
 							<tr class='dispenser-pie-row'>
 								<td class='dispenser-name'><%= dispenser.id.to_s %></td>
 								<td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></td>
@@ -124,7 +153,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% Wine.find_each do |wine| %>
+						<% @wines.each do |wine| %>
 							<tr class='wine-pie-row'>
 								<td class='wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
 								<td><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></td>

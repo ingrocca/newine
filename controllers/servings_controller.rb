@@ -22,6 +22,8 @@ class NewineServer < Sinatra::Application
 		@servings = @q.result
 		@serv_total = @servings.get_stat(:total_count)
 		@money_total = @servings.get_stat(:money)
+		@wines = Wine.find(@servings.map(&:wine_id).uniq)
+		@dispensers = Dispenser.find(@servings.map(&:dispenser_id).uniq)
 		erb :"servings/index"
 	end
 
