@@ -144,20 +144,20 @@
 			</div>
 			<div class='row'>
 				<div class='col-lg-12'>
-					<table class='table table-striped' id='wine-stats-table' style='max-height: 500px;overflow-y:scroll;'>
+					<table class='table table-striped table-fixed' id='wine-stats-table'>
 					<thead>
 						<tr>
-							<th class='col-lg-8'>Vino</th>
+							<th class='col-lg-7'>Vino</th>
 							<th class='col-lg-2'>Ventas</th>
-							<th class='col-lg-2'>Total $</th>
+							<th class='col-lg-3'>Total $ <%= @money_total %></th>
 						</tr>
 					</thead>
 					<tbody>
 						<% @wines.each do |wine| %>
 							<tr class='wine-pie-row'>
-								<td class='wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
-								<td><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></td>
-								<td class='wine-money-count'><%= @servings.get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
+								<td class='col-lg-7 wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
+								<td class="col-lg-2"><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></td>
+								<td class='col-lg-3 wine-money-count'><%= @servings.get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
 							</tr>
 						<% end %>
 					</tbody>

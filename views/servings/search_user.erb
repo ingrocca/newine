@@ -1,20 +1,26 @@
 <script src='/assets/js/search_user.js'></script>
 <br>
-<div class="panel">
-	<form method="get" action="<%= url('/servings/users')%>" class="form-horizontal">
+<form method="get" action="<%= url('/servings/users')%>" class="form-horizontal well">
+	<div class="row">
 		<div class="col-md-6">
-			<div class="form-group">
-				<label class="col-sm-3">Cliente</label>
-				<div class="col-sm-9">
-					<select id="user-search" class="form-control" name="q[user_id_eq]">
-						<option><%= User.find(@q.user_id_eq) if @q.user_id_eq %></option> 
-					</select>
-				</div>
-			</div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">Desde</label>
+		    <div class="col-sm-9">
+		      <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
+		    </div>
+		  </div>
 		</div>
-		<div class="col-md-6">
+	  <div class="col-md-6">
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">Hasta</label>
+		    <div class="col-sm-9">
+		      <input type="text" class="form-control datetimepicker" name="q[created_at_lteq]" value="<%= @q.created_at_lteq %>">
+		    </div>
+		  </div>
+		</div>
+	  <div class="col-md-6">
 			<div class="form-group">
-				<label class="col-sm-3">Categoría</label>
+				<label class="col-sm-3 control-label">Categoría</label>
 				<div class="col-sm-9">
 					<select class="form-control" name="q[user_category_id_eq]">
 						<option value=""></option>
@@ -25,13 +31,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="col-sm-12">
-				<div class="pull-right">
-					<a href="<%= url('/servings/users')%>" class="btn btn-warning">Limpiar</a>
-					<button type="submit" class="btn btn-default">Buscar</button>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Cliente</label>
+				<div class="col-sm-9">
+					<select id="user-search" class="form-control" name="q[user_id_eq]">
+            <option></option>
+            <% User.order('name desc').each do |user| %>
+                <option value="<%= user.id %>" <%= "selected" if user.id == @q.user_id_eq %>><%= "#{user.name} #{user.surname}" %></option>
+            <% end %>
+        </select>
 				</div>
 			</div>
 		</div>
-	</form>
-</div>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="form-group">
+	    <div class="pull-right">
+	    	<a href="<%= url('/servings/users')%>" class="btn btn-warning">Limpiar</a>
+	      <button type="submit" class="btn btn-primary">Buscar</button>
+	    </div>
+	  </div>
+	</div>
+</form>
