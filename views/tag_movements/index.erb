@@ -70,7 +70,7 @@
 						<td><%= tag_movement.tag.user %></td>
 						<td><%= tag_movement.tag.uid %></td>
 						<td><%= tag_movement.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-						<td><%= tag_movement.credit %></td>
+						<td><%= format_float(tag_movement.credit) %></td>
 					</tr>
 				<% end %>
 			</tbody>
@@ -79,7 +79,7 @@
 	<div class='row'>
 		<div class='col-lg-10 col-lg-offset-1'>
 			<div class="pull-right">
-				<h3>Total: $<%= @total %></h3>
+				<h3>Total: $<%= format_float(@total) %></h3>
 			</div>
 		</div>
 	</div>

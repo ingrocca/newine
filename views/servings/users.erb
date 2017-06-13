@@ -26,9 +26,9 @@
 								<td><%= serving.created_at.strftime("%d/%m/%Y")%></td>
 								<td><%= serving.wine %></td>
 								<td><%= serving.volume %> ml</td>
-								<td>$ <%= serving.price %></td>
-								<td>$ <%= serving.cost %></td>
-								<td>$ <%= (serving.price - serving.cost) %></td>
+								<td>$ <%= format_float(serving.price) %></td>
+								<td>$ <%= format_float(serving.cost) %></td>
+								<td>$ <%= format_float(serving.price - serving.cost) %></td>
 							</tr>
 						<% end %>
 					</tbody>

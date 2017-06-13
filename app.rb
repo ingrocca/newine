@@ -31,7 +31,11 @@ class NewineServer < Sinatra::Application
 	end
 
 	helpers do
-		def format_render fmt, view
+		def format_float(value)
+			'%.2f' % value.round(2)
+		end
+
+		def format_render(fmt, view)
 			case fmt
 				when 'html', '', nil
 					erb view
@@ -41,6 +45,7 @@ class NewineServer < Sinatra::Application
 					p 'Unrecognized format'
 			end
 		end
+
 		def show_errors fmt, html_route, json_route
 			case fmt
 				when 'html', '', nil
@@ -69,13 +74,6 @@ class NewineServer < Sinatra::Application
     	@current_user ||= authenticated(Admin)
 		end
 	end
-
-  # before do
-  #   unless request.path_info == '/login' || current_user
-  #     session[:back_url] = request.path_info
-  #     redirect '/login'
-  #   end
-  # end
 	
 	get '/' do
 		erb :index

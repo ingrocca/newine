@@ -13,13 +13,21 @@ class NewineServer < Sinatra::Application
 		format_render 'html', :"varieties/index"
 	end
 
-	post "/variety.?:format?" do
+	post "/variety" do
 		@variety = Variety.new(params[:variety])
 		if(@variety.save)
 			redirect to('/varieties/' + @variety.id.to_s)
 		else
 			flash[:error] = "Ocurrió un error creando la variedad #{@variety.errors.messages}"
 			redirect "/varieties"
+		end
+	end
+
+	post '/variety.json' do
+		@variety = Variety.new(params[:variety])
+		if(@variety.save)
+			content_type :json
+			@variety.to_json
 		end
 	end
 

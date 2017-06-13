@@ -54,7 +54,6 @@ $(function(){
 	$("#form_variety").submit(function(event){
 		event.preventDefault();
 		$.post($(this).attr('action'), $(this).serialize(), function(data){
-			data = $.parseJSON(data);
 			option = "<option value='"+data.id+"' selected>"+data.name+"</option>"
 			$(".select_variety").each(function(index, element){ $(element).append(option) })
 		})

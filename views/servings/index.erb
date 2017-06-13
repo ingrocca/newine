@@ -107,7 +107,7 @@
 			</div>
 	</div>
 	<div class='row'>
-		<div id="total_money" class='hidden'><%= @money_total.to_s %></div>
+		<div id="total_money" class='hidden'><%= format_float(@money_total) %></div>
 		<div class='col-lg-5'>
 			<h4 class='centered'>Por dispenser:</h4>
 			<div class='row'>
@@ -127,8 +127,8 @@
 						<% @dispensers.each do |dispenser| %>
 							<tr class='dispenser-pie-row'>
 								<td class='dispenser-name'><%= dispenser.id.to_s %></td>
-								<td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id).to_s %></td>
-								<td class='dispenser-money-count'><%= @servings.get_stat(:money,:dispenser_id => dispenser.id).round(2).to_s %></td>
+								<td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id) %></td>
+								<td class='dispenser-money-count'><%= format_float(@servings.get_stat(:money,:dispenser_id => dispenser.id)) %></td>
 							</tr>
 						<% end %>
 					</tbody>
@@ -149,15 +149,15 @@
 						<tr>
 							<th class='col-lg-7'>Vino</th>
 							<th class='col-lg-2'>Ventas</th>
-							<th class='col-lg-3'>Total $ <%= @money_total %></th>
+							<th class='col-lg-3'>Total $ <%= format_float(@money_total) %></th>
 						</tr>
 					</thead>
 					<tbody>
 						<% @wines.each do |wine| %>
 							<tr class='wine-pie-row'>
 								<td class='col-lg-7 wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
-								<td class="col-lg-2"><%= @servings.get_stat(:total_count,:wine_id => wine.id).to_s %></td>
-								<td class='col-lg-3 wine-money-count'><%= @servings.get_stat(:money,:wine_id => wine.id).round(2).to_s %></td>
+								<td class="col-lg-2"><%= @servings.get_stat(:total_count,:wine_id => wine.id) %></td>
+								<td class='col-lg-3 wine-money-count'><%= format_float(@servings.get_stat(:money,:wine_id => wine.id)) %></td>
 							</tr>
 						<% end %>
 					</tbody>
