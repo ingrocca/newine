@@ -9,7 +9,7 @@ require 'will_paginate/active_record'
 
 require_all 'models'
 
-set :database, {adapter: "sqlite3", database: "../data/newineJA.sqlite3"}
+set :database, {adapter: "sqlite3", database: "../data/newine.sqlite3"}
 
 class NewineServer < Sinatra::Application
 	# Satisfies assumption number 1 above.
