@@ -4,7 +4,8 @@ class BottleHolder < ActiveRecord::Base
   has_and_belongs_to_many :special_events
 	has_many :complementary_drinks
 
-	after_initialize :init
+  after_initialize :init
+  before_create :set_last_clean_day
 
   def init
     self.serving_volume_low ||= wine.try(:serving_volume_low) 
@@ -56,5 +57,10 @@ class BottleHolder < ActiveRecord::Base
     else
       false
     end
+  end
+
+  private
+  def set_last_clean_day
+    self.last_day_cleaned = Date.today
   end
 end

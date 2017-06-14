@@ -21,11 +21,6 @@ class Dispenser < ActiveRecord::Base
 			self.bottle_holders.create(:dispenser_index => t)
 		end
 	end
-	def create_temperature_controls
-		self.n_temperature_controls.times do |t|
-			self.temperature_controls.create(:dispenser_index => t, :temperature => 18)
-		end
-	end
 
 	def configure
 		data = {}

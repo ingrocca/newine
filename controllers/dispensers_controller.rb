@@ -27,7 +27,6 @@ class NewineServer < Sinatra::Application
 		p 'created dispenser'
 		if @dispenser.valid?
 			@dispenser.create_bottle_holders
-			@dispenser.create_temperature_controls
 			Event.log(
 				"Nuevo Dispenser",
 				"ID: " + @dispenser.id.to_s + ", Nro. de Serie: " + @dispenser.uid.to_s + ".",
@@ -104,7 +103,9 @@ class NewineServer < Sinatra::Application
 
 			@bottle_holder.serving_volume_high = @wine.serving_volume_high
 			@bottle_holder.serving_price_high = @wine.serving_price_high
-			@bottle_holder.date_bottle_change = Date.today
+			now = Date.today
+			@bottle_holder.date_bottle_change = now
+			@bottle_holder.last_day_cleaned = now if @bottle_holder.last_day_cleaned.nil?
 
 			@bottle_holder.save
 			Event.log(

@@ -14,6 +14,19 @@ class NewineServer < Sinatra::Application
 		{ status: 200, id: @bottle_holder.id }.to_json
 	end
 
+		post '/bottle_holder/clean' do
+		data = JSON.parse(request.body.read)
+		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
+		@bottle_holder.update(last_day_cleaned: Date.today)
+		Event.log(
+			"Limpieza",
+			"Se realizó la limpieza del dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index + 1}",
+			"#",
+			0xffffff,
+			"clean")
+		{ status: 200, id: @bottle_holder.id }.to_json
+	end
+
 	post '/bottle_holder/reload' do
 		data = JSON.parse(request.body.read)
 		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
