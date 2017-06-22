@@ -36,12 +36,10 @@
 								
 								<div class='panel panel-default panel-link user-link' data-id=<%= user.id.to_s %>>
 									<div class='panel-body'>
-										
 											<img src='/assets/img/user-icon.png' width=40 height=40 />
-										
-											<span style="padding-left:10px;">									
-												<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>										
-											</span>						
+											<span style="padding-left:10px;">
+												<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>
+											</span>
 									</div>
 								</div>
 							
@@ -60,7 +58,7 @@
 											
 											<div class='panel panel-default' style='min-height: 300px;'>
 												<div class='panel-body'>
-														<span style="padding-left:10px;">									
+														<span style="padding-left:10px;">
 															<strong><%= user.id %>:</strong> <%= user.name %> <%= user.surname %>
 															<div class="pull-right">
 																<a class='edit_user btn btn-warning ' data-user-id=<%= user.id.to_s %>>Editar</a>
@@ -69,23 +67,23 @@
 														</span>
 														<hr />
 														<div class='user_info' data-user-id=<%= user.id.to_s %>>
-															<p style="padding-left:10px;">									
+															<p style="padding-left:10px;">
 																<strong>Nro de socio:</strong> <%= user.membership_number %>
 															</p>
 															<br />
-															<p style="padding-left:10px;">									
+															<p style="padding-left:10px;">
 																<strong>DNI:</strong> <%= user.dni %>
 															</p>
 															<br />
-															<p style="padding-left:10px;">									
+															<p style="padding-left:10px;">
 																<strong>Email:</strong> <%= user.email %>
 															</p>
 															<br />
-															<p style="padding-left:10px;">									
+															<p style="padding-left:10px;">
 																<strong>Teléfono:</strong> <%= user.phone %>
 															</p>
 															<br />
-															<p style="padding-left:10px;">									
+															<p style="padding-left:10px;">
 																<strong>Categoría:</strong> <%= user.category %>
 															</p>
 															<br />

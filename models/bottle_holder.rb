@@ -29,7 +29,7 @@ class BottleHolder < ActiveRecord::Base
 
   def last_clean
     begin
-      (Date.today - last_day_cleaned).to_i
+      (Time.now - last_day_cleaned).to_i
     rescue
       0
     end
@@ -37,7 +37,7 @@ class BottleHolder < ActiveRecord::Base
 
   def open_days
     begin
-      (Date.today - date_bottle_change).to_i
+      (Time.now - date_bottle_change).to_i
     rescue
       0
     end
@@ -61,6 +61,6 @@ class BottleHolder < ActiveRecord::Base
 
   private
   def set_last_clean_day
-    self.last_day_cleaned = Date.today
+    self.last_day_cleaned = Time.now
   end
 end

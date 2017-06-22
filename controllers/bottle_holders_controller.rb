@@ -17,7 +17,7 @@ class NewineServer < Sinatra::Application
 		post '/bottle_holder/clean' do
 		data = JSON.parse(request.body.read)
 		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
-		@bottle_holder.update(last_day_cleaned: Date.today)
+		@bottle_holder.update(last_day_cleaned: Time.now)
 		Event.log(
 			"Limpieza",
 			"Se realizó la limpieza del dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index + 1}",
@@ -30,7 +30,7 @@ class NewineServer < Sinatra::Application
 	post '/bottle_holder/reload' do
 		data = JSON.parse(request.body.read)
 		@bottle_holder = BottleHolder.where(dispenser_id: data['dispenser_id'], dispenser_index: data['dispenser_index']).last
-		@bottle_holder.update(remaining_volume: @bottle_holder.wine.volume, date_bottle_change: Date.today)
+		@bottle_holder.update(remaining_volume: @bottle_holder.wine.volume, date_bottle_change: Time.now)
 		@dispenser = @bottle_holder.dispenser
 		Event.log(
 			"Cambio de botella",

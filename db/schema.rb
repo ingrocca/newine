@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510144058) do
+ActiveRecord::Schema.define(version: 20170622123137) do
 
   create_table "admins", force: true do |t|
     t.string   "username"
@@ -136,6 +136,13 @@ ActiveRecord::Schema.define(version: 20170510144058) do
     t.datetime "updated_at"
     t.string   "type_special_event"
     t.boolean  "active",             default: true
+  end
+
+  create_table "staffs", force: true do |t|
+    t.string   "name"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tag_movements", force: true do |t|

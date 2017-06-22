@@ -103,7 +103,7 @@ class NewineServer < Sinatra::Application
 
 			@bottle_holder.serving_volume_high = @wine.serving_volume_high
 			@bottle_holder.serving_price_high = @wine.serving_price_high
-			now = Date.today
+			now = Time.now
 			@bottle_holder.date_bottle_change = now
 			@bottle_holder.last_day_cleaned = now if @bottle_holder.last_day_cleaned.nil?
 

@@ -1,0 +1,102 @@
+<script src='/assets/js/newine.js'></script>
+<script src='/assets/js/staffs_index.js'></script>
+<div class='container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <h2 class='centered'>Staffs</h2>
+      <div class='row' style='padding-bottom:10px;'>
+        <div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1'>
+          <form class='form-search form-inline' action='/staffs' method='get'>
+            <div class='col-lg-10 col-xs-10'>
+              <input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
+            </div>
+            <div class='col-lg-2 col-xs-2'>
+              <button class='btn btn-search'>Buscar</button>
+            </div>
+          </form>
+        </div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createStaff">Crear staff</button>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <div class='row'>
+        <div class='col-lg-10 col-lg-offset-1 apple_pagination'>
+          <%= will_paginate @staffs %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
+          <% @staffs.each do |staff| %>
+            <div id='staffs-container' class='col-lg-12'>
+              <div class='panel panel-default panel-link staff-link' data-id=<%= staff.id.to_s %>>
+                <div class='panel-body'>
+                    <img src='/assets/img/user-icon.png' width=40 height=40 />
+                    <span style="padding-left:10px;">
+                      <strong><%= staff.id %>:</strong> <%= staff.name %>
+                    </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class='col-lg-6 col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0'>
+          <% @staffs.each do |staff| %>
+            <div class='row staff-data hidden' data-staff-id=<%= staff.id.to_s %>>
+              <div class='col-xs-12'>
+                <div class='panel panel-default' style='min-height: 300px;'>
+                  <div class='panel-body'>
+                    <span style="padding-left:10px;">
+                      <strong><%= staff.id %>:</strong> <%= staff.name %>
+                      <div class="pull-right">
+                        <a class='edit_staff btn btn-warning ' data-staff-id=<%= staff.id.to_s %>>Editar</a>
+                        <a class="delete btn btn-danger" data-delete="<%= url('/staffs/destroy/'+staff.id.to_s) %>"> Eliminar</a>
+                      </div>
+                    </span>
+                    <hr />
+                    <div class='staff_info' data-staff-id=<%= staff.id.to_s %>>
+                      <p style="padding-left:10px;">
+                        <strong>Token:</strong> <%= staff.token %>
+                      </p>
+                    </div>
+                    <form style='padding-bottom:20px;' class='form-horizontal staff_edit_form hidden' data-staff-id=<%= staff.id.to_s %> action='/staffs/edit/<%= staff.id.to_s %>' method='post'>
+                      <%= erb :"staffs/form", locals: {staff: staff} %>
+                      <div class='col-lg-offset-3'>
+                        <button class='btn btn-primary'>Guardar</button>
+                        <a class='btn btn-default cancel_edit'>Cancelar</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="createStaff">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action='/staffs' method='post' class='form-horizontal'>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Nuevo Staff</h4>
+        </div>
+        <div class="modal-body">
+          <div class='row'>
+            <div class='col-lg-12'>
+              <%= erb :"staffs/form", locals: {staff: Staff.new} %>
+            </div>
+          </div>
+        </div>    
+        <div class='modal-footer'>
+          <a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+          <button class='btn btn-primary'>Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
