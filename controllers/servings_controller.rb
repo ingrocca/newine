@@ -19,7 +19,9 @@ class NewineServer < Sinatra::Application
 	get '/servings' do
 		@view = "index"
 		today = Time.now
+		params[:q]['created_at_lteq'] = DateTime.parse("#{params[:q]['created_at_lteq']} 23:59:59 +0300") if params[:q]['created_at_lteq']
 		params[:q] = { created_at_gteq: Date.parse("#{today.year}-#{today.month}-01"), created_at_lteq: today } unless params[:q]
+		puts params[:q]
 		@q = Serving.ransack(params[:q])
 		@servings = @q.result
 		@serv_total = @servings.get_stat(:total_count)
@@ -100,6 +102,7 @@ class NewineServer < Sinatra::Application
 	get '/servings/users' do
 		@view = "users"
 		today = Time.now
+		params[:q]['created_at_lteq'] = DateTime.parse("#{params[:q]['created_at_lteq']} 23:59:59 +0300") if params[:q]['created_at_lteq']
 		params[:q] = { created_at_gteq: Date.parse("#{today.year}-#{today.month}-01"), created_at_lteq: today } unless params[:q]
 		@q = Serving.ransack(params[:q])
 		@servings = @q.result.paginate(:page=>params[:page], :per_page=>20)
@@ -109,6 +112,7 @@ class NewineServer < Sinatra::Application
 	get '/servings/activities' do
 		@view = "activities"
 		today = Time.now
+		params[:q]['created_at_lteq'] = DateTime.parse("#{params[:q]['created_at_lteq']} 23:59:59 +0300") if params[:q]['created_at_lteq']
 		params[:q] = { created_at_gteq: Date.parse("#{today.year}-#{today.month}-01"), created_at_lteq: today } unless params[:q]
 		@q = Event.ransack(params[:q].merge(event_type: ["taste","change_bottle"]))
 		@activities = @q.result
