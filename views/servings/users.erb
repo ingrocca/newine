@@ -14,6 +14,7 @@
 							<th>Fecha</th>
 							<th>Vino</th>
 							<th>ML</th>
+							<th>Modo</th>
 							<th>Precio</th>
 							<th>Costo</th>
 							<th>Ganancia</th>
@@ -22,13 +23,24 @@
 					<tbody>
 						<% @servings.all.each do |serving| %>
 							<tr>
-								<td><%= serving.user %></td>
+								<% if serving.mode_back_office? %>
+									<td>-</td>
+								<% else %>
+									<td><%= serving.user %></td>
+								<% end %>
 								<td><%= serving.created_at.strftime("%d/%m/%Y")%></td>
 								<td><%= serving.wine %></td>
 								<td><%= serving.volume %> ml</td>
-								<td>$ <%= format_float(serving.price) %></td>
-								<td>$ <%= format_float(serving.cost) %></td>
-								<td>$ <%= format_float(serving.price - serving.cost) %></td>
+								<td><%= serving.sanatize_mode %></td>
+								<% if serving.mode_back_office? %>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+								<% else %>
+									<td>$ <%= format_float(serving.price) %></td>
+									<td>$ <%= format_float(serving.cost) %></td>
+									<td>$ <%= format_float(serving.price - serving.cost) %></td>
+								<% end %>
 							</tr>
 						<% end %>
 					</tbody>

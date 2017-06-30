@@ -13,6 +13,18 @@
 				  <div class="row">
 					  <div class="col-md-6">
 					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Modo</label>
+					  		<div class="col-sm-9">
+					  			<select class="form-control" name="q[mode_eq]">
+					  				<option></option> 
+					  				<option value='self_serving' <%= "selected" if 'self_serving' == @q.mode_eq %>>Self Serving</option>
+					  				<option value='back_office' <%= "selected" if 'back_office' == @q.mode_eq %>>Back Office</option>
+					  			</select>
+					  		</div>
+					  	</div>
+					  </div>
+					  <div class="col-md-6">
+					  	<div class="form-group">
 					  		<label class="col-sm-3 control-label">Dispenser</label>
 					  		<div class="col-sm-9">
 					  			<select class="form-control" name="q[dispenser_id_eq]"> 

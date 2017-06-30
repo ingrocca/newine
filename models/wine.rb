@@ -16,8 +16,9 @@ class Wine < ActiveRecord::Base
 	validates :serving_price_high, :presence=>true, :numericality => { :greater_than_or_equal_to => 0 }
 
 	after_initialize :init
+  before_create :titleize_name
 
-	def to_s
+  def to_s
 		"#{name} - #{variety} - #{vintage}"
 	end
 
@@ -36,6 +37,15 @@ class Wine < ActiveRecord::Base
   end
 
   def volume_cost
-  	self.bottle_cost / self.volume
+    self.bottle_cost / self.volume
+  end
+
+  def valid_servings
+    [ serving_volume_low, serving_volume_med, serving_volume_high ]
+  end
+
+  private
+  def titleize_name
+    self.name = self.name.titleize
   end
 end

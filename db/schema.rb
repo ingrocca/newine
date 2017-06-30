@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170622123137) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.float    "volume_cost",      default: 0.0
+    t.string   "mode",             default: "self_serving"
   end
 
   add_index "servings", ["dispenser_id"], name: "index_servings_on_dispenser_id"

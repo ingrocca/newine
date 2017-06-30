@@ -67,7 +67,7 @@ class NewineServer < Sinatra::Application
 
 		puts "Comp: #{comp}"
 
-		if comp && @serving.check_remaining_volume
+		if comp && @serving.remaining_volume?
 			#descontar si tiene categoria y si lo permite el dispenser
 			Serving.transaction do
 				@serving.tag.save
@@ -92,6 +92,31 @@ class NewineServer < Sinatra::Application
 		return jbuilder :"servings/show"
 	end
 
+	post '/servings_back_office.json' do
+		data = JSON.parse(request.body.read)
+		puts data["serving"]
+		@serving = Serving.new(data["serving"].merge(mode: 'back_office'))
+		@serving.bottle_holder = @serving.dispenser.bottle_holders.where(dispenser_index: @serving.bottle_index).first
+		@serving.wine_id = @serving.bottle_holder.wine.id rescue nil
+		if @serving.valid_volume? && @serving.remaining_volume?
+			Serving.transaction do
+				@serving.bottle_holder.remaining_volume -= @serving.volume
+				@serving.bottle_holder.save
+				@serving.save
+			end
+			Event.log(
+				"Back Office",
+				"Vino: #{@serving.wine.name}, Cantidad: #{@serving.volume} ml",
+				"/servings",
+				0x55EE88,
+				"new_serving_back_office")
+		else
+			p "Tarjeta sin usuario o error en los datos de medidas"
+			@serving.valid_serving = false
+		end
+		return jbuilder :"servings/show"
+	end
+
 	delete '/servings/:id' do
 		@serving = Serving.find(params[:id])
 		@serving.destroy
@@ -106,6 +131,16 @@ class NewineServer < Sinatra::Application
 		@q = Serving.ransack(params[:q])
 		@servings = @q.result.paginate(:page=>params[:page], :per_page=>20)
 		erb :"servings/users"
+	end
+
+	get '/servings/back_offices' do
+		@view = "back_offices"
+		today = Time.now
+		params[:q]['created_at_lteq'] = DateTime.parse("#{params[:q]['created_at_lteq']} 23:59:59") unless params[:q].nil?
+		params[:q] = { created_at_gteq: Date.parse("#{today.year}-#{today.month}-01"), created_at_lteq: today } unless params[:q]
+		@q = Serving.ransack(params[:q].merge(mode_eq: 'back_office'))
+		@servings = @q.result.paginate(:page=>params[:page], :per_page=>20)
+		erb :"servings/back_offices"
 	end
 
 	get '/servings/activities' do
