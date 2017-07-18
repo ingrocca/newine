@@ -23,7 +23,7 @@
 						    </div>
 	  					</div>
   					</form>
-  					-->						
+  					-->
 					</div>
 				</div>
 			</a>
@@ -34,7 +34,7 @@
 		<div class='col-lg-12 col-xs-12 panel-link' style="border-bottom: 1px #999 solid; margin-top: 4px; margin-left: 4px;">
 			<a href={{link_url}} class=''>
 				<div>								
-					<p>{{timestamp}}: <strong>{{title}}</strong> - {{description}}</p>														
+					<p>{{timestamp}}: <strong>{{title}}</strong> - {{description}}</p>
 				</div>
 			</a>
 			
@@ -46,10 +46,10 @@
 		<div class='col-lg-8 col-lg-offset-2 panel panel-default panel-link'>
 			<a href='/users/tags/{{uid}}' class='panel-body'>
 				<div>								
-					<p><strong>ID:</strong> {{uid}}</p>														
+					<p><strong>ID:</strong> {{uid}}</p>
 				</div>
-				<div>								
-					<p><strong>Crédito:</strong> ${{credit}}</p>														
+				<div>
+					<p><strong>Crédito:</strong> ${{credit}}</p>
 				</div>
 				<div>								
 					<p><strong>Cliente:</strong> {{user.name}}</p>														
@@ -136,102 +136,4 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="nfc-tag-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form action='/tags' method='post' class='form-horizontal'>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Tarjeta detectada</h4>
-				</div>
-				<div class="modal-body">
-					<div class='row'>
-						<div class='col-lg-12'>
-							<div id="tag-alerts-container">
-							</div>
-							<div id='tags-container'>
-							</div>
-
-							<div id='existing-card-group'>
-								<div class="form-group">
-									<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-	        					<label for='credit' class='col-lg-3 control-label'>Recarga:</label>
-	        				</div>
-		            	<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-		            		<input type='number' name='credit' class='form-control' id="credit_to_add">
-		            	</div>
-		            	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-		            		<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
-		            	</div>
-		            </div>
-		            <div class="form-group">
-		            	<a id='format_tag' class='btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
-		            </div>
-					    </div>
-				      <div class='new-card-group'>
-				        <input type='hidden' name='tag[uid]' id='tag_uid_hidden' value=null>
-	        		  <div class="form-group">
-	        				<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-	        					<label for='tag[credit]' class='col-lg-3 control-label'>Carga inicial:</label>
-	        				</div>
-		            	<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-		            		<input type='number' name='tag[credit]' class='form-control'>
-		            	</div>
-		            	<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-		            		<a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
-		            	</div>
-		            </div>
-		            <div class="form-group">
-	        				<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-	        					<label for='tag[credit]' class='col-lg-3 control-label'>Fecha vencimiento:</label>
-	        				</div>
-		            	<div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
-		            		<input type="text" name="tag[due_date]" class="form-control datetimepicker">
-		            	</div>
-		            </div>
-		            <div class="form-group">
-		            	<div class='col-lg-8 col-lg-offset-3 col-xs-12 centered'>
-			            	<a id='existing_user' class='btn btn-success btn-med active'>Asignar a cliente</a>
-			            	<a id='create_new_user' class='btn btn-success btn-med'>Nuevo cliente</a>
-			            </div>
-		            </div>
-
-		            <div id='existing_user_fields'>
-			            <div class="form-group">
-			            	<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-		        					<label for='user_search' class='col-lg-3 control-label'>Buscar cliente:</label>
-		        				</div>
-			            	
-			            	<div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
-			           			<input type='search' name='user_search' id='user_search' class='form-control'>
-			           		</div>
-			           		<div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-			           			<a id='search_users' class='btn btn-success btn-med'><span class='glyphicon glyphicon-ok'></span></a>
-			           		</div>
-			           	</div>
-
-			            <div id='users-for-tag' class='form-group'>
-			            	<div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
-				        		<select name='tag[user_id]' id='tag_user_id' size=5 class='form-control'>
-
-				        		</select>
-				        	</div>
-			        	</div>
-			        </div>
-			        <div id='new_user_fields' style="display:none;">
-			        	<input type='hidden' name='new_user' id='new_user_hidden' value=false>
-			        	<%= erb :"users/form", locals: {user: User.new} %>
-								<script src='/assets/js/users_index.js'></script>
-			        </div>
-				    </div>
-					</div>
-					</div>
-				</div>
-				<div class='modal-footer new-card-group' id='tag_form_buttons'>
-					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-          			<button class='btn btn-primary'>Guardar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+<%= erb :"_nfc_modal" %>
