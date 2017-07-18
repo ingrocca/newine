@@ -58,27 +58,15 @@
                 </div>
 
                 <div id='existing_user_fields'>
-                  <div class="form-group">
-                    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                      <label for='user_search' class='col-lg-3 control-label'>Buscar cliente:</label>
+                  <div class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">Buscar cliente:</label>
+                      <div class="col-sm-7">
+                        <select name='tag[user_id]' id="search_users" class="form-control"></select>
+                      </div>
                     </div>
-                    
-                    <div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
-                      <input type='search' name='user_search' id='user_search' class='form-control'>
-                    </div>
-                    <div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-                      <a id='search_users' class='btn btn-success btn-med'><span class='glyphicon glyphicon-ok'></span></a>
-                    </div>
-                  </div>
-
-                  <div id='users-for-tag' class='form-group'>
-                    <div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-sm-offset-0 col-md-6 col-sm-10 col-xs-10 '>
-                    <select name='tag[user_id]' id='tag_user_id' size=5 class='form-control'>
-
-                    </select>
                   </div>
                 </div>
-              </div>
               <div id='new_user_fields' style="display:none;">
                 <input type='hidden' name='new_user' id='new_user_hidden' value=false>
                 <%= erb :"users/form", locals: {user: User.new} %>

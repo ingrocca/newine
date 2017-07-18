@@ -108,7 +108,34 @@ $(function(){
     }
   });
 
-  $("#search_users").click(function(){
+  $("#search_users").select2({
+    width: '100%',
+    minimumInputLength: 2,
+    allowClear: true,
+    placeholder: 'Nombre o Apellido',
+    ajax: {
+      url: "/users.json",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term // search term
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: $.map(data, function (item) {
+            return {
+              text: item.name,
+              id: item.id
+            }
+          })
+        };
+      }
+    }
+  });
+
+  $("#search_users_old").click(function(){
     var q = $('#user_search').val();
     $.ajax({
       type: "GET",
