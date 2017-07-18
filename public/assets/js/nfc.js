@@ -135,25 +135,6 @@ $(function(){
     }
   });
 
-  $("#search_users_old").click(function(){
-    var q = $('#user_search').val();
-    $.ajax({
-      type: "GET",
-      url: '/users.json?q='  + q,
-      accept: 'json',
-      dataType: 'json',
-      success: function(data){
-        console.log('got users');
-        console.log(data);
-        $('#tag_user_id').html('');
-        $.each(data,function(i,usr){
-
-          $('#tag_user_id').append('<option value=' + usr.id + '>' + usr.name + '</option>')
-        });
-      }
-    });
-  });
-
   $('#existing_user').click(function(){
     $('#new_user_hidden').val(false);
     $('#new_user_fields').hide();

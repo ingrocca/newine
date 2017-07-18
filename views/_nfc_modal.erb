@@ -1,3 +1,27 @@
+<script type="text/template" id='tags-template'>
+  <div class='row' style={{&style}}>
+    <div class='col-lg-8 col-lg-offset-2 panel panel-default panel-link'>
+      <a href='/users/tags/{{uid}}' class='panel-body'>
+        <div>               
+          <p><strong>ID:</strong> {{uid}}</p>
+        </div>
+        <div>
+          <p><strong>Crédito:</strong> ${{credit}}</p>
+        </div>
+        <div>               
+          <p><strong>Cliente:</strong> {{user.name}}</p>                            
+        </div>
+      </a>
+      
+    </div>
+  </div>
+</script>
+<script type="text/template" id="add-credit-success-template">
+  <div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    Crédito actualizado
+  </div>
+</script>
 <div class="modal fade" id="nfc-tag-modal">
   <div class="modal-dialog">
     <div class="modal-content">
