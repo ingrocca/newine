@@ -30,10 +30,10 @@
 						  	<div class="form-group">
 						  		<label class="col-sm-3 control-label">Usuario</label>
 						  		<div class="col-sm-9">
-						  			<select class="form-control" name="q[tag_user_id_eq]"> 
+						  			<select class="form-control" name="q[user_id_eq]"> 
 						  				<option></option>
 						  				<% User.all.each do |user| %>
-						  					<option value='<%= user.id %>' <%= "selected" if user.id == @q.tag_user_id_eq %> ><%= user %></option>
+						  					<option value='<%= user.id %>' <%= "selected" if user.id == @q.user_id_eq %> ><%= user %></option>
 						  				<% end %>
 						  			</select>
 						  		</div>
@@ -67,7 +67,7 @@
 			<tbody>
 				<% @tag_movements.each do |tag_movement| %>
 					<tr>
-						<td><%= tag_movement.tag.user %></td>
+						<td><%= tag_movement.try(:user) %></td>
 						<td><%= tag_movement.tag.uid %></td>
 						<td><%= tag_movement.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
 						<td><%= format_float(tag_movement.credit) %></td>

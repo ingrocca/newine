@@ -60,7 +60,7 @@ class NewineServer < Sinatra::Application
 			if @user.valid?
 				@tag = Tag.new(params[:tag])
 				@user.add_tag(@tag)
-				TagMovement.create(tag_id: @tag.id, credit: @tag.credit)
+				TagMovement.create(tag_id: @tag.id, credit: @tag.credit, user_id: @user.id)
 				p 'created tag'
 				if @tag.valid?
 					Event.log(
@@ -93,6 +93,7 @@ class NewineServer < Sinatra::Application
 			@tag.user.add_tag(@tag)
 			p 'created tag'
 			if @tag.valid?
+				TagMovement.create(tag_id: @tag.id, credit: @tag.credit, user_id: @tag.user.id)
 				Event.log(
 					"Nuevo Tag",
 					"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
@@ -119,7 +120,7 @@ class NewineServer < Sinatra::Application
 		if @tag && @tag.user
 			@tag.credit += data["add_credit"].to_f
 			@tag.save
-			TagMovement.create(tag_id: @tag.id, credit: data["add_credit"].to_f)
+			TagMovement.create(tag_id: @tag.id, credit: data["add_credit"].to_f, user_id: @tag.user.id)
 
 			Event.log(
 				"Tag recargado",

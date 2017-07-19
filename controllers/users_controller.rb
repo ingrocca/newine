@@ -36,15 +36,6 @@ class NewineServer < Sinatra::Application
 		format_render 'html', :"users/index"
 	end
 
-	post '/users/:id/tags/create' do
-		@user = User.where(:id => params[:id]).first
-		@tag = Tag.new(params[:tag].merge(user: @user))
-		if @user.add_tag(@tag)
-			TagMovement.create(tag_id: @tag.id, credit: @tag.credit)
-		end
-		redirect '/users'
-	end
-
 	get '/users/:id.json' do
 		@user = User.where(:id => params[:id]).first
 		if @user.nil?
