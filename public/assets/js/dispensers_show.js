@@ -203,6 +203,17 @@ $(function(){
 
 	});
 
+	$("#edit-dispenser").click(function(e){
+		$(this).parent().addClass('hide');
+		$('#form-edit-dispenser').removeClass('hide')
+	});
+
+	$('#cancel-edit').click(function(e){
+		e.preventDefault();
+		$(this).closest('form').addClass('hide');
+		$('#dispenser-name').removeClass('hide');
+	})
+
 	$(document).ajaxSend(function() {
 		//root.addClass("ajax-loader-2");
 		$('button').prop('disabled', true);

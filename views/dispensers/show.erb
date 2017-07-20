@@ -3,12 +3,10 @@
 		<div class='col-md-10 col-offset-2'>
 			<div class='panel panel-default'>
 				<div class='panel-body'>
-					
 						<img src='/assets/img/dispenser-icon.png' width=50 height=50 />
-					
-						<span style="padding-left:10px;">									
-							<strong>{{id}}:</strong> {{uid}}										
-						</span>				
+						<span style="padding-left:10px;">
+							<strong>{{id}}:</strong> {{uid}}
+						</span>
 				</div>
 			</div>
 		</div>
@@ -23,10 +21,10 @@
 						<img class='bottle-cover bottle-{{n_bottles}}' src='/assets/img/bottle_cover.png' />
 				        <div class="volume-inner" data-progress="{{volume_percent}}%" data-id={{id}}>
 				            <div></div>
-				        </div>        
+				        </div>
 				    </div>
 				</div>
-			</div>						
+			</div>
 		</div>
 
 </script>
@@ -113,8 +111,8 @@
 <script type="text/template" id='wines-template'>
 	<div class='row' style={{&style}}>
 		<div class='col-md-12 panel-link select-wine' data-wine-id={{id}}
-		style="border-bottom: 1px #999 solid; margin-top: 4px; margin-left: 4px;">							
-			<p><strong>{{name}}</strong> - {{variety.name}} {{vintage}}</p>														
+		style="border-bottom: 1px #999 solid; margin-top: 4px; margin-left: 4px;">
+			<p><strong>{{name}}</strong> - {{variety.name}} {{vintage}}</p>
 		</div>
 	</div>
 </script>
@@ -126,8 +124,14 @@
 <div class='container'>
 	<div class='row'>
 		<div class='col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 centered' style='padding-left: 40px;'>
-			<h2> Dispenser <%= @dispenser.name %></h2>
-			<!-- <span id='online_label' class='label <%= @dispenser.online ? 'label-success' : 'label-danger' %>'> <%= @dispenser.online ? 'online' : 'offline' %></span> -->
+			<h2 id='dispenser-name'> Dispenser <%= @dispenser.name %> <button id="edit-dispenser" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></h2>
+			<form id="form-edit-dispenser" class='form-inline hide' action="/dispensers/id/<%= @dispenser.id%>/update" method="post" style='margin-top: 20px;'>
+				<div class="form-group">
+					<input class='form-control input-sm' type="text" name="dispenser[name]" value='<%= @dispenser.name %>'>
+				</div>
+				<a href='#' id='cancel-edit' class='btn btn-sm btn-default'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+				<button class='btn btn-sm btn-primary' type="submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+			</form>
 		</div>
 		<div class='col-lg-3 col-md-3 col-sm-12  col-xs-12' style='vertical-align:middle; margin-top:20px;'>
 			<a href="#" data-href='<%= url("/dispensers/#{@dispenser.id}/destroy")%>'class='btn btn-danger pull-right' id='detach-dispenser'>Desvincular Dispenser</a>
@@ -188,7 +192,7 @@
 				<div class='modal-footer' style='margin-top: 0px;'>
 					<a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
 					<a class="btn btn-warning" id='leave-empty'>Vacío</a>
-          			<button class='btn btn-primary' id='save-wine-change'>Guardar</button>
+          	<button class='btn btn-primary' id='save-wine-change'>Guardar</button>
 				</div>
 			
 		</div>

@@ -69,7 +69,7 @@
 					<tr>
 						<td><%= tag_movement.try(:user) %></td>
 						<td><%= tag_movement.tag.uid %></td>
-						<td><%= tag_movement.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+						<td><%= tag_movement.created_at.getlocal.strftime("%d/%m/%Y - %H:%M") %></td>
 						<td><%= format_float(tag_movement.credit) %></td>
 					</tr>
 				<% end %>

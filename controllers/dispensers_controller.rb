@@ -22,6 +22,12 @@ class NewineServer < Sinatra::Application
 		format_render params[:format], :"dispensers/show"
 	end
 
+	post '/dispensers/id/:id/update' do
+		@dispenser = Dispenser.where(:id => params[:id]).first
+		@dispenser.update(params['dispenser'])
+		redirect "/dispensers/id/#{@dispenser.id}"
+	end
+
 	post '/dispensers' do
 		@dispenser = Dispenser.create(params[:dispenser])
 		p 'created dispenser'
