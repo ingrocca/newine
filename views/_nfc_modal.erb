@@ -8,8 +8,8 @@
         <div>
           <p><strong>Crédito:</strong> ${{credit}}</p>
         </div>
-        <div>               
-          <p><strong>Cliente:</strong> {{user.name}}</p>                            
+        <div>
+          <p><strong>Cliente:</strong> {{user.name}}</p>
         </div>
       </a>
       
@@ -39,18 +39,19 @@
               </div>
               <div id='existing-card-group'>
                 <div class="form-group">
-                  <div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
                     <label for='credit' class='col-lg-3 control-label'>Recarga:</label>
                   </div>
-                  <div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                    <p id='due-card' class="form-control-static hide">Esta tarjeta está vencida</p>
                     <input type='number' name='credit' class='form-control' id="credit_to_add">
                   </div>
-                  <div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-                    <a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                    <a id='add_credit' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-plus'></span></a>
+                    <a id='format_tag' class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
                   </div>
                 </div>
                 <div class="form-group">
-                  <a id='format_tag' class='btn btn-danger btn-sm pull-right'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
                 </div>
               </div>
               <div class='new-card-group'>
@@ -63,7 +64,7 @@
                     <input type='number' name='tag[credit]' class='form-control'>
                   </div>
                   <div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
-                    <a id='add_credit' class='btn btn-success btn-med'><span class='glyphicon glyphicon-plus'></span></a>
+                    <a id='add_credit' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-plus'></span></a>
                   </div>
                 </div>
                 <div class="form-group">
@@ -94,7 +95,6 @@
               <div id='new_user_fields' style="display:none;">
                 <input type='hidden' name='new_user' id='new_user_hidden' value=false>
                 <%= erb :"users/form", locals: {user: User.new} %>
-                <script src='/assets/js/users_index.js'></script>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
         </div>
         <div class='modal-footer new-card-group' id='tag_form_buttons'>
           <a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                <button class='btn btn-primary'>Guardar</button>
+          <button class='btn btn-primary'>Guardar</button>
         </div>
       </form>
     </div>

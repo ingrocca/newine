@@ -27,6 +27,11 @@ $(function(){
           current_tag = ins;
           Newine.render_instance('tags',ins);
           $('#existing-card-group').show();
+          if(!ins.active){
+            $('#due-card').removeClass('hide')
+            $('#credit_to_add').addClass('hide')
+            $('#add_credit').addClass('hide')
+          }
         }
       }, function(xhr,opts,errorThrown){
         tag_is_known = false;

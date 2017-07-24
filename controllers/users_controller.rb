@@ -9,9 +9,9 @@ class NewineServer < Sinatra::Application
 	get  '/users.?:format?' do
 		if params[:q]
 			@users = User.where('name like ? or surname like ? or dni like ? or email like ?','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%').
-			paginate(:page=>params[:page], :per_page=>5)
+			order(:name).paginate(:page=>params[:page], :per_page=>5)
 		else
-			@users = User.paginate(:page=>params[:page], :per_page=>5)
+			@users = User.order(:name).paginate(:page=>params[:page], :per_page=>5)
 		end
 		format_render params[:format], :"users/index"
 	end

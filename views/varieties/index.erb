@@ -50,12 +50,10 @@
 								
 								<div class='panel panel-default panel-link variety-link' data-id=<%= variety.id.to_s %>>
 									<div class='panel-body'>
-										
 										<img src='/assets/img/bottle-icon.png' width=40 height=40 />
-									
-										<span style="padding-left:10px;">									
-											<strong><%= variety.id %>:</strong> <%= variety.name %>									
-										</span>						
+										<span style="padding-left:10px;">
+											<strong><%= variety.name %></strong>
+										</span>
 									</div>
 								</div>
 							
@@ -78,8 +76,8 @@
 											
 											<div class='row'>
 										
-												<span style="padding-left:10px;">									
-													<strong><%= variety.id %>:</strong> <%= variety.name %>
+												<span style="padding-left:10px;">
+													<strong><%= variety.name %></strong>
 													<div class="pull-right">
 														<a class='edit_variety btn btn-warning' data-variety-id=<%= variety.id.to_s %>>Editar</a>
 														<% if variety.wines.empty? %>
@@ -89,7 +87,7 @@
 												</span>
 												<hr />
 												<div class='variety_info' data-variety-id=<%= variety.id.to_s %>>
-													<p style="padding-left:10px;">									
+													<p style="padding-left:10px;">
 														<strong>Nombre:</strong> <%= variety.name %>
 													</p>
 													<br />
@@ -102,7 +100,7 @@
 														</ul>
 													</p>
 												</div>
-											</div>											
+											</div>
 											<form style='padding-bottom:20px;' class='form-horizontal variety_edit_form hidden' data-variety-id=<%= variety.id.to_s %> action='/varieties/update/<%= variety.id.to_s %>' method='post'>
 													<%= erb :"varieties/form", locals: {variety: variety} %>
 									        <div class='col-lg-offset-3' style='padding-top:20px;'>
@@ -110,15 +108,12 @@
 														<a class='btn btn-default cancel_edit'>Cancelar</a>
 													</div>
 											</form>
-											
-
 									</div>
 								</div>
 							
 							</div>
 						</div>
 					<% end %>
-
 				</div>
 			</div>
 		</div>

@@ -38,9 +38,9 @@
 									<div class='panel panel-default panel-link brand-link' data-id=<%= brand.id.to_s %>>
 										<div class='panel-body'>
 												<img src='/assets/img/bottle-icon.png' width=40 height=40 />
-												<span style="padding-left:10px;">									
-													<strong><%= brand.id %>:</strong> <%= brand.name %>										
-												</span>						
+												<span style="padding-left:10px;">
+													<strong><%= brand.name %></strong>
+												</span>
 										</div>
 									</div>
 								</div>
@@ -56,8 +56,8 @@
 								<div class='col-xs-12'>
 									<div class='panel panel-default' style='min-height: 300px;'>
 										<div class='panel-body'>
-												<span style="padding-left:10px;">									
-													<strong><%= brand.id %>:</strong> <%= brand.name %>
+												<span style="padding-left:10px;">
+													<strong> <%= brand.name %></strong>
 													<div class="pull-right">
 														<a class='edit_brand btn btn-warning ' data-brand-id=<%= brand.id.to_s %>>Editar</a>
 														<a class="delete btn btn-danger" data-delete="<%= url('/brands/destroy/'+brand.id.to_s)%>">Eliminar</a>
@@ -65,7 +65,7 @@
 												</span>
 												<hr />
 												<div class='brand_info' data-brand-id=<%= brand.id.to_s %>>
-													<p style="padding-left:10px;">									
+													<p style="padding-left:10px;">
 														<strong>Nombre:</strong> <%= brand.name %>
 													</p>
 													<br />

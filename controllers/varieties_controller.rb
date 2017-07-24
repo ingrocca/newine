@@ -2,8 +2,7 @@ class NewineServer < Sinatra::Application
 	
 	get '/varieties' do
 		@q = Variety.ransack(params[:q])
-		@varieties = @q.result.paginate(:page=>params[:page], :per_page=>5)
-
+		@varieties = @q.result.order(:name).paginate(:page=>params[:page], :per_page=>5)
 		format_render 'html', :"varieties/index"
 	end
 
