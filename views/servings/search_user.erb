@@ -1,4 +1,3 @@
-<script src='/assets/js/search_user.js'></script>
 <br>
 <form method="get" action="<%= url('/servings/users')%>" class="form-horizontal well">
 	<div class="row">
@@ -35,12 +34,11 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Cliente</label>
 				<div class="col-sm-9">
-					<select id="user-search" class="form-control" name="q[user_id_eq]">
-            <option></option>
-            <% User.order('name desc').each do |user| %>
-                <option value="<%= user.id %>" <%= "selected" if user.id == @q.user_id_eq %>><%= "#{user.name} #{user.surname}" %></option>
-            <% end %>
-        </select>
+					<select name='q[user_id_eq]' class="form-control input-sm search_users">
+	  				<% if @q.user_id_eq %>
+	  					<option value="<%= @q.user_id_eq%>"><%= selected_user(@q.user_id_eq)%></option>
+	  				<% end %>
+	  			</select>
 				</div>
 			</div>
 		</div>

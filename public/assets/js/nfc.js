@@ -113,7 +113,7 @@ $(function(){
     }
   });
 
-  $("#search_users").select2({
+  $(".search_users").select2({
     width: '100%',
     minimumInputLength: 2,
     allowClear: true,
@@ -124,14 +124,14 @@ $(function(){
       delay: 250,
       data: function (params) {
         return {
-          q: params.term // search term
+          q: { name_or_surname_cont: params.term } // search term
         };
       },
       processResults: function (data) {
         return {
           results: $.map(data, function (item) {
             return {
-              text: item.name,
+              text: item.name + ' ' + item.surname,
               id: item.id
             }
           })

@@ -1,18 +1,9 @@
 class NewineServer < Sinatra::Application
 
-	get  '/users/search' do
-		@users = User.where('name like ? or surname like ?','%' + params[:q] + '%','%' + params[:q] + '%')
-		content_type :json
-  	@users.to_json
-	end
-	
 	get  '/users.?:format?' do
-		if params[:q]
-			@users = User.where('name like ? or surname like ? or dni like ? or email like ?','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%','%' + params[:q] + '%').
-			order(:name).paginate(:page=>params[:page], :per_page=>5)
-		else
-			@users = User.order(:name).paginate(:page=>params[:page], :per_page=>5)
-		end
+		@q = User.ransack(params[:q])
+		puts @q.result.to_sql
+		@users = @q.result.order(:name).paginate(:page=>params[:page], :per_page=>5)
 		format_render params[:format], :"users/index"
 	end
 

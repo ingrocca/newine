@@ -8,7 +8,11 @@
 				<div class='col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1'>
 					<form class='form-search form-inline' action='/users' method='get'>
 						<div class='col-lg-10 col-xs-10'>
-							<input type='search' name='q' class='form-control input-sm' value=<%= params[:q]%>>
+							<select name='q[id_eq]' class="form-control input-sm search_users">
+								<% if @q.id_eq %>
+			  					<option value="<%= @q.id_eq%>"><%= selected_user(@q.id_eq)%></option>
+			  				<% end %>
+							</select>
 						</div>
 						<div class='col-lg-2 col-xs-2'>
 							<button class='btn btn-search'>Buscar</button>

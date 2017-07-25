@@ -30,10 +30,9 @@
 						  	<div class="form-group">
 						  		<label class="col-sm-3 control-label">Usuario</label>
 						  		<div class="col-sm-9">
-						  			<select class="form-control" name="q[user_id_eq]"> 
-						  				<option></option>
-						  				<% User.all.each do |user| %>
-						  					<option value='<%= user.id %>' <%= "selected" if user.id == @q.user_id_eq %> ><%= user %></option>
+						  			<select name='q[user_id_eq]' class="form-control input-sm search_users">
+						  				<% if @q.user_id_eq %>
+						  					<option value="<%= @q.user_id_eq%>"><%= selected_user(@q.user_id_eq)%></option>
 						  				<% end %>
 						  			</select>
 						  		</div>

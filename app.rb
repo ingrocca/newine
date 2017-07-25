@@ -73,6 +73,10 @@ class NewineServer < Sinatra::Application
 		def current_user
     	@current_user ||= authenticated(Admin)
 		end
+
+		def selected_user(user_id)
+			User.find(user_id)
+		end
 	end
 	
 	get '/' do

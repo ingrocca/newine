@@ -1,4 +1,4 @@
-FROM resin/beaglebone-debian
+FROM resin/beaglebone-black-debian
 
 RUN apt-get update && apt-get install \
   build-essential \
