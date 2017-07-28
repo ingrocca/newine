@@ -69,7 +69,7 @@ class NewineServer < Sinatra::Application
 						"/users/tags/" + @tag.uid.to_s,
 						0x009933,
 						"new_tag")
-					redirect to("/users/tags/" + @tag.uid.to_s)
+					redirect to("/users?q[tags_id_eq]=" + @tag.id.to_s)
 				else
 					Event.log(
 						"Tag no se pudo guardar",
@@ -97,10 +97,10 @@ class NewineServer < Sinatra::Application
 				Event.log(
 					"Nuevo Tag",
 					"ID: " + @tag.id.to_s + ", Nro. de Serie: " + @tag.uid.to_s + ".",
-					"/users/tags/" + @tag.uid.to_s,
+					"/users?q[tags_id_eq]=" + @tag.id.to_s,
 					0x009933,
 					"new_tag")
-				redirect to("/users/tags/" + @tag.uid.to_s)
+				redirect to("/users?q[tags_id_eq]=" + @tag.id.to_s)
 			else
 				Event.log(
 					"Tag no se pudo guardar",
@@ -137,8 +137,10 @@ class NewineServer < Sinatra::Application
 
 	delete '/tags/:id' do
 		@tag = Tag.find(params[:id])
-		@tag.destroy
-		halt 204
+		if @tag.credit.zero?
+			@tag.destroy
+			halt 204
+		else
 	end
 
 end

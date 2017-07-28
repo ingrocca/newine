@@ -99,14 +99,14 @@ $(function(){
         success: function(ins){
           tag_is_known = false;
           $('#existing-card-group').hide();
-            $('.new-card-group').hide();
-            $('#tag_form_buttons').hide();
-            $('#nfc-tag-modal').modal('show');
-    
-            $('#tags-container').html('<div class="alert error">Tag nuevo</div>');
-            $('.new-card-group').show();
-            $('#tag_form_buttons').show();
-            $('#existing_user').trigger('click');
+          $('.new-card-group').hide();
+          $('#tag_form_buttons').hide();
+          $('#nfc-tag-modal').modal('show');
+  
+          $('#tags-container').html('<div class="alert error">Tag nuevo</div>');
+          $('.new-card-group').show();
+          $('#tag_form_buttons').show();
+          $('#existing_user').trigger('click');
 
         }
       });

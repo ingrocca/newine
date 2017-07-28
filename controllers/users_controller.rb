@@ -22,11 +22,6 @@ class NewineServer < Sinatra::Application
 		format_render 'json', :"users/show"
 	end
 
-	get '/users/tags/:uid' do
-		@users = User.joins(:tags).where('tags.uid = ?', params[:uid]).paginate(:page=>params[:page], :per_page=>5)
-		format_render 'html', :"users/index"
-	end
-
 	get '/users/:id.json' do
 		@user = User.where(:id => params[:id]).first
 		if @user.nil?
