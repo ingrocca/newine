@@ -1,4 +1,4 @@
-FROM resin/beaglebone-black-debian
+FROM resin/beaglebone-debian
 
 RUN apt-get update && apt-get install \
   build-essential \
@@ -46,6 +46,9 @@ RUN gem install rake -v '10.1.0'
 
 RUN cd /app && gem install bundler && bundler install
 
+
 CMD configdev=$(blkid | grep "resin-conf" | awk '{print $1}' | tr -d ':') \
   && memcached -d -u  root \
   && cd /app && rake db:migrate && rake db:seed && bash newine_server_init
+
+ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
