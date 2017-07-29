@@ -137,10 +137,8 @@ class NewineServer < Sinatra::Application
 
 	delete '/tags/:id' do
 		@tag = Tag.find(params[:id])
-		if @tag.credit.zero?
-			@tag.destroy
-			halt 204
-		else
+		@tag.destroy
+		halt 204
 	end
 
 end
