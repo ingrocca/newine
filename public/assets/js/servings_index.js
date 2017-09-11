@@ -1,5 +1,63 @@
 $(function () {
-	
+
+    $(".search_brands").select2({
+        width: '100%',
+        minimumInputLength: 2,
+        allowClear: true,
+        placeholder: 'Nombre',
+        ajax: {
+          url: "/brands.json",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: { name_cont: params.term } // search term
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: $.map(data, function (item) {
+                return {
+                  text: item.name,
+                  id: item.id
+                }
+              })
+            };
+          }
+        }
+    });
+
+    $(".search_brands").on('change', function(){
+        $(".search_wines").val('').trigger('change');
+    })
+
+    $(".search_wines").select2({
+        width: '100%',
+        minimumInputLength: 2,
+        allowClear: true,
+        placeholder: 'Nombre',
+        ajax: {
+          url: "/wines.json",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: { name_cont: params.term, brand_id_eq: $('#brand').val() ? $('#brand').val() : 0 } // search term
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: $.map(data, function (item) {
+                return {
+                  text: item.name,
+                  id: item.id
+                }
+              })
+            };
+          }
+        }
+    });
+
     var total_money = parseFloat($('#total_money').html());
     if(total_money == 0)
         total_money = 1;

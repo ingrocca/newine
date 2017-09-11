@@ -1,9 +1,9 @@
 class NewineServer < Sinatra::Application
 	
-	get '/brands' do
+	get '/brands.?:format?' do
 		@q = Brand.ransack(params[:q])
 		@brands = @q.result.order(:name).paginate(:page=>params[:page], :per_page=>5)
-		format_render 'html', :"brands/index"
+		format_render params[:format], :"brands/index"
 	end
 	
 	get '/brands/:id' do

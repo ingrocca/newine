@@ -77,6 +77,14 @@ class NewineServer < Sinatra::Application
 		def selected_user(user_id)
 			User.find(user_id)
 		end
+
+		def selected_brand(brand_id)
+			Brand.find(brand_id)
+		end
+
+		def selected_wine(wine_id)
+			Wine.find(wine_id)
+		end
 	end
 	
 	get '/' do

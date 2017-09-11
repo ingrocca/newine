@@ -17,7 +17,6 @@ class NewineServer < Sinatra::Application
 	end
 
 	get '/servings' do
-		@view = "index"
 		today = Time.now
 		params[:q]['created_at_lteq'] = DateTime.parse("#{params[:q]['created_at_lteq']} 23:59:59") unless params[:q].nil?
 		params[:q] = { created_at_gteq: Date.parse("#{today.year}-#{today.month}-01"), created_at_lteq: today } unless params[:q]

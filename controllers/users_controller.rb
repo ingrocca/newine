@@ -2,7 +2,6 @@ class NewineServer < Sinatra::Application
 
 	get  '/users.?:format?' do
 		@q = User.ransack(params[:q])
-		puts @q.result.to_sql
 		@users = @q.result.order(:name).paginate(:page=>params[:page], :per_page=>5)
 		format_render params[:format], :"users/index"
 	end
