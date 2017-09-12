@@ -4,174 +4,175 @@
 <script src='/assets/js/raphael/g.pie.js'></script>
 <script src='/assets/js/servings_index.js'></script>
 <div class='container'>
-	<%= erb :"servings/menu" %>
-	<div class='row'>
-		<div class='col-lg-12 centered'>
-			<br>
-				<form class="form-horizontal well">
-				  <div class="row">
-					  <div class="col-md-6">
-					  	<div class="form-group">
-					  		<label class="col-sm-3 control-label">Modo</label>
-					  		<div class="col-sm-9">
-					  			<select class="form-control" name="q[mode_eq]">
-					  				<option></option> 
-					  				<option value='self_serving' <%= "selected" if 'self_serving' == @q.mode_eq %>>Self Serving</option>
-					  				<option value='back_office' <%= "selected" if 'back_office' == @q.mode_eq %>>Back Office</option>
-					  			</select>
-					  		</div>
-					  	</div>
-					  </div>
-					  <div class="col-md-6">
-					  	<div class="form-group">
-					  		<label class="col-sm-3 control-label">Dispenser</label>
-					  		<div class="col-sm-9">
-					  			<select class="form-control" name="q[dispenser_id_eq]"> 
-					  				<option></option>
-					  				<% Dispenser.all.each do |dispenser| %>
-					  					<option value='<%= dispenser.id %>' <%= "selected" if dispenser.id == @q.dispenser_id_eq %>><%= dispenser.name %></option>
-					  				<% end %>
-					  			</select>
-					  		</div>
-					  	</div>
-					  </div>
-					</div>
-					<div class="row">
-					  <div class="col-md-6">
-						  <div class="form-group">
-						    <label class="col-sm-3 control-label">Bodega</label>
-						    <div class="col-sm-9">
-						    	<select id="brand" name="q[wine_brand_id_eq]" class="form-control input-sm search_brands">
-					  				<% if @q.wine_brand_id_eq %>
-					  					<option value="<%= @q.wine_brand_id_eq%>"><%= selected_brand(@q.wine_brand_id_eq)%></option>
-					  				<% end %>
-					  			</select>
-						    </div>
-						  </div>
-						</div>
-					  <div class="col-md-6">
-					  	<div class="form-group">
-					  		<label class="col-sm-3 control-label">Vino</label>
-					  		<div class="col-sm-9">
-						  		<select name="q[wine_id_eq]" class="form-control input-sm search_wines">
-					  				<% if @q.wine_id_eq %>
-					  					<option value="<%= @q.wine_id_eq%>"><%= selected_wine(@q.wine_id_eq)%></option>
-					  				<% end %>
-					  			</select>
-					  		</div>
-					  	</div>
-					  </div>
-					  <div class="col-md-6">
-						  <div class="form-group">
-						    <label class="col-sm-3 control-label">Desde</label>
-						    <div class="col-sm-9">
-						      <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
-						    </div>
-						  </div>
-						</div>
-					  <div class="col-md-6">
-						  <div class="form-group">
-						    <label class="col-sm-3 control-label">Hasta</label>
-						    <div class="col-sm-9">
-						      <input type="text" class="form-control datetimepicker" name="q[created_at_lteq]" value="<%= @q.created_at_lteq %>">
-						    </div>
-						  </div>
-						</div>
-					  <div class="col-md-6">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Categoría</label>
-								<div class="col-sm-9">
-									<select class="form-control" name="q[user_category_id_eq]">
-										<option value=""></option>
-										<% Category.all.each do |category| %>
-											<option value="<%= category.id %>" <%= "selected" if category.id == @q.user_category_id_eq%>><%= category.name %></option>
-										<% end %>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Cliente</label>
-								<div class="col-sm-9">
-									<select name='q[user_id_eq]' class="form-control input-sm search_users">
-					  				<% if @q.user_id_eq %>
-					  					<option value="<%= @q.user_id_eq%>"><%= selected_user(@q.user_id_eq)%></option>
-					  				<% end %>
-					  			</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group">
-					    <div class="pull-right">
-					    	<a href="<%= url('/servings')%>" class="btn btn-warning">Limpiar</a>
-					      <button type="submit" class="btn btn-primary">Buscar</button>
-					    </div>
-					  </div>
-					</div>
-				</form>
-			</div>
-	</div>
-	<div class='row'>
-		<div class='col-lg-5'>
-			<h4 class='centered'>Por dispenser:</h4>
-			<div class='row'>
-				<div id='dispensers-stat-holder'></div>
-			</div>
-			<div class='row'>
-				<div class='col-lg-12'>
-					<table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
-					<thead>
-						<tr>
-							<th class='col-lg-4'>Dispenser</th>
-							<th class='col-lg-4'>Ventas</th>
-							<th class='col-lg-4'>Total $<%= format_float(@money_total) %></th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @dispensers.each do |dispenser| %>
-							<tr class='dispenser-pie-row'>
-								<td class='dispenser-name'><%= dispenser.id.to_s %></td>
-								<td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id) %></td>
-								<td class='dispenser-money-count'><%= format_float(@servings.get_stat(:money,:dispenser_id => dispenser.id)) %></td>
-							</tr>
-						<% end %>
-					</tbody>
-					</table>
-				</div>
-			</div>
-			
-		</div>
-		<div class='col-lg-6 col-lg-offset-1'>
-			<h4 class='centered'>Por vino:</h4>
-			<div class='row'>
-				<div id='wines-stat-holder'></div>
-			</div>
-			<div class='row'>
-				<div class='col-lg-12'>
-					<table class='table table-striped table-fixed' id='wine-stats-table'>
-					<thead>
-						<tr>
-							<th class='col-lg-7'>Vino</th>
-							<th class='col-lg-2'>Ventas</th>
-							<th class='col-lg-3'>Total $ <%= format_float(@money_total) %></th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @wines.each do |wine| %>
-							<tr class='wine-pie-row'>
-								<td class='col-lg-7 wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
-								<td class="col-lg-2"><%= @servings.get_stat(:total_count,:wine_id => wine.id) %></td>
-								<td class='col-lg-3 wine-money-count'><%= format_float(@servings.get_stat(:money,:wine_id => wine.id)) %></td>
-							</tr>
-						<% end %>
-					</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+  <%= erb :"servings/menu", locals: { request: request }%>
+  <div class='row'>
+    <div class='col-lg-12 centered'>
+      <br>
+        <form class="form-horizontal well">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Modo</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="q[mode_eq]">
+                    <option></option> 
+                    <option value='self_serving' <%= "selected" if 'self_serving' == @q.mode_eq %>>Self Serving</option>
+                    <option value='back_office' <%= "selected" if 'back_office' == @q.mode_eq %>>Back Office</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Dispenser</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="q[dispenser_id_eq]"> 
+                    <option></option>
+                    <% Dispenser.all.each do |dispenser| %>
+                      <option value='<%= dispenser.id %>' <%= "selected" if dispenser.id == @q.dispenser_id_eq %>><%= dispenser.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Bodega</label>
+                <div class="col-sm-9">
+                  <select id="brand" name="q[wine_brand_id_eq]" class="form-control input-sm search_brands">
+                    <% if @q.wine_brand_id_eq %>
+                      <option value="<%= @q.wine_brand_id_eq%>"><%= selected_brand(@q.wine_brand_id_eq)%></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Vino</label>
+                <div class="col-sm-9">
+                  <select name="q[wine_id_eq]" class="form-control input-sm search_wines">
+                    <% if @q.wine_id_eq %>
+                      <option value="<%= @q.wine_id_eq%>"><%= selected_wine(@q.wine_id_eq)%></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Desde</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control datetimepicker" name="q[created_at_gteq]" value="<%= @q.created_at_gteq %>">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Hasta</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control datetimepicker" name="q[created_at_lteq]" value="<%= @q.created_at_lteq %>">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Categoría</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="q[user_category_id_eq]">
+                    <option value=""></option>
+                    <% Category.all.each do |category| %>
+                      <option value="<%= category.id %>" <%= "selected" if category.id == @q.user_category_id_eq%>><%= category.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Cliente</label>
+                <div class="col-sm-9">
+                  <select name='q[user_id_eq]' class="form-control input-sm search_users">
+                    <% if @q.user_id_eq %>
+                      <option value="<%= @q.user_id_eq%>"><%= selected_user(@q.user_id_eq)%></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="pull-right">
+                <a href="<%= url('/servings')%>" class="btn btn-warning">Limpiar</a>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+  <div class='row'>
+    <div id="total_money" class='hidden'><%= format_float(@money_total) %></div>
+    <div class='col-lg-5'>
+      <h4 class='centered'>Por dispenser:</h4>
+      <div class='row'>
+        <div id='dispensers-stat-holder'></div>
+      </div>
+      <div class='row'>
+        <div class='col-lg-12'>
+          <table class='table table-striped' style='max-height: 500px;overflow-y:scroll;'>
+          <thead>
+            <tr>
+              <th class='col-lg-4'>Dispenser</th>
+              <th class='col-lg-4'>Ventas</th>
+              <th class='col-lg-4'>Total $<%= format_float(@money_total) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @dispensers.each do |dispenser| %>
+              <tr class='dispenser-pie-row'>
+                <td class='dispenser-name'><%= dispenser.id.to_s %></td>
+                <td><%= @servings.get_stat(:total_count,:dispenser_id => dispenser.id) %></td>
+                <td class='dispenser-money-count'><%= format_float(@servings.get_stat(:money,:dispenser_id => dispenser.id)) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+    <div class='col-lg-6 col-lg-offset-1'>
+      <h4 class='centered'>Por vino:</h4>
+      <div class='row'>
+        <div id='wines-stat-holder'></div>
+      </div>
+      <div class='row'>
+        <div class='col-lg-12'>
+          <table class='table table-striped table-fixed' id='wine-stats-table'>
+          <thead>
+            <tr>
+              <th class='col-lg-7'>Vino</th>
+              <th class='col-lg-2'>Ventas</th>
+              <th class='col-lg-3'>Total $ <%= format_float(@money_total) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @wines.each do |wine| %>
+              <tr class='wine-pie-row'>
+                <td class='col-lg-7 wine-name'><%= wine.name + ' ' + wine.variety.to_s + ' ' + wine.vintage.to_s %></td>
+                <td class="col-lg-2"><%= @servings.get_stat(:total_count,:wine_id => wine.id) %></td>
+                <td class='col-lg-3 wine-money-count'><%= format_float(@servings.get_stat(:money,:wine_id => wine.id)) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <%= erb :"_nfc_modal" %>

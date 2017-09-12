@@ -50,7 +50,7 @@
         <Cell><Data ss:Type="String">Precio</Data></Cell>
         <Cell><Data ss:Type="String">Credito Restante</Data></Cell>
       </Row>
-      <% Serving.find_each do |serving| %>
+      <% @servings.each do |serving| %>
       <Row>
           <Cell><Data ss:Type="String"><%= serving.created_at.to_s %></Data></Cell>
           <Cell><Data ss:Type="String"><%= serving.wine.name.to_s %></Data></Cell>

@@ -45,12 +45,11 @@
 								<div class="form-group">
 					  			<label class="col-sm-3 control-label">Bodega</label>
 					  			<div class="col-sm-9">
-										<select class="form-control select_brand" name="q[brand_id_eq]">
-											<option value=""></option>
-											<% Brand.all.each do |brand| %>
-												<option value="<%= brand.id %>" <%= "selected" if brand.id == @q.brand_id_eq%>><%= brand.name %></option>
-											<% end %>
-										</select>
+					  				<select id="brand" name="q[brand_id_eq]" class="form-control search_brands">
+	                    <% if @q.brand_id_eq %>
+	                      <option value="<%= @q.brand_id_eq%>"><%= selected_brand(@q.brand_id_eq)%></option>
+	                    <% end %>
+                  	</select>
 									</div>
 								</div>
 							</div>

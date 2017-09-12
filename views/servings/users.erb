@@ -2,7 +2,7 @@
 	<%= erb :"servings/menu" %>
 	<div class="row">
 		<div class="col-lg-12">
-			<%= erb :"servings/search_user"%>
+			<%= erb :"servings/search_user", locals: { request: request } %>
 		</div>
 		<div class='col-lg-12'>
 			<div class='row'>
