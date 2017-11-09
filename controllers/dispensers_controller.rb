@@ -29,7 +29,7 @@ class NewineServer < Sinatra::Application
 	end
 
 	post '/dispensers' do
-		@dispenser = Dispenser.create(params[:dispenser])
+		@dispenser = Dispenser.create(params[:dispenser].merge(uid: SecureRandom.hex(8)))
 		p 'created dispenser'
 		if @dispenser.valid?
 			@dispenser.create_bottle_holders
