@@ -1,4 +1,5 @@
-FROM resin/beaglebone-debian
+#FROM resin/beaglebone-debian
+FROM resin/beaglebone-black-debian
 
 RUN apt-get update && apt-get install \
   build-essential \
@@ -27,12 +28,12 @@ RUN apt-get update && apt-get install \
 
 
 
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 RUN apt-get install --yes nodejs
-
+RUN apt-get install --yes sqlite
+RUN mkdir -p /data
 RUN mkdir -p /app
-
 COPY . /app
 
 RUN cp /app/newine_cron /etc/cron.d/
