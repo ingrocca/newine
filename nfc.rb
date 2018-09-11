@@ -9,7 +9,7 @@ namespace :nfc do
 			p "Opening context"
 			ctx = NFC::Context.new
 			p "Opening device"
-			devnm = "pn532_i2c:/dev/i2c-1"
+			devnm = "pn532_i2c:/dev/i2c-2"
 			# Open the first available USB device
 			dev = ctx.open devnm
 

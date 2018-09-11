@@ -142,6 +142,15 @@ class NewineServer < Sinatra::Application
 
 		@bottle_holder.serving_volume_high = params['serving_volume_high']
 		@bottle_holder.serving_price_high = params['serving_price_high']
+		if @bottle_holder.remaining_volume != params['remaining_volume']
+		Event.log(
+			"Cambio de volumen",
+			"Se cambio el volumen del vino #{@bottle_holder.wine} en el dispenser #{@bottle_holder.dispenser.name} en la posición #{@bottle_holder.dispenser_index}. Volumen: #{@bottle_holder.remaining_volume} - Nuevo Volumen: #{params['remaining_volume']}.",
+			"#",
+			0xffffff,
+			"change_bottle")			
+		end
+		@bottle_holder.remaining_volume = params['remaining_volume']
 		@bottle_holder.discounts = params['discounts']
 		@bottle_holder.save
 		
