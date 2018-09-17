@@ -87,7 +87,10 @@ $(function(){
       }
     });
   });
-
+  $("#btn_credit_1, #btn_credit_2, #btn_credit_3, #btn_credit_4").click(function(evt) {
+	  evt.preventDefault();
+	  $("input[name='tag[credit]']").val($(this).val());
+  });
   $("#format_tag").click(function(){
     var r = confirm('Eliminar la información de la tarjeta?');
     if(r){
