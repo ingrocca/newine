@@ -45,28 +45,34 @@
               </div>
               <div id='existing-card-group'>
                 <div class="form-group">
-                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                  <div class='col-lg-3 col-md-3 col-sm-3 col-xs-12'>
                     <label for='credit' class='col-lg-3 control-label'>Recarga:</label>
                   </div>
-                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                  <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
                     <p id='due-card' class="form-control-static hide">Esta tarjeta está vencida</p>
                     <input type='number' name='credit' class='form-control' id="credit_to_add">
                   </div>
-                  <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                  <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
                     <a id='add_credit' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-plus'></span></a>
                     <a id='format_tag' class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-warning-sign'></span> Formatear</a>
                   </div>
                 </div>
-                <div class="form-group">
-                </div>
+				<div class='form-group'>
+					<div class='col-lg-6 col-md-10 col-sm-6 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-3'>
+						<button id="btn_credit_1" value="100" class='btn btn-default btn-sm'>$100</button>
+						<button id="btn_credit_2" value="250" class='btn btn-default btn-sm'>$250</button>
+						<button id="btn_credit_3" value="500" class='btn btn-default btn-sm'>$500</button>
+						<button id="btn_credit_4" value="1000" class='btn btn-default btn-sm'>$1000</button>
+				  </div>
+				</div>
               </div>
               <div class='new-card-group'>
                 <input type='hidden' name='tag[uid]' id='tag_uid_hidden' value=null>
                 <div class="form-group">
-                  <div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+                  <div class='col-lg-4 col-md-4 col-sm-4 col-xs-10'>
                     <label for='tag[credit]' class='control-label'>Carga inicial:</label>
                   </div>
-                  <div class='col-lg-4 col-md-4 col-sm-10 col-xs-10'>
+                  <div class='col-lg-4 col-md-4 col-sm-4 col-xs-10'>
                     <input type='number' name='tag[credit]' class='form-control'>
                   </div>
                   <div class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>
@@ -74,7 +80,7 @@
                   </div>
                 </div>
 				<div class='form-group'>
-					<div class='col-lg-6 col-md-10 col-sm-6 col-xs-10 col-lg-offset-4 col-md-offset-4'>
+					<div class='col-lg-6 col-md-10 col-sm-6 col-xs-10 col-lg-offset-4 col-md-offset-4 col-sm-offset-4'>
 						<button id="btn_credit_1" value="100" class='btn btn-default btn-sm'>$100</button>
 						<button id="btn_credit_2" value="250" class='btn btn-default btn-sm'>$250</button>
 						<button id="btn_credit_3" value="500" class='btn btn-default btn-sm'>$500</button>
