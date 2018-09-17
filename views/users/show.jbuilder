@@ -1,6 +1,11 @@
 json.(@user, :id, :name)
 json.uid @tag.uid
 json.credit @tag.credit
+json.surname @user.surname
+json.email @user.email
+json.dni @user.dni
+json.phone @user.phone
+json.membership_number @user.membership_number
 
 json.valid_user @user.valid_user === true
 
